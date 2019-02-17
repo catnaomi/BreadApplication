@@ -11,6 +11,13 @@ import {
 } from 'react-native';
 
 export default class BreadApp extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    }
+  }
   render() {
     return (
       <View style = {{top: '0%', height: '100%'}}>
@@ -23,17 +30,22 @@ export default class BreadApp extends Component {
           <TextInput
             style={styles.loginField}
             placeholder = "email or phone number"
-            onChangeText = {(text) => this.setState({text})}
+            ref='user'
+            onChangeText = {(text) => this.setState({username: text})}
+            value = {this.state.username}
           ></TextInput>
           <TextInput
             style={styles.loginField}
             placeholder = "password"
-            onChangeText = {(text) => this.setState({text})}
+            ref='pass'
+            onChangeText = {(text) => this.setState({password: text})}
+            value = {this.state.password}
           ></TextInput>
           <View style = {styles.loginButton}>
             <Button
               onPress={() => {
-                Alert.alert('user is in database!');
+                Alert.alert(this.state.username + '\nadded to database');
+                registerUser(this.state.username, this.state.password);
               }}
               title="Login"
             />
@@ -73,6 +85,8 @@ const styles = StyleSheet.create ({
   }
 });
 
+// DATABASE CONFIGURATION
+
 const firebaseConfig = {
   apiKey: "AIzaSyAoG-0V4r7eJsauSsOhfU-Gx0cduMTfQZc",
   authDomain: "juniordesign-afa7c.firebaseapp.com",
@@ -83,3 +97,31 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+// DATA BASE APIS
+
+function storeHighScore(userId, name) {
+  firebase.database().ref('users/' + userId).set({
+    name: name
+  }).catch((err) => console.log(err));
+}
+
+function registerUser(email, password) {
+  format_email = email.replace(".","-");
+  firebase.database().ref('users/' + format_email).set({
+    password: password
+  }).catch((err) => console.log(err));
+}
+
+// function verifyUserExists(email, password) {
+//   format_email = email.replace(".","-");
+//   firebase.database().ref('users/' + format_email).set({
+//     password: password
+//   }).catch((err) => console.log(err));
+// }
+
+
+registerUser("john@gmail.com ", "john_pass");
+registerUser("bob@gmail.com", "bob_pass");
+registerUser("jack@gmail.com", "jack_pass");
+registerUser("bill@gmail.com", "bill_pass");
