@@ -61,6 +61,7 @@ const styles = StyleSheet.create ({
     flex: 1
   }
 });
+// DATABASE CONFIGURATION
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoG-0V4r7eJsauSsOhfU-Gx0cduMTfQZc",
@@ -72,3 +73,31 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+// DATA BASE APIS
+
+function storeHighScore(userId, name) {
+  firebase.database().ref('users/' + userId).set({
+    name: name
+  }).catch((err) => console.log(err));
+}
+
+function registerUser(email, password) {
+  format_email = email.replace(".","-");
+  firebase.database().ref('users/' + format_email).set({
+    password: password
+  }).catch((err) => console.log(err));
+}
+
+// function verifyUserExists(email, password) {
+//   format_email = email.replace(".","-");
+//   firebase.database().ref('users/' + format_email).set({
+//     password: password
+//   }).catch((err) => console.log(err));
+// }
+
+
+registerUser("john@gmail.com ", "john_pass");
+registerUser("bob@gmail.com", "bob_pass");
+registerUser("jack@gmail.com", "jack_pass");
+registerUser("bill@gmail.com", "bill_pass");
