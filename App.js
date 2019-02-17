@@ -11,35 +11,51 @@ import {
 } from 'react-native';
 
 export default class BreadApp extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    }
+  }
   render() {
     return (
       <View style = {{top: '0%', height: '100%'}}>
-        <Image
+        {/*<Image
           source={require('./assets/images/logos/texthoriz.png')}
           style= {{position: 'absolute', width: '100%', top: 0}}
-        />
+        />*/}
         <View style = {{flex : 1}}></View>
-        <View style = {{flex: 1, backgroundColor: 'powderblue'}}>
+        <View style = {{flex: 1}}>
           <TextInput
             style={styles.loginField}
             placeholder = "email or phone number"
-            onChangeText = {(text) => this.setState({text})}
+            ref='user'
+            onChangeText = {(text) => this.setState({username: text})}
+            value = {this.state.username}
           ></TextInput>
           <TextInput
             style={styles.loginField}
             placeholder = "password"
-            onChangeText = {(text) => this.setState({text})}
+            ref='pass'
+            onChangeText = {(text) => this.setState({password: text})}
+            value = {this.state.password}
           ></TextInput>
           <View style = {styles.loginButton}>
             <Button
               onPress={() => {
-                Alert.alert('user is in database!');
+                Alert.alert(this.state.username + '\nadded to database');
+                registerUser(this.state.username, this.state.password);
               }}
               title="Login"
             />
           </View>
         </View>
-        <View style = {{flex: 2, backgroundColor: 'lightgrey'}}>
+        <View style = {{flex: 2}}>
+          <View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}></View>
+          <View style = {styles.thirdPartyButton}>
+          </View>
+          <View style = {styles.thirdPartyButton}></View>
         </View>
       </View>
     );
@@ -48,8 +64,8 @@ export default class BreadApp extends Component {
 
 const styles = StyleSheet.create ({  
   loginField: {
-    left: '10%',
-    width: '80%',
+    left: '15%',
+    width: '70%',
     borderBottomWidth: 1,
     margin: 10,
     flex: 1
@@ -59,8 +75,16 @@ const styles = StyleSheet.create ({
     width: '40%',
     margin: 10,
     flex: 1
+  },
+  thirdPartyButton: {
+    left: '20%',
+    width: '60%'
+  },
+  facebookButton: {
+
   }
 });
+
 // DATABASE CONFIGURATION
 
 const firebaseConfig = {
