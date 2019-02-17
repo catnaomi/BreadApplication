@@ -14,12 +14,12 @@ export default class BreadApp extends Component {
   render() {
     return (
       <View style = {{top: '0%', height: '100%'}}>
-        <Image
+        {/*<Image
           source={require('./assets/images/logos/texthoriz.png')}
           style= {{position: 'absolute', width: '100%', top: 0}}
-        />
+        />*/}
         <View style = {{flex : 1}}></View>
-        <View style = {{flex: 1, backgroundColor: 'powderblue'}}>
+        <View style = {{flex: 1}}>
           <TextInput
             style={styles.loginField}
             placeholder = "email or phone number"
@@ -39,7 +39,11 @@ export default class BreadApp extends Component {
             />
           </View>
         </View>
-        <View style = {{flex: 2, backgroundColor: 'lightgrey'}}>
+        <View style = {{flex: 2}}>
+          <View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}></View>
+          <View style = {styles.thirdPartyButton}>
+          </View>
+          <View style = {styles.thirdPartyButton}></View>
         </View>
       </View>
     );
@@ -48,8 +52,8 @@ export default class BreadApp extends Component {
 
 const styles = StyleSheet.create ({  
   loginField: {
-    left: '10%',
-    width: '80%',
+    left: '15%',
+    width: '70%',
     borderBottomWidth: 1,
     margin: 10,
     flex: 1
@@ -59,6 +63,13 @@ const styles = StyleSheet.create ({
     width: '40%',
     margin: 10,
     flex: 1
+  },
+  thirdPartyButton: {
+    left: '20%',
+    width: '60%'
+  },
+  facebookButton: {
+
   }
 });
 
