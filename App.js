@@ -58,36 +58,36 @@ export class LandingScreen extends Component {
               style = {styles.quickstartIconImages}
             />
         </TouchableHighlight>
-        <View style = {[styles.quickstartIcon, styles.cleaningIcon]}>
+        <TouchableHighlight style = {[styles.quickstartIcon, styles.cleaningIcon]}>
             <Image
               source = {cleaningIcon}
               style = {styles.quickstartIconImages}
             />
-        </View>
-        <View style = {[styles.quickstartIcon, styles.beautyIcon]}>
+        </TouchableHighlight>
+        <TouchableHighlight style = {[styles.quickstartIcon, styles.beautyIcon]}>
             <Image
                 source = {beautyIcon}
                 style = {styles.quickstartIconImages}
             />
-        </View>
-        <View style = {[styles.quickstartIcon, styles.financialIcon]}>
+        </TouchableHighlight>
+        <TouchableHighlight style = {[styles.quickstartIcon, styles.financialIcon]}>
           <Image
               source = {financialIcon}
               style = {styles.quickstartIconImages}
           />
-        </View>
-        <View style = {[styles.quickstartIcon, styles.healthIcon]}>
+        </TouchableHighlight>
+        <TouchableHighlight style = {[styles.quickstartIcon, styles.healthIcon]}>
           <Image
               source = {healthIcon}
               style = {styles.quickstartIconImages}
           />
-        </View>
-        <View style = {[styles.quickstartIcon, styles.legalIcon]}>
+        </TouchableHighlight>
+        <TouchableHighlight style = {[styles.quickstartIcon, styles.legalIcon]}>
           <Image
               source = {legalIcon}
               style = {styles.quickstartIconImages}
           />
-        </View>
+        </TouchableHighlight>
 
 
 
@@ -96,8 +96,8 @@ export class LandingScreen extends Component {
             style = {{top: 10, left: 10, fontSize: 18}}
             placeholder = "Search"
             onChangeText = {(text) => this.setState({search: text})}
-            value = {this.state.search}>
-          </TextInput>
+            value = {this.state.search}
+          />
         </View>
       </View>
     );
@@ -127,14 +127,14 @@ export class LoginScreen extends Component {
                 ref='user'
                 onChangeText = {(text) => this.setState({username: text})}
                 value = {this.state.username}
-            ></TextInput>
+            />
             <TextInput
                 style={styles.loginField}
                 placeholder = "password"
                 ref='pass'
                 onChangeText = {(text) => this.setState({password: text})}
                 value = {this.state.password}
-            ></TextInput>
+            />
             <View style = {styles.loginButton}>
               <Button
                   onPress={() => {
