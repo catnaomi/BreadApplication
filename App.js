@@ -23,6 +23,7 @@ export class LandingScreen extends Component {
       search: '',
     }
   }
+
   render () {
     var diningIcon = require('./assets/images/quickstart/dining-iconmdpi.png');
     var autoIcon = require('./assets/images/quickstart/auto-iconmdpi.png');
@@ -183,6 +184,25 @@ export class LoginScreen extends Component {
   }
 }
 
+export class BusinessPage extends Component {
+    render() {
+        var businessImage = './assets/images/logos/';
+        return (
+            <View style={styles.businessView}>
+                <Image
+                    source = {businessImage}
+                    style = {styles.businessImage}
+                />
+                <Text style={styles.businessInfo}> Bread </Text>
+                <Text style={styles.businessInfo}> [Address] </Text>
+                <Text style={styles.businessInfo}> [Phone Number] </Text>
+                <Text style={styles.businessInfo}> [email]</Text>
+            </View>
+        );
+
+    };
+}
+
 
 export class HomeScreen extends Component {
     render() {
@@ -286,7 +306,22 @@ const styles = StyleSheet.create ({
     left: 90,
   },
   cleaningIcon: {
-    top: 350,
-    left: 190,
+      top: 350,
+      left: 190,
+  },
+  businessView: {
+      height: 210,
+  },
+  businessImage: {
+      height: 100,
+      width: 100,
+      weight: '50%'
+  },
+  businessInfo: {
+      height: 100,
+      width: 100,
+      left: 100,
+      top: 30,
+      weight: '50%'
   }
 });
