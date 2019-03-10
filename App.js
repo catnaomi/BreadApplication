@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import {
     createBottomTabNavigator,
-    createAppContainer
+    createAppContainer,
+    navigationOptions,
 } from 'react-navigation';
 
 export class LandingScreen extends Component {
@@ -32,8 +33,16 @@ export class LandingScreen extends Component {
     var financialIcon = require('./assets/images/quickstart/financial-iconmdpi.png');
     var healthIcon = require('./assets/images/quickstart/health-iconmdpi.png');
     var legalIcon = require('./assets/images/quickstart/legal-iconmdpi.png');
+    var logoIcon = require('./assets/images/logos/breadbase.png');
     return (
       <View>
+          {/* Logo */}
+          <View style = {styles.logoLanding}>
+              <Image
+                  source = {logoIcon}
+                  style = {styles.logoLandingImage}
+                  />
+          </View>
         {/* Quickstart Buttons */}
         <TouchableHighlight
             style = {[styles.quickstartIcon, styles.diningIcon]}
@@ -115,7 +124,7 @@ export class LoginScreen extends Component {
   }
   render() {
     return (
-        <View style = {{top: '0%', height: '100%'}}>
+        <View style = {{flex: 1}}>
           {/*<Image
           source={require('./assets/images/logos/texthoriz.png')}
           style= {{position: 'absolute', width: '100%', top: 0}}
@@ -184,12 +193,79 @@ export class LoginScreen extends Component {
 }
 
 
-export class HomeScreen extends Component {
+export class FavoriteScreen extends Component {
     render() {
         return (
             <View>
                 <Text>
-                    Rah rah oh ma ma
+                    this is a favorites placeholder
+                </Text>
+            </View>
+        );
+    }
+}
+
+export class UserScreen extends Component {
+
+    render() {
+        var profile = require('./assets/images/profile/julia.png');
+        return (
+            <View style = {{width: '100%', height: '100%'}}>
+                {/*Profile header*/}
+                <View style = {styles.profileHeader}>
+                    <View style = {{flex: 1}}/>
+                    <View style = {{flex: 3, flexDirection: 'row'}}>
+                        <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
+                            <View style = {styles.profilePicture}>
+                                <Image
+                                    source = {profile}
+                                    />
+                            </View>
+                        </View>
+                        <View style = {{flex: 2}}>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                <Text style = {{fontSize: 24}}>Julia Ramirez</Text>
+                            </View>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                <Text style = {{fontSize: 18}}>1 Review</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style = {{flex: 1}}/>
+                </View>
+                <View style = {styles.profileTabs}>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Reviews
+                        </Text>
+                    </View>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'lightgrey'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Favorites
+                        </Text>
+                    </View>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Businesses
+                        </Text>
+                    </View>
+                </View>
+                <View style = {styles.profileContent}>
+                    <View style = {{left: 10, top: 10}}>
+                        <Text>Julia Ramirez has no favorited businesses yet...</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+
+export class SettingsScreen extends Component {
+    render() {
+        return (
+            <View>
+                <Text>
+                    this is a settings page placeholder
                 </Text>
             </View>
         );
@@ -197,8 +273,10 @@ export class HomeScreen extends Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-   Home: LandingScreen,
-    Test: HomeScreen,
+   Search: LandingScreen,
+   Favorites: FavoriteScreen,
+    Profile: UserScreen,
+    Settings: SettingsScreen,
 });
 
 export default createAppContainer(TabNavigator);
@@ -259,35 +337,71 @@ const styles = StyleSheet.create ({
         height: 80,
     },
     diningIcon: {
-        top: 250,
+        top: 270,
         left: 40,
     },
     autoIcon: {
-        top: 250,
+        top: 270,
         left: 140,
     },
     clothingIcon: {
-        top: 250,
+        top: 270,
         left: 240,
     },
     beautyIcon: {
-        top: 450,
+        top: 470,
         left: 40,
     },
     financialIcon: {
-        top: 450,
+        top: 470,
         left: 140,
     },
     healthIcon: {
-        top: 450,
+        top: 470,
         left: 240,
     },
     legalIcon: {
-        top: 350,
+        top: 370,
         left: 90,
     },
     cleaningIcon: {
-        top: 350,
+        top: 370,
         left: 190,
+    },
+    logoLanding: {
+        position: 'absolute',
+        top: 110,
+        width: '100%',
+        height: 160,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    logoLandingImage: {
+        height: 150,
+        width: 130,
+    },
+    profileHeader: {
+        flex: 3,
+        borderWidth: 1,
+        backgroundColor: 'lightgrey',
+    },
+    profileTabs: {
+        flex: 1,
+        borderWidth: 1,
+        flexDirection: 'row',
+    },
+    profileContent: {
+        flex: 6,
+        borderWidth: 1,
+    },
+    profilePicture: {
+        resizeMode: 'contain',
+        left: 10,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: 'grey',
+        overflow: 'hidden',
     }
 });
