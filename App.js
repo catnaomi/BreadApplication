@@ -316,12 +316,12 @@ export class SettingsScreen extends Component {
 
 const TabNavigator = createBottomTabNavigator({
    Search: LandingScreen,
-   Favorites: FavoriteScreen,
+   Favorites: BusinessPage,
     Profile: UserScreen,
     Settings: SettingsScreen,
 });
 
-export default BusinessPage;
+export default createAppContainer(TabNavigator);
 
 
 const styles = StyleSheet.create ({

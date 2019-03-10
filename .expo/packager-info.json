@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://tt-gje.anonymous.breadapplication.exp.direct",
+  "packagerNgrokUrl": "https://packager.tt-gje.anonymous.breadapplication.exp.direct",
+  "ngrokPid": 3668,
+  "devToolsPort": 19002,
+  "packagerPort": 19001,
+  "packagerPid": 2444
+}
