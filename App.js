@@ -185,10 +185,20 @@ export class LoginScreen extends Component {
 }
 
 export class BusinessPage extends Component {
+
     render() {
-        var businessImage = './assets/images/logos/';
+        var businessImage = require('./assets/images/logos/basetext.png');
         return (
+
             <View style={styles.businessView}>
+                {/*<TouchableHighlight*/}
+                    {/*style = {styles.businessImage}*/}
+                    {/*onPress = {() => {}}>*/}
+                    {/*<Image*/}
+                        {/*source = {businessImage}*/}
+                        {/*style={styles.businessImage}*/}
+                    {/*/>*/}
+                {/*</TouchableHighlight>*/}
                 <Image
                     source = {businessImage}
                     style = {styles.businessImage}
@@ -221,7 +231,7 @@ const TabNavigator = createBottomTabNavigator({
     Test: HomeScreen,
 });
 
-export default createAppContainer(TabNavigator);
+export default BusinessPage;
 
 const styles = StyleSheet.create ({
   loginField: {
@@ -310,18 +320,23 @@ const styles = StyleSheet.create ({
       left: 190,
   },
   businessView: {
-      height: 210,
+      height: "40%",
+      width: "100%",
+      borderBottomWidth: 2,
+      borderColor: 'black',
   },
   businessImage: {
-      height: 100,
-      width: 100,
-      weight: '50%'
+      position: 'absolute',
+      height: 222.75,
+      width: 160,
+      top:50,
+      left: 20,
   },
   businessInfo: {
-      height: 100,
-      width: 100,
-      left: 100,
-      top: 30,
-      weight: '50%'
+      width: '55%',
+      left: '50%',
+      top: 50,
+      fontSize: 25,
+      //font: 'ariel'
   }
 });
