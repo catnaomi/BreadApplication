@@ -187,21 +187,21 @@ export class LoginScreen extends Component {
 export class BusinessPage extends Component {
 
     render() {
-        var businessImage = require('./assets/images/logos/basetext.png');
-        var ratings = require('./assets/images/icons/rating.png')
+        var businessImage = require('./assets/images/icons/dummyRestaurant.jpg');
+        var ratings = require('./assets/images/icons/rating.png');
         return (
 
             <View>
                 <View style={styles.businessView}>
-                    <Text style={styles.backButton}> BackButton </Text>
+                    <Text style={styles.backButton}>Back</Text>
                     <Image
                         source = {businessImage}
                         style = {styles.businessImage}
                     />
-                    <Text style={styles.businessInfo}> Bread </Text>
-                    <Text style={styles.businessInfo}> [Address] </Text>
-                    <Text style={styles.businessInfo}> [Phone Number] </Text>
-                    <Text style={styles.businessInfo}> [email]</Text>
+                    <Text style={styles.businessInfo}> Ruby </Text>
+                    <Text style={styles.businessInfo}> 123 Main St. </Text>
+                    <Text style={styles.businessInfo}> 123-456-7890 </Text>
+                    <Text style={styles.businessInfo}> ruby@ruby.com</Text>
                     <Image
                         source = {ratings}
                         style = {styles.ratingsIcon}
@@ -217,6 +217,9 @@ export class BusinessPage extends Component {
                     <View style={styles.documentsTab}>
                         <Text style={styles.tabText}>Documents</Text>
                     </View>
+                </View>
+                <View>
+                    <Text></Text>
                 </View>
 
             </View>
@@ -367,12 +370,20 @@ const styles = StyleSheet.create ({
         height: "15%",
         left: 20,
         top: 25,
-        borderWidth: 1,
+        fontSize: 22,
+        color: "blue",
+
+    },
+    backButtonText: {
+        fontSize: 25,
     },
     tabsView: {
         width: '100%',
         height: 50,
         borderWidth: 1,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
     aboutUsTab: {
         width: '33.33%',
@@ -384,19 +395,16 @@ const styles = StyleSheet.create ({
         width:'33.33%',
         left:'33.33%',
         height:50,
-        top: -50,
         borderWidth: 1,
     },
     documentsTab: {
         width:'33.33%',
         left: '66.66%',
         height:50,
-        top: -100,
         borderWidth: 1,
     },
     tabText: {
         fontSize:25,
-        alignItems: 'center',
-    }
+    },
 });
 
