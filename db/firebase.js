@@ -68,7 +68,6 @@ function addReviewToDatabase(review_id, review_content) {
 }
 
 module.exports = {
-  storeHighScore: storeHighScore,
   registerUser: registerUser,
   registerAdmin: registerAdmin,
   registerBusiness: registerBusiness,
