@@ -12,36 +12,64 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// DATA BASE APIS
+//User Methods
 
-function storeHighScore(userId, name) {
-  firebase.database().ref('users/' + userId).set({
-    name: name
-  }).catch((err) => console.log(err));
-}
-
+//put user into database
 function registerUser(email, password) {
-  let format_email = email.replace(".","-");
+  const format_email = email.replace(".","-");
+  const profile_pic_id = "placeholder";
   firebase.database().ref('users/' + format_email).set({
-    password: password
+    user_id:format_email,
+    user_email:email,
+    hash_pass: password,
+    favorites:[],
+    reviews:[], //array of review IDs (look up in review collection)
+    settings:{},
+    profile_pic_id: profile_pic_id
   }).catch((err) => console.log(err));
 }
 
-// function verifyUserExists(email, password) {
-//   format_email = email.replace(".","-");
-//   firebase.database().ref('users/' + format_email).set({
-//     password: password
-//   }).catch((err) => console.log(err));
-// }
+//put admin into database
+function registerAdmin(email, password) {
+  const format_email = email.replace(".","-");
+  firebase.database().ref('admins/' + format_email).set({
+    user_id:format_email,
+    admin_email:email,
+    hash_pass: password,
+    history:{},
+    settings:{},
+  }).catch((err) => console.log(err));
+}
 
+//put business object into database
+function registerBusiness(business_id, name) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id).set({
+    business_id:format_id,
+    name: name,
+    reviews: [],
+    owner:{},
+    picture_ids:[],
+    description: {},
+    location: {},
+    information: {}
+  }).catch((err) => console.log(err));
+}
 
-// registerUser("john@gmail.com ", "john_pass");
-// registerUser("bob@gmail.com", "bob_pass");
-// registerUser("jack@gmail.com", "jack_pass");
-// registerUser("bill@gmail.com", "bill_pass");
-
+//put review into database
+function addReviewToDatabase(review_id, review_content) {
+  const format_id = review_id.replace(".","-");
+  firebase.database().ref('reviews/' + review_id).set({
+    review_id:format_id,
+    review_content:review_content,
+    date:{},
+    comments:[],
+  }).catch((err) => console.log(err));
+}
 
 module.exports = {
-  storeHighScore: storeHighScore,
-  registerUser: registerUser
+  registerUser: registerUser,
+  registerAdmin: registerAdmin,
+  registerBusiness: registerBusiness,
+  addReviewToDatabase: addReviewToDatabase
 };

@@ -188,17 +188,13 @@ export class BusinessPage extends Component {
 
     render() {
         var businessImage = require('./assets/images/logos/basetext.png');
+        var ratings = require('./assets/images/icons/rating.png')
         return (
 
             <View style={styles.businessView}>
-                {/*<TouchableHighlight*/}
-                    {/*style = {styles.businessImage}*/}
-                    {/*onPress = {() => {}}>*/}
-                    {/*<Image*/}
-                        {/*source = {businessImage}*/}
-                        {/*style={styles.businessImage}*/}
-                    {/*/>*/}
-                {/*</TouchableHighlight>*/}
+                <View style={styles.backButton}>
+                    <Text> BackButton </Text>
+                </View>
                 <Image
                     source = {businessImage}
                     style = {styles.businessImage}
@@ -207,6 +203,10 @@ export class BusinessPage extends Component {
                 <Text style={styles.businessInfo}> [Address] </Text>
                 <Text style={styles.businessInfo}> [Phone Number] </Text>
                 <Text style={styles.businessInfo}> [email]</Text>
+                <Image
+                    source = {ratings}
+                    style = {styles.ratingsIcon}
+                />
             </View>
         );
 
@@ -327,16 +327,35 @@ const styles = StyleSheet.create ({
   },
   businessImage: {
       position: 'absolute',
-      height: 222.75,
-      width: 160,
-      top:50,
+      height: '55%',
+      width: '40%',
+      top:'30%',
       left: 20,
+      borderWidth: 2,
+      borderColor: 'black',
+
   },
   businessInfo: {
       width: '55%',
       left: '50%',
-      top: 50,
-      fontSize: 25,
+      top: '10%',
+      fontSize: 22,
       //font: 'ariel'
-  }
+  },
+    //To be removed later
+    ratingsIcon: {
+      width: 200,
+        height: 36.78,
+        left: '48%',
+        top: '35%',
+    },
+    backButton: {
+        width: "25%",
+        height: "15%",
+        left: 20,
+        top: 25,
+        borderWidth: 2,
+
+    }
 });
+
