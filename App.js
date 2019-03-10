@@ -191,22 +191,34 @@ export class BusinessPage extends Component {
         var ratings = require('./assets/images/icons/rating.png')
         return (
 
-            <View style={styles.businessView}>
-                <View style={styles.backButton}>
-                    <Text> BackButton </Text>
+            <View>
+                <View style={styles.businessView}>
+                    <Text style={styles.backButton}> BackButton </Text>
+                    <Image
+                        source = {businessImage}
+                        style = {styles.businessImage}
+                    />
+                    <Text style={styles.businessInfo}> Bread </Text>
+                    <Text style={styles.businessInfo}> [Address] </Text>
+                    <Text style={styles.businessInfo}> [Phone Number] </Text>
+                    <Text style={styles.businessInfo}> [email]</Text>
+                    <Image
+                        source = {ratings}
+                        style = {styles.ratingsIcon}
+                    />
                 </View>
-                <Image
-                    source = {businessImage}
-                    style = {styles.businessImage}
-                />
-                <Text style={styles.businessInfo}> Bread </Text>
-                <Text style={styles.businessInfo}> [Address] </Text>
-                <Text style={styles.businessInfo}> [Phone Number] </Text>
-                <Text style={styles.businessInfo}> [email]</Text>
-                <Image
-                    source = {ratings}
-                    style = {styles.ratingsIcon}
-                />
+                <View style={styles.tabsView}>
+                    <View style={styles.aboutUsTab}>
+                        <Text style={styles.tabText}>About Us</Text>
+                    </View>
+                    <View style={styles.reviewsTab}>
+                        <Text style={styles.tabText}>Ratings</Text>
+                    </View>
+                    <View style={styles.documentsTab}>
+                        <Text style={styles.tabText}>Documents</Text>
+                    </View>
+                </View>
+
             </View>
         );
 
@@ -234,41 +246,42 @@ const TabNavigator = createBottomTabNavigator({
 export default BusinessPage;
 
 const styles = StyleSheet.create ({
-  loginField: {
+
+    loginField: {
     left: '15%',
     width: '70%',
     borderBottomWidth: 1,
     margin: 10,
     flex: 1
-  },
-  loginButton: {
+    },
+    loginButton: {
     left: '30%',
     width: '40%',
     margin: 10,
     flex: 1
-  },
-  thirdPartyButton: {
+    },
+    thirdPartyButton: {
     left: '10%',
     width: '80%'
-  },
-  googleButton: {
+    },
+    googleButton: {
     top: 30,
-  },
-  facebookButton: {
+    },
+    facebookButton: {
     top: 60,
-  },
-  registerButton: {
+    },
+    registerButton: {
     position: 'absolute',
     top: '78%',
     left: '55%',
     width: '40%'
-  },
-  skipButton: {
+    },
+    skipButton: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-  },
-  searchBar: {
+    },
+    searchBar: {
     position: 'absolute',
     top: 50,
     left: '10%',
@@ -277,85 +290,113 @@ const styles = StyleSheet.create ({
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 10,
-  },
-  quickstartIcon: {
+    },
+    quickstartIcon: {
     position: 'absolute',
     width: 80,
     height: 80,
-  },
-  quickstartIconImages: {
+    },
+    quickstartIconImages: {
     width: 80,
     height: 80,
-  },
-  diningIcon: {
+    },
+    diningIcon: {
     top: 250,
     left: 40,
-  },
-  autoIcon: {
+    },
+    autoIcon: {
     top: 250,
     left: 140,
-  },
-  clothingIcon: {
+    },
+    clothingIcon: {
     top: 250,
     left: 240,
-  },
-  beautyIcon: {
+    },
+    beautyIcon: {
     top: 450,
     left: 40,
-  },
-  financialIcon: {
+    },
+    financialIcon: {
     top: 450,
     left: 140,
-  },
-  healthIcon: {
+    },
+    healthIcon: {
     top: 450,
     left: 240,
-  },
-  legalIcon: {
+    },
+    legalIcon: {
     top: 350,
     left: 90,
-  },
-  cleaningIcon: {
+    },
+    cleaningIcon: {
       top: 350,
       left: 190,
-  },
-  businessView: {
-      height: "40%",
+    },
+    businessView: {
+      height: 250,
       width: "100%",
-      borderBottomWidth: 2,
+      borderBottomWidth: 1,
       borderColor: 'black',
-  },
-  businessImage: {
+    },
+    businessImage: {
       position: 'absolute',
       height: '55%',
       width: '40%',
       top:'30%',
       left: 20,
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: 'black',
 
-  },
-  businessInfo: {
+    },
+    businessInfo: {
       width: '55%',
       left: '50%',
       top: '10%',
       fontSize: 22,
       //font: 'ariel'
-  },
+    },
     //To be removed later
     ratingsIcon: {
-      width: 200,
+        width: 200,
         height: 36.78,
         left: '48%',
-        top: '35%',
+        top: '25%',
     },
     backButton: {
         width: "25%",
         height: "15%",
         left: 20,
         top: 25,
-        borderWidth: 2,
-
+        borderWidth: 1,
+    },
+    tabsView: {
+        width: '100%',
+        height: 50,
+        borderWidth: 1,
+    },
+    aboutUsTab: {
+        width: '33.33%',
+        borderWidth: 1,
+        height:50,
+        backgroundColor: 'grey',
+    },
+    reviewsTab: {
+        width:'33.33%',
+        left:'33.33%',
+        height:50,
+        top: -50,
+        borderWidth: 1,
+    },
+    documentsTab: {
+        width:'33.33%',
+        left: '66.66%',
+        height:50,
+        top: -100,
+        borderWidth: 1,
+    },
+    tabText: {
+        fontSize:25,
+        alignItems: 'center',
     }
 });
 
