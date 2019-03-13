@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import {
     createBottomTabNavigator,
-    createAppContainer
+    createAppContainer,
+    navigationOptions,
 } from 'react-navigation';
 
 export class LandingScreen extends Component {
@@ -23,6 +24,7 @@ export class LandingScreen extends Component {
       search: '',
     }
   }
+
   render () {
     var diningIcon = require('./assets/images/quickstart/dining-iconmdpi.png');
     var autoIcon = require('./assets/images/quickstart/auto-iconmdpi.png');
@@ -32,8 +34,16 @@ export class LandingScreen extends Component {
     var financialIcon = require('./assets/images/quickstart/financial-iconmdpi.png');
     var healthIcon = require('./assets/images/quickstart/health-iconmdpi.png');
     var legalIcon = require('./assets/images/quickstart/legal-iconmdpi.png');
+    var logoIcon = require('./assets/images/logos/breadbase.png');
     return (
       <View>
+          {/* Logo */}
+          <View style = {styles.logoLanding}>
+              <Image
+                  source = {logoIcon}
+                  style = {styles.logoLandingImage}
+                  />
+          </View>
         {/* Quickstart Buttons */}
         <TouchableHighlight
             style = {[styles.quickstartIcon, styles.diningIcon]}
@@ -115,7 +125,7 @@ export class LoginScreen extends Component {
   }
   render() {
     return (
-        <View style = {{top: '0%', height: '100%'}}>
+        <View style = {{flex: 1}}>
           {/*<Image
           source={require('./assets/images/logos/texthoriz.png')}
           style= {{position: 'absolute', width: '100%', top: 0}}
@@ -183,13 +193,124 @@ export class LoginScreen extends Component {
   }
 }
 
+export class BusinessPage extends Component {
 
-export class HomeScreen extends Component {
+    render() {
+        var businessImage = require('./assets/images/icons/dummyRestaurant.jpg');
+        var ratings = require('./assets/images/icons/rating.png');
+        return (
+
+            <View>
+                <View style={styles.businessView}>
+                    <Text style={styles.backButton}>Back</Text>
+                    <Image
+                        source = {businessImage}
+                        style = {styles.businessImage}
+                    />
+                    <Text style={styles.businessInfo}> Ruby </Text>
+                    <Text style={styles.businessInfo}> 123 Main St. </Text>
+                    <Text style={styles.businessInfo}> 123-456-7890 </Text>
+                    <Text style={styles.businessInfo}> ruby@ruby.com</Text>
+                    <Image
+                        source = {ratings}
+                        style = {styles.ratingsIcon}
+                    />
+                </View>
+                <View style={styles.tabsView}>
+                    <View style={styles.aboutUsTab}>
+                        <Text style={styles.tabText}>About Us</Text>
+                    </View>
+                    <View style={styles.reviewsTab}>
+                        <Text style={styles.tabText}>Ratings</Text>
+                    </View>
+                    <View style={styles.documentsTab}>
+                        <Text style={styles.tabText}>Documents</Text>
+                    </View>
+                </View>
+                <View>
+                    <Text></Text>
+                </View>
+
+            </View>
+        );
+
+    };
+}
+
+
+export class FavoriteScreen extends Component {
     render() {
         return (
             <View>
                 <Text>
-                    Rah rah oh ma ma
+                    this is a favorites placeholder
+                </Text>
+            </View>
+        );
+    }
+}
+
+export class UserScreen extends Component {
+
+    render() {
+        var profile = require('./assets/images/profile/julia.png');
+        return (
+            <View style = {{width: '100%', height: '100%'}}>
+                {/*Profile header*/}
+                <View style = {styles.profileHeader}>
+                    <View style = {{flex: 1}}/>
+                    <View style = {{flex: 3, flexDirection: 'row'}}>
+                        <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
+                            <View style = {styles.profilePicture}>
+                                <Image
+                                    source = {profile}
+                                    />
+                            </View>
+                        </View>
+                        <View style = {{flex: 2}}>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                <Text style = {{fontSize: 24}}>Julia Ramirez</Text>
+                            </View>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                <Text style = {{fontSize: 18}}>1 Review</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style = {{flex: 1}}/>
+                </View>
+                <View style = {styles.profileTabs}>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Reviews
+                        </Text>
+                    </View>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'lightgrey'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Favorites
+                        </Text>
+                    </View>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Businesses
+                        </Text>
+                    </View>
+                </View>
+                <View style = {styles.profileContent}>
+                    <View style = {{left: 10, top: 10}}>
+                        <Text>Julia Ramirez has no favorited businesses yet...</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+
+export class SettingsScreen extends Component {
+    render() {
+        return (
+            <View>
+                <Text>
+                    this is a settings page placeholder
                 </Text>
             </View>
         );
@@ -197,97 +318,206 @@ export class HomeScreen extends Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-   Home: LandingScreen,
-    Test: HomeScreen,
+   Search: LandingScreen,
+   Favorites: BusinessPage,
+    Profile: UserScreen,
+    Settings: SettingsScreen,
 });
 
 export default createAppContainer(TabNavigator);
 
-
 const styles = StyleSheet.create ({
     loginField: {
-        left: '15%',
-        width: '70%',
-        borderBottomWidth: 1,
-        margin: 10,
-        flex: 1
+    left: '15%',
+    width: '70%',
+    borderBottomWidth: 1,
+    margin: 10,
+    flex: 1
     },
     loginButton: {
-        left: '30%',
-        width: '40%',
-        margin: 10,
-        flex: 1
+    left: '30%',
+    width: '40%',
+    margin: 10,
+    flex: 1
     },
     thirdPartyButton: {
-        left: '10%',
-        width: '80%'
+    left: '10%',
+    width: '80%'
     },
     googleButton: {
-        top: 30,
+    top: 30,
     },
     facebookButton: {
-        top: 60,
+    top: 60,
     },
     registerButton: {
-        position: 'absolute',
-        top: '78%',
-        left: '55%',
-        width: '40%'
+    position: 'absolute',
+    top: '78%',
+    left: '55%',
+    width: '40%'
     },
     skipButton: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
     },
     searchBar: {
-        position: 'absolute',
-        top: 50,
-        left: '10%',
-        height: 50,
-        width: '80%',
-        borderColor: 'grey',
-        borderWidth: 1,
-        borderRadius: 10,
+    position: 'absolute',
+    top: 50,
+    left: '10%',
+    height: 50,
+    width: '80%',
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 10,
     },
     quickstartIcon: {
-        position: 'absolute',
-        width: 80,
-        height: 80,
+    position: 'absolute',
+    width: 80,
+    height: 80,
     },
     quickstartIconImages: {
-        width: 80,
-        height: 80,
+    width: 80,
+    height: 80,
     },
     diningIcon: {
-        top: 250,
-        left: 40,
+    top: 250,
+    left: 40,
     },
     autoIcon: {
-        top: 250,
-        left: 140,
+    top: 250,
+    left: 140,
     },
     clothingIcon: {
-        top: 250,
-        left: 240,
+    top: 250,
+    left: 240,
     },
     beautyIcon: {
-        top: 450,
-        left: 40,
+    top: 450,
+    left: 40,
     },
     financialIcon: {
-        top: 450,
-        left: 140,
+    top: 450,
+    left: 140,
     },
     healthIcon: {
-        top: 450,
-        left: 240,
+    top: 450,
+    left: 240,
     },
     legalIcon: {
-        top: 350,
-        left: 90,
+    top: 350,
+    left: 90,
     },
     cleaningIcon: {
-        top: 350,
-        left: 190,
+      top: 350,
+      left: 190,
+    },
+    businessView: {
+      height: 250,
+      width: "100%",
+      borderBottomWidth: 1,
+      borderColor: 'black',
+    },
+    businessImage: {
+      position: 'absolute',
+      height: '55%',
+      width: '40%',
+      top:'30%',
+      left: 20,
+      borderWidth: 1,
+      borderColor: 'black',
+
+    },
+    businessInfo: {
+      width: '55%',
+      left: '50%',
+      top: '10%',
+      fontSize: 22,
+      //font: 'ariel'
+    },
+    //To be removed later
+    ratingsIcon: {
+        width: 200,
+        height: 36.78,
+        left: '48%',
+        top: '25%',
+    },
+    backButton: {
+        width: "25%",
+        height: "15%",
+        left: 20,
+        top: 25,
+        fontSize: 22,
+        color: "blue",
+
+    },
+    backButtonText: {
+        fontSize: 25,
+    },
+    tabsView: {
+        width: '100%',
+        height: 50,
+        borderWidth: 1,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    aboutUsTab: {
+        width: '33.33%',
+        borderWidth: 1,
+        height:50,
+        backgroundColor: 'grey',
+    },
+    reviewsTab: {
+        width:'33.33%',
+        left:'33.33%',
+        height:50,
+        borderWidth: 1,
+    },
+    documentsTab: {
+        width:'33.33%',
+        left: '66.66%',
+        height:50,
+        borderWidth: 1,
+    },
+    tabText: {
+        fontSize:25,
+        alignItems: 'center',
+    },
+    logoLanding: {
+        position: 'absolute',
+        top: 110,
+        width: '100%',
+        height: 160,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    logoLandingImage: {
+        height: 150,
+        width: 130,
+    },
+    profileHeader: {
+        flex: 3,
+        borderWidth: 1,
+        backgroundColor: 'lightgrey',
+    },
+    profileTabs: {
+        flex: 1,
+        borderWidth: 1,
+        flexDirection: 'row',
+    },
+    profileContent: {
+        flex: 6,
+        borderWidth: 1,
+    },
+    profilePicture: {
+        resizeMode: 'contain',
+        left: 10,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: 'grey',
+        overflow: 'hidden',
     }
 });
