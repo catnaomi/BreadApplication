@@ -24,8 +24,14 @@ export class LandingScreen extends Component {
       search: '',
     }
   }
+  
+  printMessage(message) {
+    console.log(message)
+  }
+
 
   render () {
+    const {navigate} = this.props.navigation;
     var diningIcon = require('./assets/images/quickstart/dining-iconmdpi.png');
     var autoIcon = require('./assets/images/quickstart/auto-iconmdpi.png');
     var beautyIcon = require('./assets/images/quickstart/beauty-iconmdpi.png');
@@ -47,7 +53,7 @@ export class LandingScreen extends Component {
         {/* Quickstart Buttons */}
         <TouchableHighlight
             style = {[styles.quickstartIcon, styles.diningIcon]}
-            onPress = {() => {}}>
+            onPress = {() => {navigate('Search', {data: 'wow this is some data'})}}>
             <Image
               source = {diningIcon}
               style = {styles.quickstartIconImages}
@@ -237,14 +243,41 @@ export class BusinessPage extends Component {
     };
 }
 
-
 export class FavoriteScreen extends Component {
-    render() {
+  render() {
+      return (
+          <View>
+              <Text>
+                  this is a favorites placeholder
+              </Text>
+          </View>
+      );
+  }
+}
+
+export class SearchScreen extends Component {
+
+  constructor (props) {
+    super(props);
+  }
+
+  render() {
+        var profile = require('./assets/images/profile/julia.png');
         return (
-            <View>
-                <Text>
-                    this is a favorites placeholder
-                </Text>
+            <View style = {{width: '100%', height: '100%'}}>
+                {/*Profile header*/}
+                <View style = {styles.searchHeader}>
+                    <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
+                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                            Businesses Found: 
+                        </Text>
+                    </View>
+                </View>
+                <View style = {styles.searchContent}>
+                    <View style = {{left: 10, top: 10}}>
+                        <Text>Searching Businesses from Database needs to be implemented</Text>
+                    </View>
+                </View>
             </View>
         );
     }
@@ -318,10 +351,11 @@ export class SettingsScreen extends Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-   Search: LandingScreen,
+   Find: LandingScreen,
    Favorites: BusinessPage,
-    Profile: UserScreen,
-    Settings: SettingsScreen,
+   Profile: UserScreen,
+   Settings: SettingsScreen,
+   Search: SearchScreen
 });
 
 export default createAppContainer(TabNavigator);
@@ -501,6 +535,11 @@ const styles = StyleSheet.create ({
         borderWidth: 1,
         backgroundColor: 'lightgrey',
     },
+    searchHeader: {
+        flex: 3,
+        borderWidth: 1,
+        backgroundColor: 'lightgrey',
+    },
     profileTabs: {
         flex: 1,
         borderWidth: 1,
@@ -509,6 +548,10 @@ const styles = StyleSheet.create ({
     profileContent: {
         flex: 6,
         borderWidth: 1,
+    },
+    searchContent: {
+      flex: 6,
+      borderWidth: 1,
     },
     profilePicture: {
         resizeMode: 'contain',
