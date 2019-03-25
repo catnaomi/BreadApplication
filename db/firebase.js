@@ -12,7 +12,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-//User Methods
 
 //put user into database
 function registerUser(email, password) {
@@ -28,6 +27,15 @@ function registerUser(email, password) {
     profile_pic_id: profile_pic_id
   }).catch((err) => console.log(err));
 }
+
+
+function printSnapshotOfUser(email) {
+  const format_email = email.replace(".","-");
+  firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
+    console.log(snapshot)
+  });
+}
+
 
 //put admin into database
 function registerAdmin(email, password) {
