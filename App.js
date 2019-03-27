@@ -317,6 +317,24 @@ export class SettingsScreen extends Component {
     }
 }
 
+export class AdminLandingScreen extends Component {
+    render() {
+        <View>
+            <View style = {styles.adminLanding}>
+                <View>
+                    <button> Add/Remove Business </button>
+                </View>
+                <View>
+                    <button> Flagged Reviews </button>
+                </View>
+                <View>
+                    <button> Review Business </button>
+                </View>
+            </View>
+        </View>
+    }
+}
+
 const TabNavigator = createBottomTabNavigator({
    Search: LandingScreen,
    Favorites: BusinessPage,
@@ -519,5 +537,14 @@ const styles = StyleSheet.create ({
         borderWidth: 1,
         borderColor: 'grey',
         overflow: 'hidden',
+    },
+
+    adminLanding: {
+        height: '100%',
+        width: '75%',
+        left: '12.5%',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center'
     }
 });
