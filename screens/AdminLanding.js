@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {createStackNavigator, createAppContainer } from "react-navigation";
 import AdminAuthenticate from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 
 export default class AdminLanding extends Component {
+    render() {
+        return <AdminContainer />;
+    }
+}
 
+class adminLandingScreen extends Component {
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         return (
@@ -19,17 +25,17 @@ export default class AdminLanding extends Component {
                 </View>
                 <View style={styles.optionView}>
                     <View style={styles.innerOption}>
-                        <TouchableHighlight onPress={AdminAuthenticate}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Authenticate')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Authenticate Businesses</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={AdminAdd}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Add')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Add Businesses</Text>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={AdminReview}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Review')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
@@ -42,6 +48,14 @@ export default class AdminLanding extends Component {
     };
 }
 
+const AdminNavigator = createStackNavigator({
+    Landing: adminLandingScreen,
+    Authenticate: AdminAuthenticate,
+    Add: AdminAdd,
+    Review: AdminReview
+});
+
+const AdminContainer = createAppContainer(AdminNavigator);
 
 const styles = StyleSheet.create ({
     screenView: {
