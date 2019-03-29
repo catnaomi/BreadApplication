@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {registerUser} from "./db/firebase";
-import LandingScreen from "./screens/LandingScreen"
-import UserScreen from "./screens/UserScreen"
-import LoginScreen from "./screens/LoginScreen"
-import BusinessPage from "./screens/BusinessPage"
-import SearchScreen from "./screens/SearchScreen"
+import LandingScreen from "./screens/LandingScreen";
+import UserScreen from "./screens/UserScreen";
+import LoginScreen from "./screens/LoginScreen";
+import BusinessPage from "./screens/BusinessPage";
+import SearchScreen from "./screens/SearchScreen";
+import AdminLanding from "./screens/AdminLanding";
 
 import {
   StyleSheet,
@@ -52,7 +53,7 @@ const TabNavigator = createBottomTabNavigator({
    Favorites: BusinessPage,
    Profile: UserScreen,
    Settings: SettingsScreen,
-   Search: SearchScreen
+   Search: SearchScreen,
 });
 
-export default createAppContainer(TabNavigator);
+export default AdminLanding;
