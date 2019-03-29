@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, Linking, TouchableOpacity} from "react-native";
 
 export default class AdminAuthenticate extends Component {
     render() {
@@ -12,11 +12,20 @@ export default class AdminAuthenticate extends Component {
                         style={styles.breadLogo}
                     />
                 </View>
+                <View style={styles.optionView}>
+                    <TouchableOpacity onPress={() => Linking.openURL(sosurl)} style={styles.border}>
+                        <Text style={styles.text}>Secretary of State Authenticate</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.text}>Testing</Text>
+
+                </View>
             </View>
 
         )};
 
 }
+
+const sosurl = "https://ecorp.sos.ga.gov/BusinessSearch";
 
 const styles = StyleSheet.create({
     screenView: {
@@ -34,5 +43,21 @@ const styles = StyleSheet.create({
         height: '100%',
         left: '12.5%',
     },
+    optionView: {
+        height: '60%',
+        width: '100%',
+        top: '10%',
+
+        alignItems: 'center',
+    },
+    text: {
+        fontSize: 18,
+        color: '#ffab40',
+        padding: '15%'
+    },
+    border: {
+        borderWidth: 2,
+        borderColor: 'black',
+    }
 });
 

@@ -4,6 +4,7 @@ import {createStackNavigator, createAppContainer } from "react-navigation";
 import AdminAuthenticate from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
+import AdminRemove from './AdminRemove';
 
 export default class AdminLanding extends Component {
     render() {
@@ -20,24 +21,29 @@ class adminLandingScreen extends Component {
                     <Image
                         source={logo}
                         style={styles.breadLogo}
-
                     />
                 </View>
                 <View style={styles.optionView}>
                     <View style={styles.innerOption}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Authenticate')}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>Authenticate Businesses</Text>
-                            </View>
-                        </TouchableHighlight>
+
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('Add')}>
                             <View style={styles.button}>
-                                <Text style={styles.buttonText}>Add Businesses</Text>
+                                <Text style={styles.buttonText}>Add a Business</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Remove')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Remove a Business</Text>
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('Review')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Authenticate')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Logout</Text>
                             </View>
                         </TouchableHighlight>
                     </View>
@@ -52,7 +58,8 @@ const AdminNavigator = createStackNavigator({
     Landing: adminLandingScreen,
     Authenticate: AdminAuthenticate,
     Add: AdminAdd,
-    Review: AdminReview
+    Review: AdminReview,
+    Remove: AdminRemove
 });
 
 const AdminContainer = createAppContainer(AdminNavigator);
@@ -87,7 +94,7 @@ const styles = StyleSheet.create ({
         alignItems: 'stretch'
     },
     button: {
-        marginTop: '15%',
+        marginTop: '10%',
         height: '40%',
         alignItems: 'center',
         backgroundColor: '#ffab40',

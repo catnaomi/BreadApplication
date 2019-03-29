@@ -6,6 +6,7 @@ import LoginScreen from "./screens/LoginScreen";
 import BusinessPage from "./screens/BusinessPage";
 import SearchScreen from "./screens/SearchScreen";
 import AdminLanding from "./screens/AdminLanding";
+import AdminAuthenticate from "./screens/AdminAuthenticate";
 
 import {
   StyleSheet,
