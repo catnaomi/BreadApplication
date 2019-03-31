@@ -11,11 +11,13 @@ export default class RegisterScreen extends Component {
         this.state = {
             username: '',
             password: '',
+            tryUser: '',
         }
+        var tryName = "error";
     }
     render() {
         const { navigate } = this.props.navigation;
-
+        var sel = this;
         return (
             <View style = {{flex: 1}}>
                 <View style = {{flex : 1}}></View>
@@ -37,8 +39,20 @@ export default class RegisterScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
+                                getUserData(this.state.username).then(response => {
+                                    sel.setState({
+                                        tryUser: response.user_id
+                                    })
+                                    if (typeof(response.user_id) == 'undefined') {
+                                        console.log("User does not exist");
+                                    } else {
+                                        console.log("I found the user!");
+                                        Alert.alert(response.user_id + '\nis in database');
+                                    }
+                                    
+                                    console.log(sel.state.tryUser);
+                                })
                                 
-                                Alert.alert(getUserData(this.state.username) + '\nadded to database');
                                 //registerUser(this.state.username, this.state.password);
                             }}
                             title="Register"

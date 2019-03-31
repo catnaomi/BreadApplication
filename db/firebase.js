@@ -28,7 +28,7 @@ function registerUser(email, password, favorites, reviews, settings, profile_pic
 
 function getUserData(email) {
   const format_email = email.replace(".","-");
-  return firebase.database().ref('users/' + format_id).once('value').then(function(snapshot) {
+  return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id: snapshot.val().user_id,
       user_email: snapshot.val().user_email,
