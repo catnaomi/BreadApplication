@@ -3,56 +3,23 @@ import {registerUser} from "./db/firebase";
 import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
-import BusinessScreen from "./screens/BusinessScreen"
-import SearchScreen from "./screens/SearchScreen"
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Image,
-  Button,
-  Alert,
-  TouchableHighlight,
-} from 'react-native';
+import BusinessScreen from "./screens/BusinessScreen"
+import SettingsScreen from "./screens/SettingsScreen"
+import {SearchScreenStack} from "./screens/SearchScreen"
+
 import {
     createBottomTabNavigator,
     createAppContainer,
     navigationOptions,
 } from 'react-navigation';
 
-export class FavoriteScreen extends Component {
-  render() {
-      return (
-          <View>
-              <Text>
-                  this is a favorites placeholder
-              </Text>
-          </View>
-      );
-  }
-}
-
-
-export class SettingsScreen extends Component {
-    render() {
-        return (
-            <View>
-                <Text>
-                    this is a settings page placeholder
-                </Text>
-            </View>
-        );
-    }
-}
-
 const TabNavigator = createBottomTabNavigator({
-   Find: LandingScreen,
-   Favorites: BusinessScreen,
-   Profile: UserScreen,
-   Settings: SettingsScreen,
-   Search: SearchScreen
-});
+   Find: {screen: LandingScreen},
+   Favorites: {screen: BusinessScreen},
+   Profile: {screen: UserScreen},
+   Settings: {screen: SettingsScreen},
+   Search: {screen: SearchScreenStack}
+}, {initialRouteName: 'Find'});
 
 export default createAppContainer(TabNavigator);
