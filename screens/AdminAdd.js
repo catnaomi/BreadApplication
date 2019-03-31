@@ -18,7 +18,7 @@ export default class AdminAdd extends Component {
     }
 
     checkPermissions() {
-        return this.state.name != '';
+        return true;
     }
 
     render() {
@@ -38,39 +38,66 @@ export default class AdminAdd extends Component {
                         style={styles.breadLogo}
                     />
                 </View>
-                <ScrollView style={styles.optionView}>
-                    <TextInput
-                        style={styles.text}
-                        placeholder={"Name of Business"}
-                        onChangeText={(new_name) => this.setState({name: new_name})}
-                    />
-                    <TextInput
-                        style={styles.text}
-                        placeholder={"Address of Business"}
-                        onChangeText={(new_address) => this.setState({address:new_address})}
-                    />
-                    <TextInput
-                        style={styles.text}
-                        placeholder={"Email of Business"}
-                        onChangeText={(new_email) => this.setState({email: new_email})}
-                    />
-                    <TextInput
-                        style={styles.text}
-                        placeholder={"Name of Owner of Business"}
-                        onChangeText={(new_owner) => this.setState({owner:new_owner})}
-                    />
-                    <TextInput
-                        style={styles.text}
-                        placeholder={"Control Number of Business"}
-                        onChangeText={(new_controlNumber) => this.setState({controlNumber: new_controlNumber})}
-                    />
-                    <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
-                        <Text style={styles.text}>Secretary of State Authenticate</Text>
-                    </TouchableOpacity>
-                    <View>
-                        {addButton}
+
+                <View style={styles.optionView}>
+                    <View style={styles.innerOption}>
+                        <View style={styles.entry}>
+                            <Text style={styles.entryText}>Name of Business</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Name"}
+                                onChangeText={(new_name) => this.setState({name:new_name})}
+                            />
+                        </View>
+
+                        <View style={styles.entry}>
+                            <Text style={styles.entryText}>Business Address</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Address of Business"}
+                                onChangeText={(new_address) => this.setState({address:new_address})}
+                            />
+                        </View>
+
+                        <View style={styles.entry}>
+                            <Text style={styles.entryText}>Business Email</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Email of Business"}
+                                onChangeText={(new_email) => this.setState({email: new_email})}
+                            />
+                        </View>
+
+                        <View style={styles.entry}>
+                            <Text style={styles.entryText}>Business Owner</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Name of Owner of Business"}
+                                onChangeText={(new_owner) => this.setState({owner:new_owner})}
+                            />
+                        </View>
+
+                        <View style={styles.entry}>
+                            <Text style={styles.entryText}>Business Control Number</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Control Number of Business"}
+                                onChangeText={(new_controlNumber) => this.setState({controlNumber: new_controlNumber})}
+                            />
+                        </View>
+
+                        <View style={styles.entry}>
+                            <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
+                                <Text style={styles.entryText}>Secretary of State Authenticate</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View>
+                            {addButton}
+                        </View>
+
                     </View>
-                </ScrollView>
+                </View>
             </View>
 
         )};
@@ -100,10 +127,37 @@ const styles = StyleSheet.create({
         width: '100%',
         top: '10%',
     },
+    innerOption: {
+        width: '75%',
+        left: '12.5%',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'stretch'
+    },
     text: {
         fontSize: 18,
-        color: '#ffab40',
-        padding: '10%'
     },
+    title: {
+        marginTop: '5%',
+        alignItems: 'center',
+        backgroundColor: '#ffab40',
+        fontSize: 12,
+        padding: '5%',
+        color: 'white'
+    },
+    entry: {
+        marginTop: '5%',
+        borderWidth: 1,
+        borderColor: 'black',
+        fontSize: 12,
+        padding: '5%',
+        color: 'white'
+    },
+    entryText: {
+        fontSize: 12,
+        padding: '5%',
+        color: 'white'
+    }
 });
 
