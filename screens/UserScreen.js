@@ -127,6 +127,11 @@ export default class UserScreen extends Component {
                 </View>
                 <View style = {styles.profileContent}>
                     <ScrollView style = {{flex: 1}}>
+                        <View style={{height: 50, backgroundColor: '#ffab40'}}>
+                            <TouchableHighlight onPress={() => (this.props.navigation.navigate('./ReviewScreen'))}>
+                                <Text>Write a Review</Text>
+                            </TouchableHighlight>
+                        </View>
                         <View style = {{height: 300, backgroundColor: 'blue'}}>
                             <Text>Julia Ramirez has no favorited businesses yet...</Text>
                         </View>

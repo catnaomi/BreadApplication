@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, TouchableOpacity} from "react-native";
 import {createStackNavigator, createAppContainer } from "react-navigation";
 import AdminAuthenticate from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';

@@ -3,12 +3,33 @@ import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
  TouchableOpacity, View, ScrollView, Alert} from "react-native";
 
 export default class AdminAdd extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {name: '', address: '', email: '', owner: '', controlNumber: ''}
+        this.state = {
+            permissions: this.checkPermissions(),
+            name: '',
+            address: '',
+            email: '',
+            owner: '',
+            controlNumber: '',
+            add: false
+        }
     }
+
+    checkPermissions() {
+        return this.state.name != '';
+    }
+
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
+        var addButton = (this.checkPermissions() ?
+            <TouchableOpacity
+                onPress={() => Linking.openURL(sosurl)}>
+                <Text style={styles.text}>Register Business</Text>
+            </TouchableOpacity>
+            : <View/>);
+
         return (
             <View style={styles.screenView}>
                 <View style={styles.imageView}>
@@ -46,10 +67,9 @@ export default class AdminAdd extends Component {
                     <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
                         <Text style={styles.text}>Secretary of State Authenticate</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
-                        <Text style={styles.text}>Register Business</Text>
-                    </TouchableOpacity>
-
+                    <View>
+                        {addButton}
+                    </View>
                 </ScrollView>
             </View>
 

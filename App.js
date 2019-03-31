@@ -36,4 +36,4 @@ const TabNavigator = createBottomTabNavigator({
 }, {initialRouteName: 'Find'});
 
 
-export default AdminLanding;
+export default createAppContainer(TabNavigator);
