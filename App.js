@@ -4,7 +4,7 @@ import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
 import BusinessPage from "./screens/BusinessPage"
-import SearchScreen from "./screens/SearchScreen"
+import {SearchScreenStack} from "./screens/SearchScreen"
 
 import {
   StyleSheet,
@@ -34,7 +34,6 @@ export class FavoriteScreen extends Component {
   }
 }
 
-
 export class SettingsScreen extends Component {
     render() {
         return (
@@ -48,11 +47,11 @@ export class SettingsScreen extends Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-   Find: LandingScreen,
-   Favorites: BusinessPage,
-   Profile: UserScreen,
-   Settings: SettingsScreen,
-   Search: SearchScreen
-});
+   Find: {screen: LandingScreen},
+   Favorites: {screen: BusinessPage},
+   Profile: {screen: UserScreen},
+   Settings: {screen: SettingsScreen},
+   Search: {screen: SearchScreenStack}
+}, {initialRouteName: 'Find'});
 
 export default createAppContainer(TabNavigator);
