@@ -26,7 +26,7 @@ function registerUser(email, password, favorites, reviews, settings, profile_pic
   }).catch((err) => console.log(err));
 }
 
-function getUserData(email, password) {
+function getUserData(email) {
   const format_email = email.replace(".","-");
   return firebase.database().ref('users/' + format_id).once('value').then(function(snapshot) {
     return {
@@ -56,7 +56,7 @@ function registerAdmin(email, password, history, settings) {
   }).catch((err) => console.log(err));
 }
 
-function getAdminData(email, password) {
+function getAdminData(email) {
   const format_email = email.replace(".","-");
   return firebase.database().ref('admins/' + format_id).once('value').then(function(snapshot) {
     return {

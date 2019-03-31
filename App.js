@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen"
 import BusinessScreen from "./screens/BusinessScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
+import manual_data_entry from './db/manual_data_entry'
 
 import {
     createBottomTabNavigator,
