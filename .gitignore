@@ -56,7 +56,13 @@ buck-out/
 *.jsbundle
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .expo
 =======
 packager-info.json
 >>>>>>> 849bd530ff1eac5f73ff8650e752399871110d56
+=======
+packager-info.json
+
+.expo
+>>>>>>> 8c5c5cc1f756ba2e37b980654bbdb07164c8888d

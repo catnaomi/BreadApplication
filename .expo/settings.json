@@ -1,8 +1,7 @@
 {
-  "hostType": "lan",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "7d-adh"
-  849bd530ff1eac5f73ff8650e752399871110d56
+  "urlRandomness": "am-bpb"
 }
