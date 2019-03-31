@@ -50,17 +50,19 @@ function registerAdmin(email, password) {
 }
 
 //put business object into database
-function registerBusiness(business_id, name) {
+function registerBusiness(business_id, name, address, email, owner, control_number) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
     name: name,
     reviews: [],
-    owner:{},
+    owner: owner,
     picture_ids:[],
     description: {},
-    location: {},
-    information: {}
+    location: address,
+    email: email,
+    information: {},
+    control: control_number,
   }).catch((err) => console.log(err));
 }
 
@@ -73,11 +75,29 @@ function addReviewToDatabase(review_id, review_content) {
     date:{},
     comments:[],
   }).catch((err) => console.log(err));
+} 
+
+function getBusinessWithID(business_id) {
+  const format_id = business_id.replace(".","-");
+  return firebase.database().ref('businesses/' + format_id).once('value').then(function(snapshot) {
+    console.log("snapshot", snapshot)
+    console.log("business name", snapshot.val().name)
+    return snapshot.val().name
+    // ...
+  });
+  
+  // Original Code
+  // var userId = firebase.auth().currentUser.uid;
+  // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  //   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  //   // ...
+  // });
 }
 
 module.exports = {
   registerUser: registerUser,
   registerAdmin: registerAdmin,
   registerBusiness: registerBusiness,
-  addReviewToDatabase: addReviewToDatabase
+  addReviewToDatabase: addReviewToDatabase,
+  getBusinessWithID: getBusinessWithID
 };

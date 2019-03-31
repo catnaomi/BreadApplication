@@ -4,9 +4,18 @@ import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
 import BusinessPage from "./screens/BusinessPage"
+<<<<<<< HEAD
 import SearchScreen from "./screens/SearchScreen"
 import RegisterScreen from "./screens/RegisterScreen"
 import SettingsScreen from "./screens/SettingsScreen"
+=======
+import SettingsScreen from "./screens/SettingsScreen"
+import {SearchScreenStack} from "./screens/SearchScreen"
+import {registerBusiness, getBusinessWithID} from './db/firebase'
+import AdminLanding from "./screens/AdminLanding";
+import AdminAuthenticate from "./screens/AdminAuthenticate";
+
+>>>>>>> 28b5818b3bfa03b13f9e4cb2daaad07f63da46a9
 
 import {
   StyleSheet,
@@ -24,6 +33,7 @@ import {
     navigationOptions,
 } from 'react-navigation';
 
+<<<<<<< HEAD
 export class FavoriteScreen extends Component {
   render() {
       return (
@@ -49,12 +59,15 @@ export class SettingsScreen extends Component {
     }
 } */
 
+=======
+>>>>>>> 28b5818b3bfa03b13f9e4cb2daaad07f63da46a9
 const TabNavigator = createBottomTabNavigator({
-   Find: LandingScreen,
-   Favorites: BusinessPage,
-   Profile: UserScreen,
-   Settings: SettingsScreen,
-   Search: SearchScreen
-});
+   Find: {screen: LandingScreen},
+   Favorites: {screen: BusinessPage},
+   Profile: {screen: UserScreen},
+   Settings: {screen: SettingsScreen},
+   Search: {screen: SearchScreenStack}
+}, {initialRouteName: 'Find'});
 
-export default createAppContainer(TabNavigator);
+
+export default AdminLanding;

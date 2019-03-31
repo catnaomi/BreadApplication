@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {registerUser} from "../db/firebase";
 
