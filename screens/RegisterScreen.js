@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {navigate} from 'react-navigation';
 import LoginScreen from './LoginScreen';
-import {registerUser} from "../db/firebase";
+import {registerUser, getUserData} from "../db/firebase";
 //import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 export default class RegisterScreen extends Component {
@@ -37,7 +37,7 @@ export default class RegisterScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-
+                                
                                 Alert.alert(getUserData(this.state.username) + '\nadded to database');
                                 //registerUser(this.state.username, this.state.password);
                             }}
