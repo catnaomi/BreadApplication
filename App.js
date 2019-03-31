@@ -3,7 +3,7 @@ import {registerUser} from "./db/firebase";
 import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
-import BusinessPage from "./screens/BusinessPage"
+import BusinessScreen from "./screens/BusinessScreen"
 import SearchScreen from "./screens/SearchScreen"
 
 import {
@@ -49,7 +49,7 @@ export class SettingsScreen extends Component {
 
 const TabNavigator = createBottomTabNavigator({
    Find: LandingScreen,
-   Favorites: BusinessPage,
+   Favorites: BusinessScreen,
    Profile: UserScreen,
    Settings: SettingsScreen,
    Search: SearchScreen
