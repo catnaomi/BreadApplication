@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {createStackNavigator} from 'react-navigation';
+import {getBusinessWithID} from '../db/firebase'
 
 export class SearchScreen extends Component {
 
@@ -38,6 +39,18 @@ export class SearchScreen extends Component {
 export class SearchResult extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            name: "no name right now"
+        }
+    }
+
+    componentDidMount() {
+        var self = this;
+        getBusinessWithID("id_1").then(response => {
+            self.setState({
+                name: response
+            })
+        })
     }
 
     render() {
@@ -45,7 +58,7 @@ export class SearchResult extends Component {
             <View style = {{width: '100%', height: '100%'}}>
                 <View style = {styles.searchContent}>
                     <View style = {{left: 10, top: 10}}>
-                        <Text>THIS IS A SEARCH RESULT PAGE</Text>
+                        <Text>THIS IS A SEARCH RESULT PAGE for bussiness with name:: {this.state.name}</Text>
                     </View>
                 </View>
             </View>

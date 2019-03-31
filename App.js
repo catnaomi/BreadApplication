@@ -5,6 +5,7 @@ import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
 import BusinessPage from "./screens/BusinessPage"
 import {SearchScreenStack} from "./screens/SearchScreen"
+import {registerBusiness, getBusinessWithID} from './db/firebase'
 
 import {
   StyleSheet,
