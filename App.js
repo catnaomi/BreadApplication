@@ -4,6 +4,7 @@ import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
 import BusinessPage from "./screens/BusinessPage"
+import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
 import {registerBusiness, getBusinessWithID} from './db/firebase'
 
