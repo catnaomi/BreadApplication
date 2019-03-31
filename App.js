@@ -8,9 +8,7 @@ import SearchScreen from "./screens/SearchScreen"
 import RegisterScreen from "./screens/RegisterScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
-import {registerBusiness, getBusinessWithID} from './db/firebase'
-import AdminLanding from "./screens/AdminLanding";
-import AdminAuthenticate from "./screens/AdminAuthenticate";
+import manual_data_entry from './db/manual_data_entry'
 
 import {
     createBottomTabNavigator,
