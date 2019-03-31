@@ -33,8 +33,9 @@ const TabNavigator = createBottomTabNavigator({
    Favorites: {screen: BusinessPage},
    Profile: {screen: UserScreen},
    Settings: {screen: SettingsScreen},
-   Search: {screen: SearchScreenStack}
+   Search: {screen: SearchScreenStack},
+   Login: {screen: LoginScreen},
+   Register: {screen: RegisterScreen}
 }, {initialRouteName: 'Find'});
 
-
-export default AdminLanding;
+export default createAppContainer(TabNavigator);

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
-import {registerUser} from "../db/firebase";
+import {navigate} from 'react-navigation';
+import LoginScreen from './LoginScreen';
 
 export default class SettingsScreen extends Component {
     constructor (props) {
@@ -11,6 +12,7 @@ export default class SettingsScreen extends Component {
         }
     }
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <View style = {{flex: 1}}>
                 <View style = {{flex : 1}}></View>
@@ -61,7 +63,7 @@ export default class SettingsScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {}}
+                        onPress = { () => navigate('Register')}
                         title = "Register"
                     />
                 </View>

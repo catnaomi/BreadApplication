@@ -1,1 +1,9 @@
-{}
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 3956,
+  "expoServerNgrokUrl": "https://am-bpb.anonymous.breadapplication.exp.direct",
+  "packagerNgrokUrl": "https://packager.am-bpb.anonymous.breadapplication.exp.direct",
+  "ngrokPid": 17656
+}

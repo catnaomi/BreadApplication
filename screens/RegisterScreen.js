@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {navigate} from 'react-navigation';
+import LoginScreen from './LoginScreen';
 import {registerUser} from "../db/firebase";
+//import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 export default class RegisterScreen extends Component {
     constructor (props) {
@@ -11,6 +14,8 @@ export default class RegisterScreen extends Component {
         }
     }
     render() {
+        const { navigate } = this.props.navigation;
+
         return (
             <View style = {{flex: 1}}>
                 <View style = {{flex : 1}}></View>
@@ -44,27 +49,27 @@ export default class RegisterScreen extends Component {
                     <View style = {[styles.thirdPartyButton, styles.googleButton]}>
                         <Button
                             onPress = { () => {}}
-                            title = "Register with Google"
+                            title = "Login with Google"
                             color = "#db3236"
                         />
                     </View>
                     <View style = {[styles.thirdPartyButton, styles.facebookButton]}>
                         <Button
                             onPress = { () => {}}
-                            title = "Register with Facebook"
+                            title = "Login with Facebook"
                             color = "#3C5A99"
                         />
                     </View>
                 </View>
-                /*<View style = {{flex: 1}}>
-                    <Text style = {{left: '10%', top: 30}}>Don't have an account?</Text>
+                <View style = {{flex: 1}}>
+                    <Text style = {{left: '10%', top: 30}}>Already registered?</Text>
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {}}
-                        title = "Register"
+                        onPress = { () => {navigate('Login')}}
+                        title = "Login"
                     />
-                </View>*/
+                </View>
                 <View style ={styles.skipButton}>
                     <TouchableHighlight
                         onPress = { () => {}}>
@@ -90,7 +95,7 @@ const styles = StyleSheet.create ({
         margin: 10,
         flex: 1
     },
-    /*thirdPartyButton: {
+    thirdPartyButton: {
         left: '10%',
         width: '80%'
     },
@@ -99,7 +104,7 @@ const styles = StyleSheet.create ({
     },
     facebookButton: {
         top: 60,
-    },*/
+    },
     registerButton: {
         position: 'absolute',
         top: '78%',
@@ -111,8 +116,4 @@ const styles = StyleSheet.create ({
         bottom: 0,
         right: 0,
     },
-});
-
-const RegisterStack = createStackNavigator({
-  Register: RegisterScreen
 });
