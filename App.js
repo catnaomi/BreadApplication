@@ -3,7 +3,7 @@ import {registerUser} from "./db/firebase";
 import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
-import BusinessScreen from "./screens/BusinessPage"
+import BusinessScreen from "./screens/BusinessScreen"
 import SearchScreen from "./screens/SearchScreen"
 import RegisterScreen from "./screens/RegisterScreen"
 import SettingsScreen from "./screens/SettingsScreen"

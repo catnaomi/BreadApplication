@@ -37,8 +37,9 @@ export default class RegisterScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                Alert.alert(this.state.username + '\nadded to database');
-                                registerUser(this.state.username, this.state.password);
+
+                                Alert.alert(getUserData(this.state.username) + '\nadded to database');
+                                //registerUser(this.state.username, this.state.password);
                             }}
                             title="Register"
                         />
