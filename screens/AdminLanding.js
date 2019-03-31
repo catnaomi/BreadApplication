@@ -62,8 +62,6 @@ const AdminNavigator = createStackNavigator({
     Remove: AdminRemove
 });
 
-const AdminContainer = createAppContainer(AdminNavigator);
-
 const styles = StyleSheet.create ({
     screenView: {
         width: '100%',

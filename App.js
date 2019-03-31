@@ -7,9 +7,6 @@ import BusinessPage from "./screens/BusinessPage"
 import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
 import {registerBusiness, getBusinessWithID} from './db/firebase'
-import AdminLanding from "./screens/AdminLanding";
-import AdminAuthenticate from "./screens/AdminAuthenticate";
-
 
 import {
   StyleSheet,
@@ -35,5 +32,4 @@ const TabNavigator = createBottomTabNavigator({
    Search: {screen: SearchScreenStack}
 }, {initialRouteName: 'Find'});
 
-
-export default AdminLanding;
+export default createAppContainer(TabNavigator);
