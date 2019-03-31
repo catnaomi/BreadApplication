@@ -3,24 +3,12 @@ import {registerUser} from "./db/firebase";
 import LandingScreen from "./screens/LandingScreen"
 import UserScreen from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
-import BusinessPage from "./screens/BusinessPage"
+
+import BusinessScreen from "./screens/BusinessScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
-import {registerBusiness, getBusinessWithID} from './db/firebase'
-import AdminLanding from "./screens/AdminLanding";
-import AdminAuthenticate from "./screens/AdminAuthenticate";
+import manual_data_entry from './db/manual_data_entry'
 
-
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Image,
-  Button,
-  Alert,
-  TouchableHighlight,
-} from 'react-native';
 import {
     createBottomTabNavigator,
     createAppContainer,
@@ -29,11 +17,10 @@ import {
 
 const TabNavigator = createBottomTabNavigator({
    Find: {screen: LandingScreen},
-   Favorites: {screen: BusinessPage},
+   Favorites: {screen: BusinessScreen},
    Profile: {screen: UserScreen},
    Settings: {screen: SettingsScreen},
    Search: {screen: SearchScreenStack}
 }, {initialRouteName: 'Find'});
 
-
-export default AdminLanding;
+export default createAppContainer(TabNavigator);

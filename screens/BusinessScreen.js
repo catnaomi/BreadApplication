@@ -4,24 +4,16 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 
-export default class UserScreen extends Component {
+export default class BusinessScreen extends Component {
     constructor (props) {
         super (props);
         this.state = {
             permission: this.checkPermissions(),
             name: 'Default Name',
-            reviews: [
-                {
-                    date: 1554057121,
-                    review_id: 0,
-                    review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                    '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
-                    '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
-                    '                            consequat purus ac, mattis arcu. Duis interdum ex a',
-                    user_id: 0,
-                    business_id: 0,
-                }
-            ],
+            address_line1: '100 Main St.',
+            address_line2: 'Atlanta, GA 33333',
+            rating: 0,
+            reviews: 0,
             edit: false,
             tab: 0,
         }
@@ -30,7 +22,7 @@ export default class UserScreen extends Component {
         return true;
     }
     render() {
-        var profile = require('../assets/images/profile/profile.png');
+        var profile = require('../assets/images/profile/dummyRestaurant.jpg');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
@@ -43,6 +35,26 @@ export default class UserScreen extends Component {
                 value = {this.state.name}
                 /> :
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
+
+        var AddressField_line1 = (this.state.edit ?
+            <TextInput
+                style = {{fontSize: 18}}
+                placeholder = {this.state.address_line1}
+                ref = 'name'
+                onChangeText={(text) => this.setState({name: text})}
+                value = {this.state.address_line1}
+            /> :
+            <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
+
+        var AddressField_line2 = (this.state.edit ?
+            <TextInput
+                style = {{fontSize: 18}}
+                placeholder = {this.state.address_line2}
+                ref = 'name'
+                onChangeText={(text) => this.setState({name: text})}
+                value = {this.state.address_line2}
+            /> :
+            <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
 
         var EditButton = (this.checkPermissions() ?
             <TouchableHighlight
@@ -78,7 +90,7 @@ export default class UserScreen extends Component {
         }
 
         function TabContent (props) {
-            if (props.tab == 0) { //review
+            if (props.tab == 0) { //info
                 return (
                     <ScrollView>
                         <Review
@@ -106,7 +118,7 @@ export default class UserScreen extends Component {
                         />
                     </ScrollView>
                 );
-            } else if (props.tab == 1) { // favorites
+            } else if (props.tab == 1) { //reviews
                 return (
                     <ScrollView>
                         <BusinessPreview name="Dallie's Diner"/>
@@ -115,7 +127,7 @@ export default class UserScreen extends Component {
                         <BusinessPreview name="Sublime Donuts"/>
                     </ScrollView>
                 );
-            } else { //businesses
+            } else { //documents
                 return (
                     <ScrollView>
                         <BusinessPreview name="Dallie's Diner"/>
@@ -137,14 +149,20 @@ export default class UserScreen extends Component {
                     <View style = {{flex: 3, flexDirection: 'row'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
-                                <Image
+                                <Image style = {styles.profileImage}
                                     source = {profile}
                                 />
                             </View>
                         </View>
-                        <View style = {{flex: 2}}>
+                        <View style = {{flex: 1}}>
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
+                            </View>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                {AddressField_line1}
+                            </View>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 <Text style = {{fontSize: 18}}>1 Review</Text>
@@ -167,7 +185,7 @@ export default class UserScreen extends Component {
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Reviews
+                            Info
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight
@@ -177,7 +195,7 @@ export default class UserScreen extends Component {
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Favorites
+                            Reviews
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight
@@ -187,28 +205,12 @@ export default class UserScreen extends Component {
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Businesses
+                            Documents
                         </Text>
                     </TouchableHighlight>
                 </View>
                 <View style = {styles.profileContent}>
-<<<<<<< HEAD
-                    <ScrollView style = {{flex: 1}}>
-                        <View style={{height: 50, backgroundColor: '#ffab40'}}>
-                            <TouchableHighlight onPress={() => (this.props.navigation.navigate('./ReviewScreen'))}>
-                                <Text>Write a Review</Text>
-                            </TouchableHighlight>
-                        </View>
-                        <View style = {{height: 300, backgroundColor: 'blue'}}>
-                            <Text>Julia Ramirez has no favorited businesses yet...</Text>
-                        </View>
-                        <View style = {{height: 300, backgroundColor: 'red'}}>
-                            <Text>test</Text>
-                        </View>
-                    </ScrollView>
-=======
                     <TabContent tab = {this.state.tab}/>
->>>>>>> f2c7c175e05c0943b13ac1076d3f406a63302edb
                 </View>
             </View>
         );
@@ -221,7 +223,7 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
     },
     profileHeader: {
-        flex: 3,
+        flex: 4,
         backgroundColor: 'lightgrey',
     },
     profileTabs: {
@@ -229,17 +231,21 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
     },
     profileContent: {
-        flex: 6,
+        flex: 5,
     },
     profilePicture: {
-        resizeMode: 'contain',
+        resizeMode: 'cover',
         left: 10,
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 150,
+        height: 150,
+        padding: 0,
         borderWidth: 1,
         borderColor: 'grey',
-        overflow: 'hidden',
+    },
+    profileImage: {
+        resizeMode: 'cover',
+        width: 150,
+        height: 150,
     },
     editIcon: {
         flex: 1,
