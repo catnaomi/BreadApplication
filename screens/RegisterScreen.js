@@ -112,3 +112,7 @@ const styles = StyleSheet.create ({
         right: 0,
     },
 });
+
+const RegisterStack = createStackNavigator({
+  Register: RegisterScreen
+});

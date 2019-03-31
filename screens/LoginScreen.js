@@ -62,7 +62,9 @@ export default class LoginScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {}}
+                        onPress = { () => {
+                            navigation.navigate('Register')
+                        }}
                         title = "Register"
                     />
                 </View>
@@ -117,3 +119,4 @@ const styles = StyleSheet.create ({
 const LoginStack = createStackNavigator({
   Login: LoginScreen
 });
+
