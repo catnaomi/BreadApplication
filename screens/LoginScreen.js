@@ -19,7 +19,7 @@ export default class LoginScreen extends Component {
         return (
             <View style = {{flex: 1}}>
                 <View style = {{flex : 1}}></View>
-                <View style = {{flex: 1}}>
+                <View style = {{flex : 1}}>
                     <TextInput
                         style={styles.loginField}
                         placeholder = "email or phone number"
