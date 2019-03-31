@@ -25,7 +25,7 @@ export default class AdminAdd extends Component {
         var logo = require('../assets/images/logos/texthoriz.png');
         var addButton = (this.checkPermissions() ?
             <TouchableOpacity
-                onPress={() => Linking.openURL(sosurl)}>
+                onPress={() => Linking.openURL(sosurl)} style={{alignItems: 'center'}}>
                 <Text style={styles.text}>Register Business</Text>
             </TouchableOpacity>
             : <View/>);
@@ -40,9 +40,9 @@ export default class AdminAdd extends Component {
                 </View>
 
                 <View style={styles.optionView}>
-                    <View style={styles.innerOption}>
+                    <ScrollView style={styles.innerOption}>
                         <View style={styles.entry}>
-                            <Text style={styles.entryText}>Name of Business</Text>
+                            <Text style={styles.title}>Name of Business:</Text>
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name"}
@@ -51,7 +51,7 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View style={styles.entry}>
-                            <Text style={styles.entryText}>Business Address</Text>
+                            <Text style={styles.title}>Business Address:</Text>
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Address of Business"}
@@ -60,7 +60,7 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View style={styles.entry}>
-                            <Text style={styles.entryText}>Business Email</Text>
+                            <Text style={styles.title}>Business Email:</Text>
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Email of Business"}
@@ -69,7 +69,7 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View style={styles.entry}>
-                            <Text style={styles.entryText}>Business Owner</Text>
+                            <Text style={styles.title}>Business Owner:</Text>
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name of Owner of Business"}
@@ -78,7 +78,7 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View style={styles.entry}>
-                            <Text style={styles.entryText}>Business Control Number</Text>
+                            <Text style={styles.title}>Business Control Number:</Text>
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Control Number of Business"}
@@ -86,9 +86,9 @@ export default class AdminAdd extends Component {
                             />
                         </View>
 
-                        <View style={styles.entry}>
+                        <View style={[styles.title, {alignItems: 'center'}]}>
                             <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
-                                <Text style={styles.entryText}>Secretary of State Authenticate</Text>
+                                <Text style={{fontSize: 15, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -96,7 +96,7 @@ export default class AdminAdd extends Component {
                             {addButton}
                         </View>
 
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
 
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
     imageView: {
         height: '15%',
         width: '100%',
-        top: '5%',
     },
     breadLogo: {
         position: 'absolute',
@@ -123,41 +122,36 @@ const styles = StyleSheet.create({
         left: '12.5%',
     },
     optionView: {
-        height: '70%',
-        width: '100%',
-        top: '10%',
+        flex: 1,
+
     },
     innerOption: {
-        width: '75%',
-        left: '12.5%',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'stretch'
+        width: '90%',
+        left: '5%',
+        // flex: 1,
+        // flexDirection: 'column',
+        // justifyContent: 'space-around',
     },
     text: {
-        fontSize: 18,
+        fontSize: 25,
+        fontWeight: 'bold',
+        padding: '5%',
+        color: '#ffab40'
     },
     title: {
-        marginTop: '5%',
-        alignItems: 'center',
+
         backgroundColor: '#ffab40',
-        fontSize: 12,
-        padding: '5%',
-        color: 'white'
+        fontSize: 18,
+        color: 'white',
+        padding: '2%',
     },
     entry: {
-        marginTop: '5%',
-        borderWidth: 1,
-        borderColor: 'black',
-        fontSize: 12,
-        padding: '5%',
-        color: 'white'
+        height: '20%',
     },
     entryText: {
-        fontSize: 12,
-        padding: '5%',
-        color: 'white'
+        fontSize: 18,
+        color: 'black',
+        padding: '2%'
     }
 });
 
