@@ -26,9 +26,9 @@ function registerUser(email, password, favorites, reviews, settings, profile_pic
   }).catch((err) => console.log(err));
 }
 
-function getUserData(email, password) {
+function getUserData(email) {
   const format_email = email.replace(".","-");
-  return firebase.database().ref('users/' + format_id).once('value').then(function(snapshot) {
+  return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id: snapshot.val().user_id,
       user_email: snapshot.val().user_email,
@@ -56,7 +56,7 @@ function registerAdmin(email, password, history, settings) {
   }).catch((err) => console.log(err));
 }
 
-function getAdminData(email, password) {
+function getAdminData(email) {
   const format_email = email.replace(".","-");
   return firebase.database().ref('admins/' + format_id).once('value').then(function(snapshot) {
     return {
@@ -70,7 +70,7 @@ function getAdminData(email, password) {
 }
 //************* BUSINESS ********************
 
-function registerBusiness(business_id, name, address, email, owner, control_number) {
+function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
@@ -79,9 +79,9 @@ function registerBusiness(business_id, name, address, email, owner, control_numb
     owner: owner,
     picture_ids:[],
     description: {},
-    location: address,
+    location: location,
     email: email,
-    information: {},
+    information: information,
     control: control_number,
   }).catch((err) => console.log(err));
 }
