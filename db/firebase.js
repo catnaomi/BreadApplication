@@ -50,17 +50,19 @@ function registerAdmin(email, password) {
 }
 
 //put business object into database
-function registerBusiness(business_id, name) {
+function registerBusiness(business_id, name, address, email, owner, control_number) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
     name: name,
     reviews: [],
-    owner:{},
+    owner: owner,
     picture_ids:[],
     description: {},
-    location: {},
-    information: {}
+    location: address,
+    email: email,
+    information: {},
+    control: control_number,
   }).catch((err) => console.log(err));
 }
 
