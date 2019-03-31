@@ -114,13 +114,14 @@ function getBusinessData(business_id) {
 //************* REVIEW ********************
 
 
-function addReviewToDatabase(review_id, review_content) {
+function addReviewToDatabase(review_id, review_content, user_id, business_id, date) {
   const format_id = review_id.replace(".","-");
   firebase.database().ref('reviews/' + review_id).set({
     review_id:format_id,
     review_content:review_content,
-    date:{},
-    comments:[],
+    user_id: user_id,
+    business_id: business_id,
+    date:date,
   }).catch((err) => console.log(err));
 } 
 
@@ -130,8 +131,9 @@ function getReviewData(review_id) {
     return {
       review_id:snapshot.val().review_id,
       review_content:snapshot.val().review_content,
-      date:snapshot.val().date,
-      comments:snapshot.val().comments,
+      user_id: snapshot.val().user_id,
+      business_id: snapshot.val().business_id,
+      date: snapshot.val().date,
     }
   });
 }
