@@ -6,13 +6,15 @@ import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 
+/*
 export default class AdminLanding extends Component {
     render() {
-        return <AdminContainer />;
+        return <AdminNavigator/>;
     }
-}
+}*/
 
 class adminLandingScreen extends Component {
+
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         return (
@@ -60,12 +62,18 @@ class adminLandingScreen extends Component {
     };
 }
 
-const AdminNavigator = createStackNavigator({
+export const AdminNavigator = createStackNavigator({
     Landing: adminLandingScreen,
     Authenticate: AdminAuthenticate,
     Add: AdminAdd,
     Review: AdminReview,
     Remove: AdminRemove
+},
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
 
 const styles = StyleSheet.create ({

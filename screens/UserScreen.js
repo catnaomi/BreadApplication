@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
 
+import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
+import {createStackNavigator} from "react-navigation";
 
 export default class UserScreen extends Component {
+    static navigationOptions = {
+        title: 'Profile',
+    };
     constructor (props) {
         super (props);
         this.state = {
@@ -15,9 +20,9 @@ export default class UserScreen extends Component {
                     date: 1554057121,
                     review_id: 0,
                     review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                    '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
-                    '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
-                    '                            consequat purus ac, mattis arcu. Duis interdum ex a',
+                        '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
+                        '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
+                        '                            consequat purus ac, mattis arcu. Duis interdum ex a',
                     user_id: 0,
                     business_id: 0,
                 }
@@ -41,7 +46,7 @@ export default class UserScreen extends Component {
                 ref = 'name'
                 onChangeText={(text) => this.setState({name: text})}
                 value = {this.state.name}
-                /> :
+            /> :
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
         var EditButton = (this.checkPermissions() ?
@@ -110,18 +115,18 @@ export default class UserScreen extends Component {
                 return (
                     <ScrollView>
                         <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Ruby Restaurant"/>
-                        <BusinessPreview name="Jenna Hair"/>
-                        <BusinessPreview name="Sublime Donuts"/>
+                        <BusinessPreview name="Eugene's"/>
+                        <BusinessPreview name="Frederick Fair"/>
+                        <BusinessPreview name="Rocky Mountain Pizza"/>
                     </ScrollView>
                 );
             } else { //businesses
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Eugene's"/>
-                        <BusinessPreview name="Frederick Fair"/>
-                        <BusinessPreview name="Rocky Mountain Pizza"/>
+                        <BusinessPreview name="A"/>
+                        <BusinessPreview name="B"/>
+                        <BusinessPreview name="C"/>
+                        <BusinessPreview name="D"/>
                     </ScrollView>
                 );
             }
@@ -187,33 +192,22 @@ export default class UserScreen extends Component {
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Businesses
+                            Businesse
                         </Text>
                     </TouchableHighlight>
                 </View>
                 <View style = {styles.profileContent}>
-<<<<<<< HEAD
-                    <ScrollView style = {{flex: 1}}>
-                        <View style={{height: 50, backgroundColor: '#ffab40'}}>
-                            <TouchableHighlight onPress={() => (this.props.navigation.navigate('./ReviewScreen'))}>
-                                <Text>Write a Review</Text>
-                            </TouchableHighlight>
-                        </View>
-                        <View style = {{height: 300, backgroundColor: 'blue'}}>
-                            <Text>Julia Ramirez has no favorited businesses yet...</Text>
-                        </View>
-                        <View style = {{height: 300, backgroundColor: 'red'}}>
-                            <Text>test</Text>
-                        </View>
-                    </ScrollView>
-=======
                     <TabContent tab = {this.state.tab}/>
->>>>>>> f2c7c175e05c0943b13ac1076d3f406a63302edb
                 </View>
             </View>
         );
     }
 }
+
+export const UserStack = createStackNavigator({
+    UserScreen: {screen: UserScreen},
+    BusinessScreen: {screen: BusinessStack},
+});
 
 const styles = StyleSheet.create ({
     tabText: {
