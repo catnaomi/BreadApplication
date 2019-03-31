@@ -70,7 +70,7 @@ function getAdminData(email, password) {
 }
 //************* BUSINESS ********************
 
-function registerBusiness(business_id, name, address, email, owner, control_number) {
+function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
@@ -79,9 +79,9 @@ function registerBusiness(business_id, name, address, email, owner, control_numb
     owner: owner,
     picture_ids:[],
     description: {},
-    location: address,
+    location: location,
     email: email,
-    information: {},
+    information: information,
     control: control_number,
   }).catch((err) => console.log(err));
 }
