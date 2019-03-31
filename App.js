@@ -23,30 +23,6 @@ import {
     navigationOptions,
 } from 'react-navigation';
 
-export class FavoriteScreen extends Component {
-  render() {
-      return (
-          <View>
-              <Text>
-                  this is a favorites placeholder
-              </Text>
-          </View>
-      );
-  }
-}
-
-export class SettingsScreen extends Component {
-    render() {
-        return (
-            <View>
-                <Text>
-                    this is a settings page placeholder
-                </Text>
-            </View>
-        );
-    }
-}
-
 const TabNavigator = createBottomTabNavigator({
    Find: {screen: LandingScreen},
    Favorites: {screen: BusinessPage},
