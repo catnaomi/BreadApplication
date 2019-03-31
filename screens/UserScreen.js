@@ -20,9 +20,9 @@ export default class UserScreen extends Component {
                     date: 1554057121,
                     review_id: 0,
                     review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                    '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
-                    '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
-                    '                            consequat purus ac, mattis arcu. Duis interdum ex a',
+                        '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
+                        '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
+                        '                            consequat purus ac, mattis arcu. Duis interdum ex a',
                     user_id: 0,
                     business_id: 0,
                 }
@@ -46,7 +46,7 @@ export default class UserScreen extends Component {
                 ref = 'name'
                 onChangeText={(text) => this.setState({name: text})}
                 value = {this.state.name}
-                /> :
+            /> :
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
         var EditButton = (this.checkPermissions() ?
