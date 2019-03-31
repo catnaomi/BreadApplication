@@ -3,8 +3,14 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
+import {createStackNavigator} from "react-navigation";
+import LoginScreen from "./LoginScreen";
 
-export default class BusinessScreen extends Component {
+class BusinessScreen extends Component {
+    static navigationOptions = {
+        title: 'Business Details',
+    };
+
     constructor (props) {
         super (props);
         this.state = {
@@ -41,7 +47,7 @@ export default class BusinessScreen extends Component {
                 style = {{fontSize: 18}}
                 placeholder = {this.state.address_line1}
                 ref = 'name'
-                onChangeText={(text) => this.setState({name: text})}
+                onChangeText={(text) => this.setState({address_line1: text})}
                 value = {this.state.address_line1}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
@@ -51,7 +57,7 @@ export default class BusinessScreen extends Component {
                 style = {{fontSize: 18}}
                 placeholder = {this.state.address_line2}
                 ref = 'name'
-                onChangeText={(text) => this.setState({name: text})}
+                onChangeText={(text) => this.setState({address_line2: text})}
                 value = {this.state.address_line2}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
@@ -216,6 +222,10 @@ export default class BusinessScreen extends Component {
         );
     }
 }
+
+export const BusinessStack = createStackNavigator({
+    Business: {screen: BusinessScreen},
+});
 
 const styles = StyleSheet.create ({
     tabText: {

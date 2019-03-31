@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
 
+import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
+import {createStackNavigator} from "react-navigation";
 
 export default class UserScreen extends Component {
+    static navigationOptions = {
+        title: 'Profile',
+    };
     constructor (props) {
         super (props);
         this.state = {
@@ -110,18 +115,18 @@ export default class UserScreen extends Component {
                 return (
                     <ScrollView>
                         <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Ruby Restaurant"/>
-                        <BusinessPreview name="Jenna Hair"/>
-                        <BusinessPreview name="Sublime Donuts"/>
+                        <BusinessPreview name="Eugene's"/>
+                        <BusinessPreview name="Frederick Fair"/>
+                        <BusinessPreview name="Rocky Mountain Pizza"/>
                     </ScrollView>
                 );
             } else { //businesses
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Eugene's"/>
-                        <BusinessPreview name="Frederick Fair"/>
-                        <BusinessPreview name="Rocky Mountain Pizza"/>
+                        <BusinessPreview name="A"/>
+                        <BusinessPreview name="B"/>
+                        <BusinessPreview name="C"/>
+                        <BusinessPreview name="D"/>
                     </ScrollView>
                 );
             }
@@ -198,6 +203,11 @@ export default class UserScreen extends Component {
         );
     }
 }
+
+export const UserStack = createStackNavigator({
+    UserScreen: {screen: UserScreen},
+    BusinessScreen: {screen: BusinessStack},
+});
 
 const styles = StyleSheet.create ({
     tabText: {
