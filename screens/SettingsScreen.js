@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {navigate} from 'react-navigation';
 import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
 
 export default class SettingsScreen extends Component {
     constructor (props) {
@@ -63,7 +64,7 @@ export default class SettingsScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => navigate('Register')}
+                        onPress = { () => {navigate('Register')}}
                         title = "Register"
                     />
                 </View>

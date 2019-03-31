@@ -22,8 +22,6 @@ const TabNavigator = createBottomTabNavigator({
    Profile: {screen: UserScreen},
    Settings: {screen: SettingsScreen},
    Search: {screen: SearchScreenStack},
-   Login: {screen: LoginScreen},
-   Register: {screen: RegisterScreen}
 }, {initialRouteName: 'Find'});
 
 export default createAppContainer(TabNavigator);
