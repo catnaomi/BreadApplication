@@ -126,10 +126,9 @@ class BusinessScreen extends Component {
 
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Ruby Restaurant"/>
-                        <BusinessPreview name="Jenna Hair"/>
-                        <BusinessPreview name="Sublime Donuts"/>
+                        {self.state.reviews.map(function(reviewid, i) {
+                                return GetReviewFromID(reviewid);
+                            })}
                     </ScrollView>
                 );
             } else { //documents
@@ -143,9 +142,8 @@ class BusinessScreen extends Component {
                 );
             }
         }
-
-        function GetReviewFromID (props) {
-
+        function GetReviewFromID (id, key) {
+            return (<Review id = {id} key = {key}/>);
         }
 
 
@@ -287,3 +285,5 @@ const styles = StyleSheet.create ({
         flexWrap: 'wrap',
     }
 });
+
+console.disableYellowBox = true;

@@ -23,4 +23,8 @@ const TabNavigator = createBottomTabNavigator({
    Search: {screen: SearchScreenStack}
 }, {initialRouteName: 'Find'});
 
+
+// only set true for demoing
+console.disableYellowBox = true;
+
 export default createAppContainer(TabNavigator);
