@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {registerUser} from "./db/firebase";
 import LandingScreen from "./screens/LandingScreen"
+import ReviewScreen from "./screens/ReviewScreen"
 import {UserStack} from "./screens/UserScreen"
 import LoginScreen from "./screens/LoginScreen"
 
