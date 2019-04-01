@@ -13,10 +13,11 @@ firebase.initializeApp(firebaseConfig);
 
 //************* USER ********************
 
-function registerUser(email, password, favorites, reviews, settings, profile_pic_id) {
+function registerUser(email, name, password, favorites, reviews, settings, profile_pic_id) {
   const format_email = email.replace(".","-");
   firebase.database().ref('users/' + format_email).set({
     user_id:format_email,
+    name: name,
     user_email:email,
     hash_pass: password,
     favorites:favorites,
@@ -31,6 +32,7 @@ function getUserData(email) {
   return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id: snapshot.val().user_id,
+      name: snapshot.val().name,
       user_email: snapshot.val().user_email,
       hash_pass: snapshot.val().hash_pass,
       favorites: snapshot.val().favorites,
@@ -70,19 +72,21 @@ function getAdminData(email) {
 }
 //************* BUSINESS ********************
 
-function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number) {
+function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
     name: name,
-    reviews: [],
+    reviews: reviews,
     owner: owner,
     picture_ids:[],
-    description: {},
-    location: location,
+    description: description,
+    location: {},
     email: email,
     information: information,
     control: control_number,
+    address_line1: address_line1,
+    address_line2: address_line2,
   }).catch((err) => console.log(err));
 }
 
@@ -107,6 +111,8 @@ function getBusinessData(business_id) {
       email: snapshot.val().email,
       information: snapshot.val().information,
       control: snapshot.val().control,
+      address_line1: snapshot.val().address_line1,
+      address_line2: snapshot.val().address_line2,
     }
   });
 }
