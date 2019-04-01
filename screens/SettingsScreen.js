@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
-import LoginScreen from "./LoginScreen"
+import {LoginStack}from "./LoginScreen"
 import {AdminNavigator} from "./AdminLanding"
 import {navigate, createStackNavigator} from "react-navigation";
 
@@ -36,7 +36,7 @@ class SettingsScreen extends Component {
 
 export const SettingsStack = createStackNavigator({
     Settings: {screen: SettingsScreen},
-    Login: {screen: LoginScreen},
+    Login: {screen: LoginStack},
     AdminNavigator: {screen: AdminNavigator},
 });
 

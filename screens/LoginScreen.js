@@ -14,7 +14,7 @@ class LoginScreen extends Component {
         }
     }
     render() {
-        const { navigate } = loginnav;
+        const { navigate } = LoginStack;
 
         return (
             <View style = {{flex: 1}}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create ({
     },
 });
 
-export const loginnav = createStackNavigator({
+export const LoginStack = createStackNavigator({
     Login: {screen: LoginScreen},
     Register: RegisterScreen,
 });
