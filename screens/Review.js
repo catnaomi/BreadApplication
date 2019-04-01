@@ -5,6 +5,10 @@ import {getUserData} from "../db/firebase";
 import {getBusinessData} from "../db/firebase";
 
 export default class Review extends Component {
+    static navigationOptions = {
+        title: 'Leave a Review',
+    };
+
     constructor (props) {
         super(props);
         this.state = {
@@ -27,7 +31,7 @@ export default class Review extends Component {
                     user_id: r_object.user_id,
                     business_id: r_object.business_id,
                 });
-                getUserData(self.state.user_id).then(u_object => {
+                getUserData('default@default-com').then(u_object => {
                     if (u_object != undefined) {
                         self.setState({
                             author: u_object.name,

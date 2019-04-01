@@ -132,7 +132,7 @@ class BusinessScreen extends Component {
                             onPress={() => self.props.navigation.navigate('Review')}>
                             <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
                         </TouchableHighlight>
-                        {self.state.reviews.map(function(reviewid, i) {
+                        {self.state.reviews.map(function(reviewid) {
                                 return GetReviewFromID(reviewid);
                             })}
                     </ScrollView>
@@ -148,8 +148,8 @@ class BusinessScreen extends Component {
                 );
             }
         }
-        function GetReviewFromID (id, key) {
-            return (<Review id = {id} key = {key}/>);
+        function GetReviewFromID (id) {
+            return (<Review id = {id}/>);
         }
 
 
@@ -292,7 +292,7 @@ const styles = StyleSheet.create ({
         left: '25%',
         alignItems: 'center',
         justifyContent: 'center',
-
+        borderBottomWidth: 1,
     },
     businessInfo: {
         flex: 1,

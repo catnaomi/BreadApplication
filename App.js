@@ -22,7 +22,7 @@ const TabNavigator = createBottomTabNavigator({
    Favorites: {screen: BusinessStack},
    Profile: {screen: UserStack},
    Settings: {screen: SettingsStack},
-   Search: {screen: SearchScreenStack},
+   /*Search: {screen: SearchScreenStack},*/
 }, {initialRouteName: 'Find'});
 
 
