@@ -9,6 +9,7 @@ import RegisterScreen from "./screens/RegisterScreen"
 import SettingsScreen from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
 import manual_data_entry from './db/manual_data_entry'
+import {loginnav} from './screens/LoginScreen'
 
 import {
     createBottomTabNavigator,
@@ -22,6 +23,7 @@ const TabNavigator = createBottomTabNavigator({
    Profile: {screen: UserScreen},
    Settings: {screen: SettingsScreen},
    Search: {screen: SearchScreenStack},
+   //Login: {screen: LoginScreen},
 }, {initialRouteName: 'Find'});
 
-export default createAppContainer(TabNavigator);
+export default createAppContainer(loginnav);

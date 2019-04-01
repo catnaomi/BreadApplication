@@ -2,18 +2,19 @@ import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {navigate} from 'react-navigation';
 import LoginScreen from './LoginScreen';
-import {registerUser, getUserData} from "../db/firebase";
-//import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {registerUser, getUserData, doesUserExist} from "../db/firebase.js";
+import { createStackNavigator } from 'react-navigation';
 
 export default class RegisterScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
             username: '',
+            usernamechk: '',
             password: '',
-            tryUser: '',
+            passwordchk: '',
+            name: 'abcdefg',
         }
-        var tryName = "error";
     }
     render() {
         const { navigate } = this.props.navigation;
@@ -26,34 +27,44 @@ export default class RegisterScreen extends Component {
                         style={styles.loginField}
                         placeholder = "email or phone number"
                         ref='user'
-                        onChangeText = {(text) => this.setState({username: text})}
+                        onChangeText = {(text) => this.setState({username: text, usernamechk: text})}
                         value = {this.state.username}
                     />
                     <TextInput
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
-                        onChangeText = {(text) => this.setState({password: text})}
+                        onChangeText = {(text) => this.setState({password: text, passwordchk: text})}
                         value = {this.state.password}
                     />
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                getUserData(this.state.username).then(response => {
-                                    sel.setState({
-                                        tryUser: response.user_id
+                                if (sel.state.username == '' || sel.state.password == '' || sel.state.name == '') {
+                                    Alert.alert("One or more fields missing input!");
+                                } else if (!validate(sel.state.username)) {
+                                    Alert.alert("E-mail address is invalid!");
+                                } else if (sel.state.password.length < 7) {
+                                    Alert.alert("Password is not long enough!");
+                                } else if (sel.state.username !== sel.state.usernamechk) {
+                                    Alert.alert("E-mail addresses do not match!");
+                                } else if (sel.state.password !== sel.state.passwordchk) {
+                                    Alert.alert("Passwords do not match!");
+                                } else {
+                                //console.log(typeof(doesUserExist(sel.state.username)));
+                                    doesUserExist(sel.state.username).then(response => {
+                                        if (response) {
+                                            console.log("I found the user!");
+                                            Alert.alert(sel.state.username + '\nis already in database');
+                                        } else {
+                                            console.log("User does not exist-- Adding!");
+                                            registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
+                                            Alert.alert(sel.state.username + '\nis now registered to the database');
+                                        }
+
                                     })
-                                    if (typeof(response.user_id) == 'undefined') {
-                                        console.log("User does not exist");
-                                    } else {
-                                        console.log("I found the user!");
-                                        Alert.alert(response.user_id + '\nis in database');
-                                    }
-                                    
-                                    console.log(sel.state.tryUser);
-                                })
+                                }
                                 
-                                //registerUser(this.state.username, this.state.password);
                             }}
                             title="Register"
                         />
@@ -132,3 +143,9 @@ const styles = StyleSheet.create ({
         right: 0,
     },
 });
+
+const validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    return expression.test(String(email).toLowerCase())
+}

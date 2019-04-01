@@ -13,10 +13,11 @@ firebase.initializeApp(firebaseConfig);
 
 //************* USER ********************
 
-function registerUser(email, password, favorites, reviews, settings, profile_pic_id) {
+function registerUser(email, name, password, favorites, reviews, settings, profile_pic_id) {
   const format_email = email.replace(".","-");
   firebase.database().ref('users/' + format_email).set({
     user_id:format_email,
+    name: name,
     user_email:email,
     hash_pass: password,
     favorites:favorites,
@@ -31,6 +32,7 @@ function getUserData(email) {
   return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id: snapshot.val().user_id,
+      name: name.val().name,
       user_email: snapshot.val().user_email,
       hash_pass: snapshot.val().hash_pass,
       favorites: snapshot.val().favorites,
@@ -41,6 +43,18 @@ function getUserData(email) {
   });
 }
 
+function doesUserExist(email) {
+  const format_email = email.replace(".","-");
+  return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
+   if (!snapshot.exists()){
+      console.log("user does not exist!");
+      // TODO: Handle that users do exist
+      return false;
+   }
+   console.log("user exists!");
+   return true;
+});
+}
 
 //************* ADMIN ********************
 
@@ -68,6 +82,7 @@ function getAdminData(email) {
     }
   });
 }
+
 //************* BUSINESS ********************
 
 function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number) {
@@ -150,4 +165,5 @@ module.exports = {
   getBusinessWithID: getBusinessWithID,
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
+  doesUserExist: doesUserExist,
 };
