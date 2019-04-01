@@ -43,6 +43,18 @@ function getUserData(email) {
   });
 }
 
+function doesUserExist(email) {
+  const format_email = email.replace(".","-");
+  return firebase.database().ref('users/' + format_email).once('value').then(function(snapshot) {
+   if (!snapshot.exists()){
+      console.log("user does not exist!");
+      // TODO: Handle that users do exist
+      return false;
+   }
+   console.log("user exists!");
+   return true;
+});
+}
 
 //************* ADMIN ********************
 
@@ -70,6 +82,7 @@ function getAdminData(email) {
     }
   });
 }
+
 //************* BUSINESS ********************
 
 function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2) {
@@ -156,4 +169,5 @@ module.exports = {
   getBusinessWithID: getBusinessWithID,
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
+  doesUserExist: doesUserExist,
 };
