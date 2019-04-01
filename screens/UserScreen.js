@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
 
 import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
@@ -192,7 +192,7 @@ export default class UserScreen extends Component {
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Businesse
+                            Business
                         </Text>
                     </TouchableHighlight>
                 </View>

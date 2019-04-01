@@ -96,7 +96,8 @@ export default class ReviewScreen extends Component {
                 </View>
                 {/*Save & Publish*/}
                 <View style={{flex:1, backgroundColor: 'lightgrey'}}>
-                    <TouchableOpacity style={styles.saveButton}>
+                    <TouchableOpacity style={styles.saveButton}
+                    onPress={() => this.props.navigation.goBack()}>
                         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
                             Save and Publish
                         </Text>

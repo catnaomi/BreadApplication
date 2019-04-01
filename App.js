@@ -24,4 +24,4 @@ const TabNavigator = createBottomTabNavigator({
    Search: {screen: SearchScreenStack}
 }, {initialRouteName: 'Find'});
 
-export default ReviewScreen;
+export default createAppContainer(TabNavigator);

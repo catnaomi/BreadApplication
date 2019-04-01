@@ -5,6 +5,7 @@ import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
 import LoginScreen from "./LoginScreen";
+import ReviewScreen from "./ReviewScreen";
 
 class BusinessScreen extends Component {
     static navigationOptions = {
@@ -95,6 +96,7 @@ class BusinessScreen extends Component {
             BusinessSelectStyle = styles.tabSelected;
         }
 
+        let self = this;
         function TabContent (props) {
             if (props.tab == 0) { //info
                 return (
@@ -127,6 +129,11 @@ class BusinessScreen extends Component {
             } else if (props.tab == 1) { //reviews
                 return (
                     <ScrollView>
+                        <TouchableHighlight
+                            style={styles.addReview}
+                            onPress={() => self.props.navigation.navigate('Review')}>
+                            <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                        </TouchableHighlight>
                         <BusinessPreview name="Dallie's Diner"/>
                         <BusinessPreview name="Ruby Restaurant"/>
                         <BusinessPreview name="Jenna Hair"/>
@@ -217,6 +224,7 @@ class BusinessScreen extends Component {
                 </View>
                 <View style = {styles.profileContent}>
                     <TabContent tab = {this.state.tab}/>
+
                 </View>
             </View>
         );
@@ -225,6 +233,7 @@ class BusinessScreen extends Component {
 
 export const BusinessStack = createStackNavigator({
     Business: {screen: BusinessScreen},
+    Review: {screen: ReviewScreen},
 });
 
 const styles = StyleSheet.create ({
@@ -279,4 +288,12 @@ const styles = StyleSheet.create ({
     tabDeselected: {
         backgroundColor: 'white',
     },
+    addReview: {
+        height: 100,
+        width: '50%',
+        left: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    }
 });
