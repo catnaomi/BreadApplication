@@ -4,6 +4,7 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
+import {getBusinessData} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 
 class BusinessScreen extends Component {
@@ -14,16 +15,34 @@ class BusinessScreen extends Component {
     constructor (props) {
         super (props);
         this.state = {
+            id: '5',
             permission: this.checkPermissions(),
             name: 'Default Name',
             address_line1: '100 Main St.',
             address_line2: 'Atlanta, GA 33333',
+            information: 'No information provided by owner.',
             rating: 0,
-            reviews: 0,
+            reviews: [],
             edit: false,
             tab: 0,
         }
     }
+
+    componentDidMount() {
+        var self = this;
+        getBusinessData(this.state.id).then(b_object => {
+            if (b_object != undefined) {
+                self.setState({
+                    name: b_object.name,
+                    address_line1: b_object.address_line1,
+                    address_line2: b_object.address_line2,
+                    information: b_object.information,
+                    reviews: b_object.reviews,
+                })
+            }
+        })
+    }
+
     checkPermissions() {
         return true;
     }
@@ -44,17 +63,17 @@ class BusinessScreen extends Component {
 
         var AddressField_line1 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18}}
-                placeholder = {this.state.address_line1}
+                style = {{fontSize: 18, flexWrap: 'wrap'}}
+                placeholder = {this.state.address}
                 ref = 'name'
-                onChangeText={(text) => this.setState({address_line1: text})}
-                value = {this.state.address_line1}
+                onChangeText={(text) => this.setState({address: text})}
+                value = {this.state.address}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
 
         var AddressField_line2 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18}}
+                style = {{fontSize: 18, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line2}
                 ref = 'name'
                 onChangeText={(text) => this.setState({address_line2: text})}
@@ -95,36 +114,16 @@ class BusinessScreen extends Component {
             BusinessSelectStyle = styles.tabSelected;
         }
 
+        let self = this;
         function TabContent (props) {
             if (props.tab == 0) { //info
                 return (
-                    <ScrollView>
-                        <Review
-                            business="Dallie's Diner"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus.
-                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis,
-                            consequat purus ac, mattis arcu. Duis interdum ex a."
-                        />
-                        <Review
-                            business ="McDonald's"
-                            contents = "sucks. don't go here."
-                        />
-                        <Review
-                            business="Barry's Farm"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Sed consequat blandit mi eu feugiat. Nunc dictum auctor massa ac volutpat.
-                            Morbi eget orci tellus. Fusce lacinia, eros eu feugiat pellentesque,
-                            nisi leo posuere lacus, ut bibendum est nisi eget est."
-                        />
-                        <Review
-                            business = "Cindy's Store"
-                            contents = "Quisque ut purus leo.
-                            Orci varius natoque penatibus et magnis."
-                        />
-                    </ScrollView>
+                    <View style = {styles.BusinessInfo}>
+                        <Text style = {{padding: 20}}>{self.state.information}</Text>
+                    </View>
                 );
             } else if (props.tab == 1) { //reviews
+
                 return (
                     <ScrollView>
                         <BusinessPreview name="Dallie's Diner"/>
@@ -145,6 +144,9 @@ class BusinessScreen extends Component {
             }
         }
 
+        function GetReviewFromID (props) {
+
+        }
 
 
         return (
@@ -164,14 +166,14 @@ class BusinessScreen extends Component {
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
                             </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
                                 {AddressField_line1}
                             </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>1 Review</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews.length} Reviews</Text>
                             </View>
                         </View>
                     </View>
@@ -279,4 +281,9 @@ const styles = StyleSheet.create ({
     tabDeselected: {
         backgroundColor: 'white',
     },
+    businessInfo: {
+        flex: 1,
+        fontSize: 18,
+        flexWrap: 'wrap',
+    }
 });
