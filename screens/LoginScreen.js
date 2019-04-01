@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 import {navigate} from 'react-navigation';
 import RegisterScreen from './RegisterScreen';
 //import {registerUser} from "../db/firebase";
