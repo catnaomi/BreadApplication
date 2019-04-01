@@ -13,7 +13,8 @@ export default class AdminAdd extends Component {
             email: '',
             owner: '',
             controlNumber: '',
-            add: false
+            add: false,
+            id: ''
         }
     }
 
@@ -41,6 +42,15 @@ export default class AdminAdd extends Component {
 
                 <View style={styles.optionView}>
                     <ScrollView style={styles.innerOption}>
+                        <View style={styles.entry}>
+                            <Text style={styles.title}>Business Id: </Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Business Id"}
+                                onChangeText={(new_address) => this.setState({address:new_address})}
+                            />
+                        </View>
+
                         <View style={styles.entry}>
                             <Text style={styles.title}>Name of Business:</Text>
                             <TextInput
