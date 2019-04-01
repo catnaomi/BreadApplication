@@ -29,6 +29,6 @@ registerBusiness(
 addReviewToDatabase(
     '1',
     'Cras malesuada lacus vitae condimentum rutrum. Etiam urna nibh, pellentesque vel gravida in, fermentum ut nisl. Donec efficitur consequat viverra.',
-    '1',
+    'default@default-com',
     '5',
     1554077657)

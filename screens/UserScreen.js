@@ -86,6 +86,7 @@ export default class UserScreen extends Component {
             if (props.tab == 0) { //review
                 return (
                     <ScrollView>
+                        {/*
                         <Review
                             business="Dallie's Diner"
                             content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -108,7 +109,7 @@ export default class UserScreen extends Component {
                             business = "Cindy's Store"
                             contents = "Quisque ut purus leo.
                             Orci varius natoque penatibus et magnis."
-                        />
+                        />*/}
                     </ScrollView>
                 );
             } else if (props.tab == 1) { // favorites
