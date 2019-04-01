@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
+import {addReviewToDatabase} from '../db/firebase';
 
 
 export default class ReviewScreen extends Component {
@@ -10,12 +11,9 @@ export default class ReviewScreen extends Component {
             name: 'Default Name',
             reviews: [
                 {
-                    date: 1554057121,
+                    date: 15540571212,
                     review_id: 0,
-                    review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                        '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
-                        '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
-                        '                            consequat purus ac, mattis arcu. Duis interdum ex a',
+                    review_content: '',
                     user_id: 0,
                     business_id: 0,
                 }
@@ -97,7 +95,11 @@ export default class ReviewScreen extends Component {
                 {/*Save & Publish*/}
                 <View style={{flex:1, backgroundColor: 'lightgrey'}}>
                     <TouchableOpacity style={styles.saveButton}
-                    onPress={() => this.props.navigation.goBack()}>
+                    onPress={() => {
+                        //insert in db
+                        addReviewToDatabase(this.state.review.substr(0, 3), this.state.review, 'default@default-com', '5', '151515');
+                        this.props.navigation.goBack();
+                    }}>
                         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
                             Save and Publish
                         </Text>

@@ -14,11 +14,17 @@ class LoginScreen extends Component {
         }
     }
     render() {
+        var logo = require('../assets/images/logos/texthoriz.png');
         const { navigate } = LoginStack;
 
         return (
             <View style = {{flex: 1}}>
-                <View style = {{flex : 1}}></View>
+                <View style = {styles.imageView}>
+                    <Image
+                        source={logo}
+                        style={styles.breadLogo}
+                    />
+                </View>
                 <View style = {{flex : 1}}>
                     <TextInput
                         style={styles.loginField}
@@ -82,6 +88,17 @@ class LoginScreen extends Component {
 }
 
 const styles = StyleSheet.create ({
+    imageView: {
+        height: '15%',
+        width: '100%',
+        flex: 1,
+    },
+    breadLogo: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+
+    },
     loginField: {
         left: '15%',
         width: '70%',
