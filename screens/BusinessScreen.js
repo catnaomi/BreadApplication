@@ -6,6 +6,7 @@ import Review from './Review';
 import {createStackNavigator} from "react-navigation";
 import {getBusinessData} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
+import ReviewScreen from "./ReviewScreen";
 
 class BusinessScreen extends Component {
     static navigationOptions = {
@@ -126,6 +127,11 @@ class BusinessScreen extends Component {
 
                 return (
                     <ScrollView>
+                        <TouchableHighlight
+                            style={styles.addReview}
+                            onPress={() => self.props.navigation.navigate('Review')}>
+                            <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                        </TouchableHighlight>
                         {self.state.reviews.map(function(reviewid, i) {
                                 return GetReviewFromID(reviewid);
                             })}
@@ -225,6 +231,7 @@ class BusinessScreen extends Component {
 
 export const BusinessStack = createStackNavigator({
     Business: {screen: BusinessScreen},
+    Review: {screen: ReviewScreen},
 });
 
 const styles = StyleSheet.create ({
@@ -278,6 +285,14 @@ const styles = StyleSheet.create ({
     },
     tabDeselected: {
         backgroundColor: 'white',
+    },
+    addReview: {
+        height: 100,
+        width: '50%',
+        left: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+
     },
     businessInfo: {
         flex: 1,

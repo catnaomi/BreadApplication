@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
-import {registerUser} from "../db/firebase";
+import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
+import {navigate} from 'react-navigation';
+import RegisterScreen from './RegisterScreen';
+//import {registerUser} from "../db/firebase";
+import { createStackNavigator } from 'react-navigation';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -11,9 +14,14 @@ export default class LoginScreen extends Component {
         }
     }
     render() {
+        var logo = require('../assets/images/logos/texthoriz.png');
+        const { navigate } = LoginStack;
+
         return (
             <View style = {{flex: 1}}>
-                <View style = {{flex : 1}}></View>
+                <View style = {styles.imageView}>
+                    
+                </View>
                 <View style = {{flex : 1}}>
                     <TextInput
                         style={styles.loginField}
@@ -61,15 +69,9 @@ export default class LoginScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {}}
+                        onPress = { () => {this.props.navigation.navigate('Register')}}
                         title = "Register"
                     />
-                </View>
-                <View style ={styles.skipButton}>
-                    <TouchableHighlight
-                        onPress = { () => {}}>
-                        <Text style = {{textDecorationLine: 'underline'}}>Skip ... ></Text>
-                    </TouchableHighlight>
                 </View>
             </View>
         );
@@ -77,6 +79,17 @@ export default class LoginScreen extends Component {
 }
 
 const styles = StyleSheet.create ({
+    imageView: {
+        height: '15%',
+        width: '100%',
+        flex: 1,
+    },
+    breadLogo: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+
+    },
     loginField: {
         left: '15%',
         width: '70%',
@@ -106,9 +119,15 @@ const styles = StyleSheet.create ({
         left: '55%',
         width: '40%'
     },
-    skipButton: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-    },
+});
+
+export const LoginStack = createStackNavigator({
+    Login: {screen: LoginScreen},
+    Register: RegisterScreen,
+},
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
