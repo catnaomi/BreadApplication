@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
-import {registerUser} from "../db/firebase";
+import {navigate} from 'react-navigation';
+import RegisterScreen from './RegisterScreen';
+//import {registerUser} from "../db/firebase";
+import { createStackNavigator } from 'react-navigation';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -11,6 +14,8 @@ export default class LoginScreen extends Component {
         }
     }
     render() {
+        const { navigate } = LoginStack;
+
         return (
             <View style = {{flex: 1}}>
                 <View style = {{flex : 1}}></View>
@@ -61,7 +66,7 @@ export default class LoginScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {}}
+                        onPress = { () => {this.props.navigation.navigate('Register')}}
                         title = "Register"
                     />
                 </View>
@@ -111,4 +116,9 @@ const styles = StyleSheet.create ({
         bottom: 0,
         right: 0,
     },
+});
+
+export const LoginStack = createStackNavigator({
+    Login: {screen: LoginScreen},
+    Register: RegisterScreen,
 });
