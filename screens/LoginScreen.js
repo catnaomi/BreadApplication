@@ -20,10 +20,7 @@ class LoginScreen extends Component {
         return (
             <View style = {{flex: 1}}>
                 <View style = {styles.imageView}>
-                    <Image
-                        source={logo}
-                        style={styles.breadLogo}
-                    />
+                    
                 </View>
                 <View style = {{flex : 1}}>
                     <TextInput
