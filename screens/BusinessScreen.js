@@ -3,21 +3,47 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
+import {createStackNavigator} from "react-navigation";
+import {getBusinessData} from '../db/firebase';
+import LoginScreen from "./LoginScreen";
+import ReviewScreen from "./ReviewScreen";
 
-export default class BusinessScreen extends Component {
+class BusinessScreen extends Component {
+    static navigationOptions = {
+        title: 'Business Details',
+    };
+
     constructor (props) {
         super (props);
         this.state = {
+            id: '5',
             permission: this.checkPermissions(),
             name: 'Default Name',
             address_line1: '100 Main St.',
             address_line2: 'Atlanta, GA 33333',
+            information: 'No information provided by owner.',
             rating: 0,
-            reviews: 0,
+            reviews: [],
             edit: false,
             tab: 0,
         }
     }
+
+    componentDidMount() {
+        var self = this;
+        getBusinessData(this.state.id).then(b_object => {
+            if (b_object != undefined) {
+                self.setState({
+                    name: b_object.name,
+                    address_line1: b_object.address_line1,
+                    address_line2: b_object.address_line2,
+                    information: b_object.information,
+                    reviews: b_object.reviews,
+                })
+            }
+        })
+    }
+
     checkPermissions() {
         return true;
     }
@@ -38,20 +64,20 @@ export default class BusinessScreen extends Component {
 
         var AddressField_line1 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18}}
-                placeholder = {this.state.address_line1}
+                style = {{fontSize: 18, flexWrap: 'wrap'}}
+                placeholder = {this.state.address}
                 ref = 'name'
-                onChangeText={(text) => this.setState({name: text})}
-                value = {this.state.address_line1}
+                onChangeText={(text) => this.setState({address: text})}
+                value = {this.state.address}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
 
         var AddressField_line2 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18}}
+                style = {{fontSize: 18, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line2}
                 ref = 'name'
-                onChangeText={(text) => this.setState({name: text})}
+                onChangeText={(text) => this.setState({address_line2: text})}
                 value = {this.state.address_line2}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
@@ -89,38 +115,23 @@ export default class BusinessScreen extends Component {
             BusinessSelectStyle = styles.tabSelected;
         }
 
+        let self = this;
         function TabContent (props) {
             if (props.tab == 0) { //info
                 return (
-                    <ScrollView>
-                        <Review
-                            business="Dallie's Diner"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus.
-                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis,
-                            consequat purus ac, mattis arcu. Duis interdum ex a."
-                        />
-                        <Review
-                            business ="McDonald's"
-                            contents = "sucks. don't go here."
-                        />
-                        <Review
-                            business="Barry's Farm"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Sed consequat blandit mi eu feugiat. Nunc dictum auctor massa ac volutpat.
-                            Morbi eget orci tellus. Fusce lacinia, eros eu feugiat pellentesque,
-                            nisi leo posuere lacus, ut bibendum est nisi eget est."
-                        />
-                        <Review
-                            business = "Cindy's Store"
-                            contents = "Quisque ut purus leo.
-                            Orci varius natoque penatibus et magnis."
-                        />
-                    </ScrollView>
+                    <View style = {styles.BusinessInfo}>
+                        <Text style = {{padding: 20}}>{self.state.information}</Text>
+                    </View>
                 );
             } else if (props.tab == 1) { //reviews
+
                 return (
                     <ScrollView>
+                        <TouchableHighlight
+                            style={styles.addReview}
+                            onPress={() => self.props.navigation.navigate('Review')}>
+                            <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                        </TouchableHighlight>
                         <BusinessPreview name="Dallie's Diner"/>
                         <BusinessPreview name="Ruby Restaurant"/>
                         <BusinessPreview name="Jenna Hair"/>
@@ -139,6 +150,9 @@ export default class BusinessScreen extends Component {
             }
         }
 
+        function GetReviewFromID (props) {
+
+        }
 
 
         return (
@@ -158,14 +172,14 @@ export default class BusinessScreen extends Component {
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
                             </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
                                 {AddressField_line1}
                             </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>1 Review</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews.length} Reviews</Text>
                             </View>
                         </View>
                     </View>
@@ -216,6 +230,11 @@ export default class BusinessScreen extends Component {
         );
     }
 }
+
+export const BusinessStack = createStackNavigator({
+    Business: {screen: BusinessScreen},
+    Review: {screen: ReviewScreen},
+});
 
 const styles = StyleSheet.create ({
     tabText: {
@@ -269,4 +288,17 @@ const styles = StyleSheet.create ({
     tabDeselected: {
         backgroundColor: 'white',
     },
+    addReview: {
+        height: 100,
+        width: '50%',
+        left: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    businessInfo: {
+        flex: 1,
+        fontSize: 18,
+        flexWrap: 'wrap',
+    }
 });

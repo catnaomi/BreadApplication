@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, TouchableOpacity, Alert} from "react-native";
 import {createStackNavigator, createAppContainer } from "react-navigation";
 import AdminAuthenticate from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 
+/*
 export default class AdminLanding extends Component {
     render() {
-        return <AdminContainer />;
+        return <AdminNavigator/>;
     }
-}
+}*/
 
 class adminLandingScreen extends Component {
+
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         return (
@@ -26,26 +28,32 @@ class adminLandingScreen extends Component {
                 <View style={styles.optionView}>
                     <View style={styles.innerOption}>
 
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Add')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Add')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Add a Business</Text>
                             </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Remove')}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Remove')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Remove a Business</Text>
                             </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Review')}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Review')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Authenticate')}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Alert.alert(
+                            "Are you sure you want to log out?",
+                            [
+                                {text: 'yes', onPress:() => {this.props.navigation.navigate('Authenticate')}},
+                                {text: 'no', onPress:() => {console.log('canceled')}}
+                            ],
+                        )}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -54,12 +62,18 @@ class adminLandingScreen extends Component {
     };
 }
 
-const AdminNavigator = createStackNavigator({
+export const AdminNavigator = createStackNavigator({
     Landing: adminLandingScreen,
     Authenticate: AdminAuthenticate,
     Add: AdminAdd,
     Review: AdminReview,
     Remove: AdminRemove
+},
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
 
 const styles = StyleSheet.create ({
