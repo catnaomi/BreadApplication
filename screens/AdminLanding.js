@@ -43,13 +43,7 @@ class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => Alert.alert(
-                            "Are you sure you want to log out?",
-                            [
-                                {text: 'yes', onPress:() => {this.props.navigation.navigate('Authenticate')}},
-                                {text: 'no', onPress:() => {console.log('canceled')}}
-                            ],
-                        )}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Authenticate')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
                             </View>
@@ -80,22 +74,24 @@ const styles = StyleSheet.create ({
     screenView: {
         width: '100%',
         height: '100%',
+        flex: 1,
     },
     imageView: {
         height: '15%',
         width: '100%',
-        top: '5%',
+        flex: 1,
     },
     breadLogo: {
         position: 'absolute',
         width: '75%',
         height: '100%',
         left: '12.5%',
+        flex: 1
     },
     optionView: {
         height: '70%',
         width: '100%',
-        top: '10%',
+        flex: 6,
     },
     innerOption: {
         width: '75%',
@@ -103,11 +99,9 @@ const styles = StyleSheet.create ({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
     button: {
-        marginTop: '10%',
-        height: '40%',
         alignItems: 'center',
         backgroundColor: '#ffab40',
     },
