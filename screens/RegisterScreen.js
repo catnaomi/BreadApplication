@@ -13,7 +13,7 @@ export default class RegisterScreen extends Component {
             usernamechk: '',
             password: '',
             passwordchk: '',
-            name: 'abcdefg',
+            name: '',
         }
     }
     render() {
@@ -25,17 +25,38 @@ export default class RegisterScreen extends Component {
                 <View style = {{flex: 1}}>
                     <TextInput
                         style={styles.loginField}
-                        placeholder = "email or phone number"
+                        placeholder = "email"
                         ref='user'
-                        onChangeText = {(text) => this.setState({username: text, usernamechk: text})}
+                        onChangeText = {(text) => this.setState({username: text})}
                         value = {this.state.username}
+                    />
+                    <TextInput
+                        style={styles.loginField}
+                        placeholder = "repeat email"
+                        ref='userchk'
+                        onChangeText = {(text) => this.setState({usernamechk: text})}
+                        value = {this.state.usernamechk}
                     />
                     <TextInput
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
-                        onChangeText = {(text) => this.setState({password: text, passwordchk: text})}
+                        onChangeText = {(text) => this.setState({password: text})}
                         value = {this.state.password}
+                    />
+                    <TextInput
+                        style={styles.loginField}
+                        placeholder = "repeat password"
+                        ref='passchk'
+                        onChangeText = {(text) => this.setState({passwordchk: text})}
+                        value = {this.state.passwordchk}
+                    />
+                    <TextInput
+                        style={styles.loginField}
+                        placeholder = "name"
+                        ref='name'
+                        onChangeText = {(text) => this.setState({name: text})}
+                        value = {this.state.name}
                     />
                     <View style = {styles.loginButton}>
                         <Button
@@ -70,38 +91,6 @@ export default class RegisterScreen extends Component {
                         />
                     </View>
                 </View>
-                <View style = {{flex: 1}}>
-                    <View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}/>
-                    <View style = {[styles.thirdPartyButton, styles.googleButton]}>
-                        <Button
-                            onPress = { () => {}}
-                            title = "Login with Google"
-                            color = "#db3236"
-                        />
-                    </View>
-                    <View style = {[styles.thirdPartyButton, styles.facebookButton]}>
-                        <Button
-                            onPress = { () => {}}
-                            title = "Login with Facebook"
-                            color = "#3C5A99"
-                        />
-                    </View>
-                </View>
-                <View style = {{flex: 1}}>
-                    <Text style = {{left: '10%', top: 30}}>Already registered?</Text>
-                </View>
-                <View style = {styles.registerButton}>
-                    <Button
-                        onPress = { () => {navigate('Login')}}
-                        title = "Login"
-                    />
-                </View>
-                <View style ={styles.skipButton}>
-                    <TouchableHighlight
-                        onPress = { () => {}}>
-                        <Text style = {{textDecorationLine: 'underline'}}>Skip ... ></Text>
-                    </TouchableHighlight>
-                </View>
             </View>
         );
     }
@@ -110,37 +99,22 @@ export default class RegisterScreen extends Component {
 const styles = StyleSheet.create ({
     loginField: {
         left: '15%',
+        top: '-80%',
         width: '70%',
         borderBottomWidth: 1,
         margin: 10,
+        justifyContent: 'center', 
+        alignItems: 'center',
         flex: 1
     },
     loginButton: {
         left: '30%',
         width: '40%',
-        margin: 10,
+        top: '-70%',
+        margin: -10,
+        justifyContent: 'center', 
+        alignItems: 'center',
         flex: 1
-    },
-    thirdPartyButton: {
-        left: '10%',
-        width: '80%'
-    },
-    googleButton: {
-        top: 30,
-    },
-    facebookButton: {
-        top: 60,
-    },
-    registerButton: {
-        position: 'absolute',
-        top: '78%',
-        left: '55%',
-        width: '40%'
-    },
-    skipButton: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
     },
 });
 

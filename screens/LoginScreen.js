@@ -20,10 +20,7 @@ class LoginScreen extends Component {
         return (
             <View style = {{flex: 1}}>
                 <View style = {styles.imageView}>
-                    <Image
-                        source={logo}
-                        style={styles.breadLogo}
-                    />
+                    
                 </View>
                 <View style = {{flex : 1}}>
                     <TextInput
@@ -76,12 +73,6 @@ class LoginScreen extends Component {
                         title = "Register"
                     />
                 </View>
-                <View style ={styles.skipButton}>
-                    <TouchableHighlight
-                        onPress = { () => {}}>
-                        <Text style = {{textDecorationLine: 'underline'}}>Skip ... ></Text>
-                    </TouchableHighlight>
-                </View>
             </View>
         );
     }
@@ -128,14 +119,15 @@ const styles = StyleSheet.create ({
         left: '55%',
         width: '40%'
     },
-    skipButton: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-    },
 });
 
 export const LoginStack = createStackNavigator({
     Login: {screen: LoginScreen},
     Register: RegisterScreen,
+},
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });

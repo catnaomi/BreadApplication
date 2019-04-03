@@ -8,7 +8,7 @@ export default class ReviewScreen extends Component {
         super(props);
         this.state = {
             permission: this.checkPermissions(),
-            name: 'Default Name',
+            name: 'Austin Neely',
             reviews: [
                 {
                     date: 15540571212,
@@ -63,7 +63,6 @@ export default class ReviewScreen extends Component {
             <View style={styles.screenView}>
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
-                    <View style = {{flex: 1}}/>
                     <View style = {{flex: 3, flexDirection: 'row'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
@@ -141,8 +140,8 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     saveButton: {
-        width:'50%',
-        left: '45%',
+        width:'70%',
+        left: '30%',
         // borderWidth: 1,
         // borderColor:'black',
         backgroundColor: 'lightgrey',
