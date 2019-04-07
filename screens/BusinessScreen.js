@@ -8,7 +8,7 @@ import {getBusinessData} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
 
-class BusinessScreen extends Component {
+export class BusinessScreen extends Component {
     static navigationOptions = {
         title: 'Business Details',
     };
@@ -27,10 +27,10 @@ class BusinessScreen extends Component {
             edit: false,
             tab: 0,
         }
-        /*
-        if (this.props.navigation.state.params.id != undefined) {
+
+        if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
-        }*/
+        }
     }
 
     componentDidMount() {

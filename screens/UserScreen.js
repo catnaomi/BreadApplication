@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
 
-import {BusinessStack} from './BusinessScreen'
+import {BusinessStack, BusinessScreen} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
@@ -115,19 +115,17 @@ export default class UserScreen extends Component {
             } else if (props.tab == 1) { // favorites
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Eugene's"/>
-                        <BusinessPreview name="Frederick Fair"/>
-                        <BusinessPreview name="Rocky Mountain Pizza"/>
+                        <BusinessPreview id={'5'}/>
+
                     </ScrollView>
                 );
             } else { //businesses
                 return (
                     <ScrollView>
-                        <BusinessPreview name="A"/>
-                        <BusinessPreview name="B"/>
-                        <BusinessPreview name="C"/>
-                        <BusinessPreview name="D"/>
+                        <BusinessPreview id='5'/>
+                        <BusinessPreview id='1'/>
+                        <BusinessPreview id='2'/>
+                        <BusinessPreview id='4'/>
                     </ScrollView>
                 );
             }
@@ -207,7 +205,7 @@ export default class UserScreen extends Component {
 
 export const UserStack = createStackNavigator({
     UserScreen: {screen: UserScreen},
-    BusinessScreen: {screen: BusinessStack},
+    BusinessScreen: {screen: BusinessScreen},
 });
 
 const styles = StyleSheet.create ({
