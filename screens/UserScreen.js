@@ -205,7 +205,6 @@ export default class UserScreen extends Component {
 
 export const UserStack = createStackNavigator({
     UserScreen: {screen: UserScreen},
-    BusinessScreen: {screen: BusinessScreen},
 });
 
 const styles = StyleSheet.create ({

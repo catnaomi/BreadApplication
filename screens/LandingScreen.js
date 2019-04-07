@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, TextInput, TouchableHighlight, View} from "react-native";
 import {createStackNavigator} from "react-navigation";
 import {SearchResult} from './SearchScreen';
+import {BusinessScreen} from "./BusinessScreen";
 
 export class LandingScreen extends Component {
+
+    static navigationOptions = {
+        headerVisible: false,
+    };
     constructor (props) {
         super(props);
         this.state = {
@@ -116,14 +121,14 @@ export class LandingScreen extends Component {
 }
 
 export const LandingStack = createStackNavigator({
-    Landing: {screen: LandingScreen},
-    SearchResult: {screen: SearchResult}
-},
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
+    Landing: {
+        screen: LandingScreen,
+            navigationOptions: {
+                header: null,
+            }
+        },
+    SearchResult: {screen: SearchResult},
+    BusinessScreen: {screen: BusinessScreen},
 });
 
 
