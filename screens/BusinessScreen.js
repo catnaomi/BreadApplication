@@ -177,7 +177,7 @@ class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews.length} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "error"} Reviews</Text>
                             </View>
                         </View>
                     </View>

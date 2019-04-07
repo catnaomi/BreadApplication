@@ -14,7 +14,6 @@ export default class AdminAdd extends Component {
             email: '',
             owner: '',
             controlNumber: '',
-            remove: false
         }
     }
 
@@ -40,12 +39,10 @@ export default class AdminAdd extends Component {
                         Alert.alert('Control number field is not complete');
                     } else if (self.state.id == '') {
                         Alert.alert('Alert field is not complete');
-                    } else if (self.state.remove == false) {
-                        Alert.alert('Business could not be removed')
                     } else {
-                        doesBusinessExist(self.state.id).then(response => {
-                            if (response) {
-                                // TODO: Handle that businesses do exist
+                        getBusinessData(self.state.id).then(response => {
+                            if (response != undefined) {
+                                response.removed == true;
                                 Alert.alert(self.state.name + " has now been removed");
                             } else {
                                 Alert.alert('Business was not found in the database')

@@ -66,7 +66,7 @@ export class SearchResult extends Component {
     }
 }
 
-export let SearchScreenStack = createStackNavigator({
+export const SearchScreenStack = createStackNavigator({
   SearchScreen: {screen: SearchScreen},
   SearchResult: {screen: SearchResult},
 }, {initialRoute: 'SearchScreen'});

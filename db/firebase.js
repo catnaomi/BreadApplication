@@ -100,6 +100,7 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
     control: control_number,
     address_line1: address_line1,
     address_line2: address_line2,
+    removed: false,
   }).catch((err) => console.log(err));
 }
 
@@ -126,7 +127,14 @@ function getBusinessData(business_id) {
       control: snapshot.val().control,
       address_line1: snapshot.val().address_line1,
       address_line2: snapshot.val().address_line2,
+      removed: snapshot.val().removed,
     }
+  });
+}
+
+function getAllBusinessData() {
+  return firebase.database().ref('businesses/').once('value').then(function(snapshot) {
+    return snapshot.val();
   });
 }
 
@@ -157,6 +165,12 @@ function getReviewData(review_id) {
   });
 }
 
+function getAllReviews() {
+  return firebase.database().ref('reviews/').once('value').then(function(snapshot) {
+    return snapshot.val();
+  });
+}
+
 //************* EXPORTS ********************
 
 module.exports = {
@@ -169,5 +183,7 @@ module.exports = {
   getBusinessWithID: getBusinessWithID,
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
+  getAllReviews: getAllReviews,
   doesUserExist: doesUserExist,
+  getAllBusinessData: getAllBusinessData
 };
