@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
     TouchableOpacity, View, ScrollView, Alert} from "react-native";
+import {getBusinessData, doesUserExist} from '../db/firebase';
 
 export default class AdminAdd extends Component {
 
@@ -13,7 +14,6 @@ export default class AdminAdd extends Component {
             email: '',
             owner: '',
             controlNumber: '',
-            add: false
         }
     }
 
@@ -23,9 +23,34 @@ export default class AdminAdd extends Component {
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
+        var self = this;
         var removeButton = (this.checkPermissions() ?
             <TouchableOpacity
-                onPress={() => Linking.openURL(sosurl)} style={{alignItems: 'center'}}>
+                onPress={() => {
+                    if (self.state.name == '') {
+                        Alert.alert('Business name field is not complete');
+                    } else if (self.state.address == '') {
+                        Alert.alert('Address field is not complete');
+                    } else if (self.state.email == '') {
+                        Alert.alert('Email field is not complete');
+                    } else if (self.state.owner = '') {
+                        Alert.alert('Owner field is not complete');
+                    } else if (self.state.controlNumber = '') {
+                        Alert.alert('Control number field is not complete');
+                    } else if (self.state.id == '') {
+                        Alert.alert('Alert field is not complete');
+                    } else {
+                        getBusinessData(self.state.id).then(response => {
+                            if (response != undefined) {
+                                response.removed == true;
+                                Alert.alert(self.state.name + " has now been removed");
+                            } else {
+                                Alert.alert('Business was not found in the database')
+                            }
+                        })
+                    }
+                }
+                } style={{alignItems: 'center'}}>
                 <Text style={styles.text}>Remove Business</Text>
             </TouchableOpacity>
             : <View/>);
@@ -46,7 +71,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name"}
-                                onChangeText={(new_name) => this.setState({name:new_name})}
+                                onChangeText={(new_name) => this.setState({name: new_name})}
                             />
                         </View>
 
@@ -55,7 +80,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Address of Business"}
-                                onChangeText={(new_address) => this.setState({address:new_address})}
+                                onChangeText={(new_address) => this.setState({address: new_address})}
                             />
                         </View>
 
@@ -73,7 +98,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name of Owner of Business"}
-                                onChangeText={(new_owner) => this.setState({owner:new_owner})}
+                                onChangeText={(new_owner) => this.setState({owner: new_owner})}
                             />
                         </View>
 
@@ -94,11 +119,9 @@ export default class AdminAdd extends Component {
                 </View>
             </View>
 
-        )};
-
+        )
+    };
 }
-
-const sosurl = "https://ecorp.sos.ga.gov/BusinessSearch";
 
 const styles = StyleSheet.create({
     screenView: {
@@ -106,9 +129,8 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     imageView: {
-        height: '15%',
+        flex: 1,
         width: '100%',
-        top: '5%'
     },
     breadLogo: {
         position: 'absolute',
@@ -117,12 +139,14 @@ const styles = StyleSheet.create({
         left: '12.5%',
     },
     optionView: {
-        flex: 1,
-        top: '7%'
+        flex: 6,
+        width: '100%',
     },
     innerOption: {
         width: '90%',
         left: '5%',
+        flexGrow: 1,
+        flexDirection: 'column',
     },
     text: {
         fontSize: 25,
@@ -146,4 +170,10 @@ const styles = StyleSheet.create({
         padding: '2%'
     }
 });
+
+const validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    return expression.test(String(email).toLowerCase())
+}
 
