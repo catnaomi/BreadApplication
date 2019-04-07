@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, TextInput, TouchableHighlight, View} from "react-native";
 import {createStackNavigator} from "react-navigation";
-import {SearchScreen} from './SearchScreen';
+import {SearchResult} from './SearchScreen';
 
 export class LandingScreen extends Component {
     constructor (props) {
@@ -35,7 +35,8 @@ export class LandingScreen extends Component {
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.diningIcon]}
                     onPress = {() => {
-                        console.log(navigate('Search'))
+                        console.log("dining search...")
+                        navigate('SearchResult', {searchQuery: 'dining'})
                     }}>
                     <Image
                         source = {diningIcon}
@@ -116,7 +117,7 @@ export class LandingScreen extends Component {
 
 export const LandingStack = createStackNavigator({
     Landing: {screen: LandingScreen},
-    Search: {screen: SearchScreen}
+    SearchResult: {screen: SearchResult}
 },
 {
     headerMode: 'none',
