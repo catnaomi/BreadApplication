@@ -98,7 +98,7 @@ export default class AdminAdd extends Component {
 
                         <View style={[styles.title, {alignItems: 'center'}]}>
                             <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
-                                <Text style={{fontSize: 15, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
+                                <Text style={{fontSize: 16, color:'blue', fontWeight: 'bold', padding: 5}}>Authenticate on Secretary of State Website</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     imageView: {
-        height: '15%',
+        flex: 1,
         width: '100%',
     },
     breadLogo: {
@@ -132,15 +132,14 @@ const styles = StyleSheet.create({
         left: '12.5%',
     },
     optionView: {
-        flex: 1,
-
+        flex: 6,
+        width: '100%',
     },
     innerOption: {
         width: '90%',
         left: '5%',
-        // flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'space-around',
+        flexGrow: 1,
+        flexDirection: 'column',
     },
     text: {
         fontSize: 25,
@@ -149,14 +148,13 @@ const styles = StyleSheet.create({
         color: '#ffab40'
     },
     title: {
-
         backgroundColor: '#ffab40',
         fontSize: 18,
         color: 'white',
         padding: '2%',
     },
     entry: {
-        height: '20%',
+        flex: 1,
     },
     entryText: {
         fontSize: 18,
