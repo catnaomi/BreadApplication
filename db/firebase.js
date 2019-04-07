@@ -130,11 +130,10 @@ function getBusinessData(business_id) {
   });
 }
 
-function getBusinessData() {
-  const format_id = business_id.replace(".","-");
-  return firebase.database().ref('businesses/').once('value').then(function(snapshot)) {
+function getAllBusinessData() {
+  return firebase.database().ref('businesses/').once('value').then(function(snapshot) {
     return snapshot.val();
-  }
+  });
 }
 
 //************* REVIEW ********************
@@ -177,4 +176,5 @@ module.exports = {
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
   doesUserExist: doesUserExist,
+  getAllBusinessData: getAllBusinessData
 };
