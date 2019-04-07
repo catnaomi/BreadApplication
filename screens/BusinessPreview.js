@@ -3,16 +3,7 @@ import {StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {getBusinessData} from '../db/firebase';
 
 export default class BusinessPreview extends Component {
-    render () {
-        return (
-            <TouchableHighlight
-                style = {styles.BizPreview}>
-                <Text>Biz Name: {this.props.name}</Text>
-            </TouchableHighlight>
-        )
-    }
-
-    /*    componentDidMount() {
+    componentDidMount() {
         var self = this;
         getBusinessData(this.props.id).then(b_object => {
             self.setState({
@@ -23,16 +14,20 @@ export default class BusinessPreview extends Component {
 
 
     render () {
-        const {navigate} = this.props.navigation;
+        const {navigate} = this.props.navigation.state.params.navi;
 
         return (
             <TouchableHighlight
                 style = {styles.BizPreview}
-                onPress = {() => {this.props.navigate('BusinessStack')}}>
+                onPress ={() => {
+                    if (navigate != undefined) {
+                        navigate('BusinessStack', {id: this.props.id});
+                    }
+                }}>
                 <Text>Business Name: {this.props.name}</Text>
             </TouchableHighlight>
         )
-    }*/
+    }
 }
 
 const styles = StyleSheet.create ({

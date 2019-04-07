@@ -27,6 +27,10 @@ class BusinessScreen extends Component {
             edit: false,
             tab: 0,
         }
+        /*
+        if (this.props.navigation.state.params.id != undefined) {
+            this.state.id = this.props.navigation.state.params.id;
+        }*/
     }
 
     componentDidMount() {
@@ -126,10 +130,18 @@ class BusinessScreen extends Component {
             } else if (props.tab == 1) { //reviews
 
                 return (
-                    <ScrollView>
+                    <ScrollView style = {{flex: 1}}>
                         <TouchableHighlight
                             style={styles.addReview}
-                            onPress={() => self.props.navigation.navigate('Review')}>
+                            onPress={() => {
+                                self.props.navigation.navigate('Review',
+                                    {
+                                        review_ids: self.state.reviews,
+                                        business_id: self.state.id,
+                                    });
+                                console.log(self.state.reviews);
+                            }}
+                            >
                             <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
                         </TouchableHighlight>
                         {self.state.reviews.map(function(reviewid) {
@@ -140,10 +152,7 @@ class BusinessScreen extends Component {
             } else { //documents
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Eugene's"/>
-                        <BusinessPreview name="Frederick Fair"/>
-                        <BusinessPreview name="Rocky Mountain Pizza"/>
+                        <Text>blank for now</Text>
                     </ScrollView>
                 );
             }
