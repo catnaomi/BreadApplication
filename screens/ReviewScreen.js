@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
-import {addReviewToDatabase} from '../db/firebase';
-
+import {addReviewToDatabase, getBusinessData, addReviewToBusiness} from '../db/firebase';
 
 export default class ReviewScreen extends Component {
     constructor(props) {
@@ -95,8 +94,18 @@ export default class ReviewScreen extends Component {
                 <View style={{flex:1, backgroundColor: 'lightgrey'}}>
                     <TouchableOpacity style={styles.saveButton}
                     onPress={() => {
+                        let review_id = this.state.review.substr(0, 3);
+
                         //insert in db
-                        addReviewToDatabase(this.state.review.substr(0, 3), this.state.review, 'default@default-com', '5', '151515');
+                        addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515');
+                        console.log(this.props.navigation.state.params.review_ids);
+                        if(this.props.navigation.state.params.review_ids != undefined &&
+                            this.props.navigation.state.params.business_id != undefined) {
+                            let ids = this.props.navigation.state.params.review_ids;
+                            ids.push(review_id);
+                            console.log(review_id);
+                            addReviewToBusiness(this.props.navigation.state.params.business_id, ids);
+                        }
                         this.props.navigation.goBack();
                     }}>
                         <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
