@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, TouchableOpacity, Alert} from "react-native";
-import {createStackNavigator, createAppContainer } from "react-navigation";
+import { Image, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { createStackNavigator } from "react-navigation";
 import AdminAuthenticate from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
-
-/*
-export default class AdminLanding extends Component {
-    render() {
-        return <AdminNavigator/>;
-    }
-}*/
 
 class adminLandingScreen extends Component {
 
@@ -43,7 +36,8 @@ class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Authenticate')}>
+                        <TouchableOpacity onPress={() =>
+                            Alert.alert('You have successfully been logged out')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
                             </View>
@@ -61,7 +55,7 @@ export const AdminNavigator = createStackNavigator({
     Authenticate: AdminAuthenticate,
     Add: AdminAdd,
     Review: AdminReview,
-    Remove: AdminRemove
+    Remove: AdminRemove,
 },
 {
     headerMode: 'none',
