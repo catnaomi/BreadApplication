@@ -132,10 +132,9 @@ class BusinessScreen extends Component {
                             onPress={() => self.props.navigation.navigate('Review')}>
                             <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
                         </TouchableHighlight>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Ruby Restaurant"/>
-                        <BusinessPreview name="Jenna Hair"/>
-                        <BusinessPreview name="Sublime Donuts"/>
+                        {self.state.reviews.map(function(reviewid) {
+                                return GetReviewFromID(reviewid);
+                            })}
                     </ScrollView>
                 );
             } else { //documents
@@ -149,9 +148,8 @@ class BusinessScreen extends Component {
                 );
             }
         }
-
-        function GetReviewFromID (props) {
-
+        function GetReviewFromID (id) {
+            return (<Review id = {id}/>);
         }
 
 
@@ -179,7 +177,7 @@ class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews.length} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "error"} Reviews</Text>
                             </View>
                         </View>
                     </View>
@@ -294,7 +292,7 @@ const styles = StyleSheet.create ({
         left: '25%',
         alignItems: 'center',
         justifyContent: 'center',
-
+        borderBottomWidth: 1,
     },
     businessInfo: {
         flex: 1,
@@ -302,3 +300,5 @@ const styles = StyleSheet.create ({
         flexWrap: 'wrap',
     }
 });
+
+console.disableYellowBox = true;

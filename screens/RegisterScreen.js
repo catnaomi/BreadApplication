@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {navigate} from 'react-navigation';
-import LoginScreen from './LoginScreen';
 import {registerUser, getUserData, doesUserExist} from "../db/firebase.js";
 import { createStackNavigator } from 'react-navigation';
 

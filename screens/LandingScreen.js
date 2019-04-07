@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, TextInput, TouchableHighlight, View} from "react-native";
+import {createStackNavigator} from "react-navigation";
+import {SearchScreen} from './SearchScreen';
 
-export default class LandingScreen extends Component {
+export class LandingScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -10,6 +12,7 @@ export default class LandingScreen extends Component {
     }
 
     render () {
+        const { navigate } = this.props.navigation
         var diningIcon = require('../assets/images/quickstart/dining-iconmdpi.png');
         var autoIcon = require('../assets/images/quickstart/auto-iconmdpi.png');
         var beautyIcon = require('../assets/images/quickstart/beauty-iconmdpi.png');
@@ -31,7 +34,9 @@ export default class LandingScreen extends Component {
                 {/* Quickstart Buttons */}
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.diningIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log(navigate('Search'))
+                    }}>
                     <Image
                         source = {diningIcon}
                         style = {styles.quickstartIconImages}
@@ -108,6 +113,19 @@ export default class LandingScreen extends Component {
         );
     }
 }
+
+export const LandingStack = createStackNavigator({
+    Landing: {screen: LandingScreen},
+    Search: {screen: SearchScreen}
+},
+{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
+});
+
+
 const styles = StyleSheet.create ({
     searchBar: {
         position: 'absolute',
