@@ -10,10 +10,6 @@ class BusinessPreview extends Component {
             id: '0',
             name: 'Default Business',
         }
-        let navigate = {};
-        if (this.props.navi) {
-            navigate = this.props.navi;
-        }
     }
     componentDidMount() {
         var self = this;
@@ -31,9 +27,7 @@ class BusinessPreview extends Component {
             <TouchableHighlight
                 style = {styles.BizPreview}
                 onPress ={() => {
-                    //if (navigate != undefined) {
-                        this.props.navigation.navigate('BusinessScreen', {id: this.props.id});
-                    //}
+                    this.props.navigation.navigate('BusinessScreen', {id: this.props.id});
                 }}>
                 <Text>Business Name: {this.state.name}</Text>
             </TouchableHighlight>
