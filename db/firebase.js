@@ -100,7 +100,7 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
     control: control_number,
     address_line1: address_line1,
     address_line2: address_line2,
-    removed: false,
+    deactivated: false,
   }).catch((err) => console.log(err));
 }
 
@@ -154,6 +154,7 @@ function addReviewToDatabase(review_id, review_content, user_id, business_id, da
     user_id: user_id,
     business_id: business_id,
     date:date,
+    flagged: 0,
   }).catch((err) => console.log(err));
 } 
 

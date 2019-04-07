@@ -36,6 +36,11 @@ class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Review')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Review Flagged Businesses</Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
                             Alert.alert('You have successfully been logged out')}>
                             <View style={styles.button}>
