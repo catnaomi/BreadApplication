@@ -135,6 +135,12 @@ function getBusinessData(business_id) {
   });
 }
 
+function getAllBusinessData() {
+  return firebase.database().ref('businesses/').once('value').then(function(snapshot) {
+    return snapshot.val();
+  });
+}
+
 //************* REVIEW ********************
 
 
@@ -176,4 +182,5 @@ module.exports = {
   getReviewData: getReviewData,
   doesUserExist: doesUserExist,
   addReviewToBusiness: addReviewToBusiness,
+  getAllBusinessData: getAllBusinessData,
 };

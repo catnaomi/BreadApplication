@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {registerUser} from "./db/firebase";
-import LandingScreen from "./screens/LandingScreen"
+import {LandingStack} from "./screens/LandingScreen"
 import ReviewScreen from "./screens/ReviewScreen"
 import {UserStack} from "./screens/UserScreen"
 import {BusinessStack} from "./screens/BusinessScreen"
@@ -18,7 +18,7 @@ import {
 } from 'react-navigation';
 
 const TabNavigator = createBottomTabNavigator({
-   Find: {screen: LandingScreen},
+   Find: {screen: LandingStack},
    Favorites: {screen: BusinessStack},
    Profile: {screen: UserStack},
    Settings: {screen: SettingsStack},
