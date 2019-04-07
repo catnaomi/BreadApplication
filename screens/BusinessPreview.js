@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {getBusinessData} from '../db/firebase';
+import { withNavigation } from 'react-navigation';
 
-export default class BusinessPreview extends Component {
-    render () {
-        return (
-            <TouchableHighlight
-                style = {styles.BizPreview}>
-                <Text>Biz Name: {this.props.name}</Text>
-            </TouchableHighlight>
-        )
+class BusinessPreview extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: '0',
+            name: 'Default Business',
+        }
+        let navigate = {};
+        if (this.props.navi) {
+            navigate = this.props.navi;
+        }
     }
-
-    /*    componentDidMount() {
+    componentDidMount() {
         var self = this;
         getBusinessData(this.props.id).then(b_object => {
             self.setState({
@@ -23,17 +26,22 @@ export default class BusinessPreview extends Component {
 
 
     render () {
-        const {navigate} = this.props.navigation;
 
         return (
             <TouchableHighlight
                 style = {styles.BizPreview}
-                onPress = {() => {this.props.navigate('BusinessStack')}}>
-                <Text>Business Name: {this.props.name}</Text>
+                onPress ={() => {
+                    //if (navigate != undefined) {
+                        this.props.navigation.navigate('BusinessScreen', {id: this.props.id});
+                    //}
+                }}>
+                <Text>Business Name: {this.state.name}</Text>
             </TouchableHighlight>
         )
-    }*/
+    }
 }
+
+export default withNavigation(BusinessPreview);
 
 const styles = StyleSheet.create ({
     BizPreview: {

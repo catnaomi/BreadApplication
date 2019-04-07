@@ -103,6 +103,11 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
   }).catch((err) => console.log(err));
 }
 
+function addReviewToBusiness(business_id, reviews) {
+    const format_id = business_id.replace(".","-");
+    firebase.database().ref('businesses/' + format_id + "/reviews/").set(reviews).catch((err) => console.log(err));
+}
+
 function getBusinessWithID(business_id) {
   const format_id = business_id.replace(".","-");
   return firebase.database().ref('businesses/' + format_id).once('value').then(function(snapshot) {
@@ -176,5 +181,6 @@ module.exports = {
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
   doesUserExist: doesUserExist,
-  getAllBusinessData: getAllBusinessData
+  addReviewToBusiness: addReviewToBusiness,
+  getAllBusinessData: getAllBusinessData,
 };
