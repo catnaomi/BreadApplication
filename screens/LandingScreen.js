@@ -112,6 +112,7 @@ export class LandingScreen extends Component {
                         style = {{top: 10, left: 10, fontSize: 18}}
                         placeholder = "Search"
                         onChangeText = {(text) => this.setState({search: text})}
+                        onSubmitEditing = {() => navigate('SearchResult', {searchQuery: this.state.search})}
                         value = {this.state.search}
                     />
                 </View>
