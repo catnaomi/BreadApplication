@@ -7,8 +7,9 @@ import {SettingsStack} from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
 import manual_data_entry from './db/manual_data_entry'
 import {LoginStack} from './screens/LoginScreen'
-
 import RegisterScreen from "./screens/RegisterScreen"
+
+import cache from './userCache'
 
 import {
     createBottomTabNavigator,
