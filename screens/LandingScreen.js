@@ -50,7 +50,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.autoIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("auto search...")
+                        navigate('SearchResult', {searchQuery: 'auto'})
+                    }}>
                     <Image
                         source = {autoIcon}
                         style = {styles.quickstartIconImages}
@@ -58,7 +61,11 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.clothingIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("clothing search...")
+                        navigate('SearchResult', {searchQuery: 'clothing'})
+
+                    }}>
                     <Image
                         source = {clothingIcon}
                         style = {styles.quickstartIconImages}
@@ -66,7 +73,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.cleaningIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("cleaning search...")
+                        navigate('SearchResult', {searchQuery: 'cleaning'})
+                    }}>
                     <Image
                         source = {cleaningIcon}
                         style = {styles.quickstartIconImages}
@@ -74,7 +84,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.beautyIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("beauty search...")
+                        navigate('SearchResult', {searchQuery: 'beauty'})
+                    }}>
                     <Image
                         source = {beautyIcon}
                         style = {styles.quickstartIconImages}
@@ -82,7 +95,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.financialIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("financial search...")
+                        navigate('SearchResult', {searchQuery: 'financial'})
+                    }}>
                     <Image
                         source = {financialIcon}
                         style = {styles.quickstartIconImages}
@@ -90,7 +106,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.healthIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("health search...")
+                        navigate('SearchResult', {searchQuery: 'health'})
+                    }}>
                     <Image
                         source = {healthIcon}
                         style = {styles.quickstartIconImages}
@@ -98,7 +117,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.legalIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("legal search...")
+                        navigate('SearchResult', {searchQuery: 'legal'})
+                    }}>
                     <Image
                         source = {legalIcon}
                         style = {styles.quickstartIconImages}
