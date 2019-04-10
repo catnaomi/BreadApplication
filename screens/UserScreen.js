@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, CameraRoll} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, CameraRoll, Alert} from "react-native";
 
 import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
-import ViewPhotos from './ViewPhotos.js';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
+
+import {ImagePicker} from 'expo';
+import {uploadImage} from '../db/firebase.js';
 
 export default class UserScreen extends Component {
     static navigationOptions = {
@@ -45,6 +47,36 @@ export default class UserScreen extends Component {
             //console.log(res, "images data")
         })
     }
+
+    onChooseImagePress = async () => {
+        //console.log("onChoose");
+        const { Permissions } = Expo;
+        const {status} = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (status !== 'granted') {
+            Permissions.askAsync(Permissions.CAMERA_ROLL);
+        } else {
+            let result = await Expo.ImagePicker.launchImageLibraryAsync();
+            if (!result.cancelled) {
+                uploadImage(result.uri, "test-image")
+                    .then(() => {
+                        Alert.alert("Image succesfully uploaded");
+                    })
+                    .catch((error) => {
+                        Alert.alert("Error uploading image.");
+                    });
+            }
+        }
+    }
+
+    /*uploadImage = async (uri, imageName) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        const firebase = getFirebase();
+
+        var ref = firebase.storage().ref().child("images/" + imageName);
+        return ref.put(blob);
+    } */
+
     render() {
         if (this.state.showPhotoGallery) {
             return (
@@ -161,7 +193,7 @@ export default class UserScreen extends Component {
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
                                 <TouchableHighlight
-                                    onPress={() => this.getPhotosFromGallery()}>
+                                    onPress={() => this.onChooseImagePress()}>
                                 <Image
                                     source = {profile}
                                 />

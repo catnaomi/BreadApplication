@@ -17,7 +17,6 @@ const SelectedPhoto = (props) => {
         <Button
           onPress={() => {
             
-            navigate('UserScreen'))
           }}
           title="Yes"
         />
