@@ -37,6 +37,7 @@ export default class RegisterScreen extends Component {
                         value = {this.state.usernamechk}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
@@ -44,6 +45,7 @@ export default class RegisterScreen extends Component {
                         value = {this.state.password}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "repeat password"
                         ref='passchk'

@@ -2,20 +2,19 @@ import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
-import {registerUser, getAdminData} from "../db/firebase";
+import {getAdminData} from "../db/firebase";
 import {AdminNavigator} from "./AdminLanding"
 
 class LoginScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
         }
     }
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
-        const { navigate } = LoginStack;
         let self = this;
 
         return (
@@ -26,12 +25,13 @@ class LoginScreen extends Component {
                 <View style = {{flex : 1}}>
                     <TextInput
                         style={styles.loginField}
-                        placeholder = "email or phone number"
+                        placeholder = "email"
                         ref='user'
-                        onChangeText = {(text) => self.setState({username: text})}
-                        value = {self.state.username}
+                        onChangeText = {(text) => self.setState({email: text})}
+                        value = {self.state.email}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
@@ -41,14 +41,13 @@ class LoginScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                getAdminData(self.state.username).then(admin => {
+                                getAdminData(self.state.email).then(admin => {
                                     if (admin !== undefined) {
                                         this.props.navigation.navigate('AdminNavigator')
                                     } else {
                                         this.props.navigation.navigate('Register')
                                     }
                                 })
-                                Alert.alert(self.state.username + '\nadded to database');
                                 //registerUser(this.state.username, this.state.password);
 
                             }}
