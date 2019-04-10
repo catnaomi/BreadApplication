@@ -44,8 +44,8 @@ class adminLandingScreen extends Component {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
-                            //this.props.navigation.navigate('Login')
-                            this.props.navigation.goBack()
+                            this.props.navigation.navigate('Landing');
+                            //this.props.navigation.goBack()
                             Alert.alert('You have successfully been logged out')
                             }
                         }>
