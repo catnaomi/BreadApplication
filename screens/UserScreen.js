@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, CameraRoll} from "react-native";
 
 import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
+import ViewPhotos from './ViewPhotos.js';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
 
@@ -29,12 +30,28 @@ export default class UserScreen extends Component {
             ],
             edit: false,
             tab: 0,
+            showPhotoGallery: false,
+            photoArray: [],
         }
     }
     checkPermissions() {
         return true;
     }
+    getPhotosFromGallery() {
+        CameraRoll.getPhotos({ first: 1000000 })
+            .then(res => {
+                let photoArray = res.edges;
+                this.setState({ showPhotoGallery: true, photoArray: photoArray})
+            //console.log(res, "images data")
+        })
+    }
     render() {
+        if (this.state.showPhotoGallery) {
+            return (
+                <ViewPhotos
+                    photoArray={this.state.photoArray} />
+            )
+        }
         var profile = require('../assets/images/profile/profile.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
@@ -143,9 +160,12 @@ export default class UserScreen extends Component {
                     <View style = {{flex: 3, flexDirection: 'row'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
+                                <TouchableHighlight
+                                    onPress={() => this.getPhotosFromGallery()}>
                                 <Image
                                     source = {profile}
                                 />
+                                </TouchableHighlight>
                             </View>
                         </View>
                         <View style = {{flex: 2}}>
