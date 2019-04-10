@@ -57,7 +57,7 @@ export default class UserScreen extends Component {
         } else {
             let result = await Expo.ImagePicker.launchImageLibraryAsync();
             if (!result.cancelled) {
-                uploadImage(result.uri, "test-image")
+                await uploadImage(result.uri, "test-image")
                     .then(() => {
                         Alert.alert("Image succesfully uploaded");
                     })
@@ -67,15 +67,6 @@ export default class UserScreen extends Component {
             }
         }
     }
-
-    /*uploadImage = async (uri, imageName) => {
-        const response = await fetch(uri);
-        const blob = await response.blob();
-        const firebase = getFirebase();
-
-        var ref = firebase.storage().ref().child("images/" + imageName);
-        return ref.put(blob);
-    } */
 
     render() {
         if (this.state.showPhotoGallery) {
