@@ -5,6 +5,7 @@ import {BusinessStack, BusinessScreen} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
+import cache from '../userCache'
 
 export default class UserScreen extends Component {
     static navigationOptions = {
@@ -13,8 +14,8 @@ export default class UserScreen extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            permission: this.checkPermissions(),
             name: 'Default Name',
+            user_id: 'default',
             reviews: [
                 {
                     date: 1554057121,
@@ -31,9 +32,7 @@ export default class UserScreen extends Component {
             tab: 0,
         }
     }
-    checkPermissions() {
-        return true;
-    }
+
     render() {
         var profile = require('../assets/images/profile/profile.png');
         var edit = require('../assets/images/icons/edit.png');
@@ -49,10 +48,10 @@ export default class UserScreen extends Component {
             /> :
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
-        var EditButton = (this.checkPermissions() ?
+        var EditButton = (checkPermissions(this.state.user_id) ?
             <TouchableHighlight
                 onPress={() => {
-                    if (this.checkPermissions()) {
+                    if (checkPermissions(this.state.user_id)) {
                         this.state.edit = !this.state.edit;
                         this.forceUpdate();
                     }
@@ -203,9 +202,12 @@ export default class UserScreen extends Component {
     }
 }
 
+function checkPermissions(user_id) {
+    return cache.user_id === user_id
+}
+
 export const UserStack = createStackNavigator({
     UserScreen: {screen: UserScreen},
-    BusinessScreen: {screen: BusinessScreen},
 });
 
 const styles = StyleSheet.create ({

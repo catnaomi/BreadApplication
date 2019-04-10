@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableHighlight, ScrollView} from "react-nati
 import {createStackNavigator} from 'react-navigation';
 import {getBusinessWithID, getAllBusinessData} from '../db/firebase'
 import BusinessPreview from './BusinessPreview'
+import {BusinessScreen} from './BusinessScreen'
 
 export class SearchScreen extends Component {
 
@@ -38,6 +39,12 @@ export class SearchScreen extends Component {
 }
 
 export class SearchResult extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: 'Search Result: ' + navigation.getParam('searchQuery'),
+        };
+    };
+
     constructor(props) {
         super(props)
         this.state = {
@@ -74,7 +81,7 @@ export class SearchResult extends Component {
 }
 
 function getArray(data) {
-    var arr = [];
+    arr = [];
     for(var key in data) {
         if (data.hasOwnProperty(key)) {          
             arr[key] = data[key] // convert object to array
@@ -84,13 +91,16 @@ function getArray(data) {
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id}/>
+    return <BusinessPreview id={business_id} key={business_id}/>
 }
 
+/*
 export const SearchScreenStack = createStackNavigator({
   SearchScreen: {screen: SearchScreen},
   SearchResult: {screen: SearchResult},
+    BusinessScreen: {screen: BusinessScreen},
 }, {initialRoute: 'SearchScreen'});
+*/
 
 const styles = StyleSheet.create ({
     searchBar: {

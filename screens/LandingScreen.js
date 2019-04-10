@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, TextInput, TouchableHighlight, View} from "react-native";
 import {createStackNavigator} from "react-navigation";
 import {SearchResult} from './SearchScreen';
+import {BusinessScreen} from "./BusinessScreen";
 
 export class LandingScreen extends Component {
+
+    static navigationOptions = {
+        headerVisible: false,
+    };
     constructor (props) {
         super(props);
         this.state = {
@@ -45,7 +50,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.autoIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("auto search...")
+                        navigate('SearchResult', {searchQuery: 'auto'})
+                    }}>
                     <Image
                         source = {autoIcon}
                         style = {styles.quickstartIconImages}
@@ -53,7 +61,11 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.clothingIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("clothing search...")
+                        navigate('SearchResult', {searchQuery: 'clothing'})
+
+                    }}>
                     <Image
                         source = {clothingIcon}
                         style = {styles.quickstartIconImages}
@@ -61,7 +73,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.cleaningIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("cleaning search...")
+                        navigate('SearchResult', {searchQuery: 'cleaning'})
+                    }}>
                     <Image
                         source = {cleaningIcon}
                         style = {styles.quickstartIconImages}
@@ -69,7 +84,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.beautyIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("beauty search...")
+                        navigate('SearchResult', {searchQuery: 'beauty'})
+                    }}>
                     <Image
                         source = {beautyIcon}
                         style = {styles.quickstartIconImages}
@@ -77,7 +95,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.financialIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("financial search...")
+                        navigate('SearchResult', {searchQuery: 'financial'})
+                    }}>
                     <Image
                         source = {financialIcon}
                         style = {styles.quickstartIconImages}
@@ -85,7 +106,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.healthIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("health search...")
+                        navigate('SearchResult', {searchQuery: 'health'})
+                    }}>
                     <Image
                         source = {healthIcon}
                         style = {styles.quickstartIconImages}
@@ -93,7 +117,10 @@ export class LandingScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                     style = {[styles.quickstartIcon, styles.legalIcon]}
-                    onPress = {() => {}}>
+                    onPress = {() => {
+                        console.log("legal search...")
+                        navigate('SearchResult', {searchQuery: 'legal'})
+                    }}>
                     <Image
                         source = {legalIcon}
                         style = {styles.quickstartIconImages}
@@ -107,6 +134,7 @@ export class LandingScreen extends Component {
                         style = {{top: 10, left: 10, fontSize: 18}}
                         placeholder = "Search"
                         onChangeText = {(text) => this.setState({search: text})}
+                        onSubmitEditing = {() => navigate('SearchResult', {searchQuery: this.state.search})}
                         value = {this.state.search}
                     />
                 </View>
@@ -116,14 +144,14 @@ export class LandingScreen extends Component {
 }
 
 export const LandingStack = createStackNavigator({
-    Landing: {screen: LandingScreen},
-    SearchResult: {screen: SearchResult}
-},
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
+    Landing: {
+        screen: LandingScreen,
+            navigationOptions: {
+                header: null,
+            }
+        },
+    SearchResult: {screen: SearchResult},
+    BusinessScreen: {screen: BusinessScreen},
 });
 
 

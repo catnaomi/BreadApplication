@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, ScrollView} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Linking, RefreshControl} from "react-native";
 import {getBusinessData, getReviewData, getUserData, getAllReviews, getAllBusinessData} from "../db/firebase";
 import Review from "./Review";
 
@@ -9,11 +9,19 @@ export default class AdminReview extends Component {
         super(props);
         this.state = {
             reviews: [],
+            refreshing: false,
         };
     }
+    //
+    // _onRefresh = () => {
+    //     this.setState({refreshing: true});
+    //     fetchData().then(() => {
+    //         this.setState({refreshing: false});
+    //     });
+    // }
 
     componentDidMount() {
-        var self = this;
+        let self = this;
         getAllReviews().then(response => {
             self.setState({
                 reviews: getArray(response)
@@ -36,12 +44,17 @@ export default class AdminReview extends Component {
                 <View style={styles.optionView}>
                     <ScrollView style={styles.innerOption}>
                         {
-                            this.state.reviews.map(function(review){
-                                if (review !== undefined) {
-                                    GetReviewFromID(review.review_id);
+                            this.state.reviews.map(function(review) {
+                                if ((review !== undefined) && (+review.flagged >= 0)) {
+                                    return GetReviewFromID(review.review_id);
                                 }
                             })
                         }
+                        <TouchableOpacity
+                            onPress={() =>{this.forceUpdate()}}
+                            style={[styles.title, {alignItems: 'center'}]}>
+                            <Text style={{fontSize: 16, color:'white', fontWeight: 'bold'}}>Refresh</Text>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>
@@ -52,17 +65,17 @@ export default class AdminReview extends Component {
 
 
 function getArray(data) {
-    var arr = [];
+    arr = [];
     for(var key in data) {
         if (data.hasOwnProperty(key)) {
             arr[key] = data[key] // convert object to array
         }
     }
-    return arr
+    return arr;
 }
 
-function GetReviewFromID(id) {
-    return (<Review id = {id}/>);
+function GetReviewFromID(review_id) {
+    return (<Review id={review_id} key={review_id}/>);
 }
 
 const styles = StyleSheet.create({
@@ -89,6 +102,12 @@ const styles = StyleSheet.create({
         left: '5%',
         flexGrow: 1,
         flexDirection: 'column',
+    },
+    title: {
+        backgroundColor: '#ffab40',
+        fontSize: 18,
+        color: 'white',
+        padding: '2%',
     },
 });
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
-import {navigate} from 'react-navigation';
+import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
-//import {registerUser} from "../db/firebase";
-import { createStackNavigator } from 'react-navigation';
+import {registerUser, getAdminData} from "../db/firebase";
+import {AdminNavigator} from "./AdminLanding"
 
 class LoginScreen extends Component {
     constructor (props) {
@@ -16,6 +16,7 @@ class LoginScreen extends Component {
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         const { navigate } = LoginStack;
+        let self = this;
 
         return (
             <View style = {{flex: 1}}>
@@ -27,21 +28,29 @@ class LoginScreen extends Component {
                         style={styles.loginField}
                         placeholder = "email or phone number"
                         ref='user'
-                        onChangeText = {(text) => this.setState({username: text})}
-                        value = {this.state.username}
+                        onChangeText = {(text) => self.setState({username: text})}
+                        value = {self.state.username}
                     />
                     <TextInput
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
-                        onChangeText = {(text) => this.setState({password: text})}
-                        value = {this.state.password}
+                        onChangeText = {(text) => self.setState({password: text})}
+                        value = {self.state.password}
                     />
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                Alert.alert(this.state.username + '\nadded to database');
-                                registerUser(this.state.username, this.state.password);
+                                getAdminData(self.state.username).then(admin => {
+                                    if (admin !== undefined) {
+                                        this.props.navigation.navigate('AdminNavigator')
+                                    } else {
+                                        this.props.navigation.navigate('Register')
+                                    }
+                                })
+                                Alert.alert(self.state.username + '\nadded to database');
+                                //registerUser(this.state.username, this.state.password);
+
                             }}
                             title="Login"
                         />
@@ -69,7 +78,7 @@ class LoginScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {this.props.navigation.navigate('Register')}}
+                        onPress = {() => {this.props.navigation.navigate('Register')}}
                         title = "Register"
                     />
                 </View>
@@ -122,8 +131,9 @@ const styles = StyleSheet.create ({
 });
 
 export const LoginStack = createStackNavigator({
-    Login: {screen: LoginScreen},
-    Register: RegisterScreen,
+        Login: {screen: LoginScreen},
+        Register: RegisterScreen,
+        AdminNavigator: {screen: AdminNavigator},
 },
 {
     headerMode: 'none',

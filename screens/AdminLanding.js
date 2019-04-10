@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { createStackNavigator } from "react-navigation";
-import AdminAuthenticate from './AdminAuthenticate';
+import AdminAuthenticate  from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
+import AdminBusinesses from "./AdminBusinesses";
 
 class adminLandingScreen extends Component {
 
@@ -36,7 +37,7 @@ class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Review')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Businesses')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Businesses</Text>
                             </View>
@@ -45,6 +46,7 @@ class adminLandingScreen extends Component {
                             Alert.alert('You have successfully been logged out')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
+
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -61,6 +63,8 @@ export const AdminNavigator = createStackNavigator({
     Add: AdminAdd,
     Review: AdminReview,
     Remove: AdminRemove,
+    Businesses: AdminBusinesses,
+
 },
 {
     headerMode: 'none',
