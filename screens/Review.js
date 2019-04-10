@@ -24,7 +24,7 @@ export default class Review extends Component {
 
     componentDidMount() {
         let self = this;
-        getReviewData(this.state.id).then(r_object => {
+        getReviewData(self.state.id).then(r_object => {
             if (r_object != undefined) {
                 self.setState({
                     content: r_object.review_content,
@@ -71,6 +71,7 @@ const styles = StyleSheet.create ({
         width: '100%',
         borderBottomWidth: 1,
         borderColor: 'grey',
+        flex: 1,
     },
     ReviewHeader: {
         flex: 1,

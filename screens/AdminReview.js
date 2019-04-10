@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View, ScrollView} from "react-native";
-import {getBusinessData, getReviewData, getUserData, getAllReviews} from "../db/firebase";
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Linking, RefreshControl} from "react-native";
+import {getBusinessData, getReviewData, getUserData, getAllReviews, getAllBusinessData} from "../db/firebase";
 import Review from "./Review";
 
 export default class AdminReview extends Component {
@@ -9,56 +9,28 @@ export default class AdminReview extends Component {
         super(props);
         this.state = {
             reviews: [],
+            refreshing: false,
         };
     }
+    //
+    // _onRefresh = () => {
+    //     this.setState({refreshing: true});
+    //     fetchData().then(() => {
+    //         this.setState({refreshing: false});
+    //     });
+    // }
 
     componentDidMount() {
         let self = this;
-
-        getReviewData(self.state.id).then(r_object => {
-            if (r_object != undefined) {
-                self.setState({
-                    content: r_object.review_content,
-                    user_id: r_object.user_id,
-                    business_id: r_object.business_id,
-                });
-                getUserData('default@default-com').then(u_object => {
-                    if (u_object != undefined) {
-                        self.setState({
-                            author: u_object.name,
-                        })
-                    }
-                });
-                getBusinessData(self.state.business_id).then(b_object => {
-                    if (b_object != undefined) {
-                        self.setState({
-                            business: b_object.name,
-                        })
-                    }
-                });
-            }
+        getAllReviews().then(response => {
+            self.setState({
+                reviews: getArray(response)
+            })
         })
     }
 
     render() {
         let self = this;
-        function reviewsToArray() {
-            getAllReviews().then(reviews => {
-                toArray(reviews)
-
-            })
-
-        }
-
-        function toArray(data) {
-            var arr = []
-        }
-
-        function GetReviewFromID (id) {
-            return (<Review id = {id}/>);
-        }
-
-
         var logo = require('../assets/images/logos/texthoriz.png');
 
         return (
@@ -69,9 +41,20 @@ export default class AdminReview extends Component {
                         style={styles.breadLogo}
                     />
                 </View>
-                <View>
-                    <ScrollView>
-
+                <View style={styles.optionView}>
+                    <ScrollView style={styles.innerOption}>
+                        {
+                            this.state.reviews.map(function(review) {
+                                if ((review !== undefined) && (+review.flagged >= 0)) {
+                                    return GetReviewFromID(review.review_id);
+                                }
+                            })
+                        }
+                        <TouchableOpacity
+                            onPress={() =>{this.forceUpdate()}}
+                            style={[styles.title, {alignItems: 'center'}]}>
+                            <Text style={{fontSize: 16, color:'white', fontWeight: 'bold'}}>Refresh</Text>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>
@@ -80,21 +63,51 @@ export default class AdminReview extends Component {
 
 }
 
+
+function getArray(data) {
+    arr = [];
+    for(var key in data) {
+        if (data.hasOwnProperty(key)) {
+            arr[key] = data[key] // convert object to array
+        }
+    }
+    return arr;
+}
+
+function GetReviewFromID(review_id) {
+    return (<Review id={review_id} key={review_id}/>);
+}
+
 const styles = StyleSheet.create({
     screenView: {
         width: '100%',
         height: '100%',
     },
     imageView: {
-        height: '15%',
+        flex: 1,
         width: '100%',
-        top: '5%',
     },
     breadLogo: {
         position: 'absolute',
         width: '75%',
         height: '100%',
         left: '12.5%',
+    },
+    optionView: {
+        flex: 6,
+        width: '100%',
+    },
+    innerOption: {
+        width: '90%',
+        left: '5%',
+        flexGrow: 1,
+        flexDirection: 'column',
+    },
+    title: {
+        backgroundColor: '#ffab40',
+        fontSize: 18,
+        color: 'white',
+        padding: '2%',
     },
 });
 

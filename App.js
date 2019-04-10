@@ -9,6 +9,8 @@ import manual_data_entry from './db/manual_data_entry'
 import {LoginStack} from './screens/LoginScreen'
 import RegisterScreen from "./screens/RegisterScreen"
 
+import {AdminNavigator} from "./screens/AdminLanding";
+
 import cache from './userCache'
 
 import {
@@ -17,7 +19,7 @@ import {
     navigationOptions,
 } from 'react-navigation';
 
-const TabNavigator = createBottomTabNavigator({
+export const TabNavigator = createBottomTabNavigator({
    Find: {screen: LandingStack},
    Favorites: {screen: BusinessStack},
    Profile: {screen: UserStack},
