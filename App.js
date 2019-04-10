@@ -19,7 +19,7 @@ import {
     navigationOptions,
 } from 'react-navigation';
 
-const TabNavigator = createBottomTabNavigator({
+export const TabNavigator = createBottomTabNavigator({
    Find: {screen: LandingStack},
    Favorites: {screen: BusinessStack},
    Profile: {screen: UserStack},

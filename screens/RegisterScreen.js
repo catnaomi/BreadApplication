@@ -80,8 +80,7 @@ export default class RegisterScreen extends Component {
                                             Alert.alert(sel.state.username + '\nis already in database');
                                         } else {
                                             console.log("User does not exist-- Adding!");
-                                            //registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
-                                            registerAdmin(sel.state.username, sel.state.password, [], []);
+                                            registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
                                             Alert.alert(sel.state.username + '\nis now registered to the database');
                                             this.props.navigation.goBack();
                                         }

@@ -6,6 +6,7 @@ import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
+import {LoginStack} from "./LoginScreen";
 
 class adminLandingScreen extends Component {
 
@@ -42,8 +43,12 @@ class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Businesses</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() =>
-                            Alert.alert('You have successfully been logged out')}>
+                        <TouchableOpacity onPress={() => {
+                            //this.props.navigation.navigate('Login')
+                            this.props.navigation.goBack()
+                            Alert.alert('You have successfully been logged out')
+                            }
+                        }>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
 
@@ -58,12 +63,13 @@ class adminLandingScreen extends Component {
 }
 
 export const AdminNavigator = createStackNavigator({
-    Landing: adminLandingScreen,
-    Authenticate: AdminAuthenticate,
-    Add: AdminAdd,
-    Review: AdminReview,
-    Remove: AdminRemove,
-    Businesses: AdminBusinesses,
+    Landing: {screen: adminLandingScreen},
+    Authenticate: {screen: AdminAuthenticate},
+    Add: {screen: AdminAdd},
+    Review: {screen: AdminReview},
+    Remove: {screen: AdminRemove},
+    Businesses: {screen: AdminBusinesses},
+    //Login: LoginStack,
 
 },
 {

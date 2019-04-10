@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
-import {getAdminData} from "../db/firebase";
+import {getAdminData, getUserData} from "../db/firebase";
 import {AdminNavigator} from "./AdminLanding"
 
 class LoginScreen extends Component {
@@ -44,11 +44,17 @@ class LoginScreen extends Component {
                                 getAdminData(self.state.email).then(admin => {
                                     if (admin !== undefined) {
                                         this.props.navigation.navigate('AdminNavigator')
-                                    } else {
-                                        this.props.navigation.navigate('Register')
                                     }
                                 })
-                                //registerUser(this.state.username, this.state.password);
+
+                                getUserData(self.state.email).then(user => {
+                                    if (user !== undefined) {
+                                        //TODO: Change from AdminNavigator
+                                        this.props.navigation.navigate('AdminNavigator')
+                                    } else {
+                                        Aler.alert("Email or Password is incorrect")
+                                    }
+                                })
 
                             }}
                             title="Login"
@@ -131,7 +137,7 @@ const styles = StyleSheet.create ({
 
 export const LoginStack = createStackNavigator({
         Login: {screen: LoginScreen},
-        Register: RegisterScreen,
+        Register:{screen: RegisterScreen},
         AdminNavigator: {screen: AdminNavigator},
 },
 {
