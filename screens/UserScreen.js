@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, CameraRoll, Alert} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, Alert} from "react-native";
 
 import {BusinessStack} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
@@ -32,20 +32,10 @@ export default class UserScreen extends Component {
             ],
             edit: false,
             tab: 0,
-            showPhotoGallery: false,
-            photoArray: [],
         }
     }
     checkPermissions() {
         return true;
-    }
-    getPhotosFromGallery() {
-        CameraRoll.getPhotos({ first: 1000000 })
-            .then(res => {
-                let photoArray = res.edges;
-                this.setState({ showPhotoGallery: true, photoArray: photoArray})
-            //console.log(res, "images data")
-        })
     }
 
     onChooseImagePress = async () => {
@@ -57,7 +47,7 @@ export default class UserScreen extends Component {
         } else {
             let result = await Expo.ImagePicker.launchImageLibraryAsync();
             if (!result.cancelled) {
-                await uploadImage(result.uri, "test-image")
+                 await uploadImage(result.uri, "test-image")
                     .then(() => {
                         Alert.alert("Image succesfully uploaded");
                     })
@@ -69,12 +59,6 @@ export default class UserScreen extends Component {
     }
 
     render() {
-        if (this.state.showPhotoGallery) {
-            return (
-                <ViewPhotos
-                    photoArray={this.state.photoArray} />
-            )
-        }
         var profile = require('../assets/images/profile/profile.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');

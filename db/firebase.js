@@ -165,14 +165,12 @@ function getReviewData(review_id) {
 
 //************UPLOAD IMAGE******************
 
-function uploadImage(uri, imageName) {
-  async () => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    
-    var ref = firebase.storage().ref().child("images/" + imageName);
-    return ref.put(blob);
-  }
+async function uploadImage(uri, imageName) {
+  const response = await fetch(uri);
+  const blob = await response.blob();
+  var metadata = { contentType: "image/jpeg" };
+  var ref = firebase.storage().ref().child("images/" + imageName + ".jpg");
+  return ref.put(blob, metadata);
 }
 
 
