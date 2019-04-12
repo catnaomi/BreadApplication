@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
-import {getBusinessData, updateBusinessRating} from '../db/firebase';
+import {getBusinessData, updateBusinessRating, updateBusinessInfo} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
 import RatingDisplay from "./RatingDisplay"
@@ -27,6 +27,7 @@ export class BusinessScreen extends Component {
             reviews: [],
             edit: false,
             tab: 0,
+            refreshing: false,
         }
 
         if (this.props.navigation.state.params) {
@@ -36,6 +37,10 @@ export class BusinessScreen extends Component {
     }
 
     componentDidMount() {
+        this.RefreshInfo();
+    }
+
+    RefreshInfo() {
         var self = this;
         getBusinessData(this.state.id).then(b_object => {
             if (b_object != undefined) {
@@ -75,7 +80,7 @@ export class BusinessScreen extends Component {
                 style = {{fontSize: 18, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line1}
                 ref = 'name'
-                onChangeText={(text) => this.setState({address: text})}
+                onChangeText={(text) => this.setState({address_line1: text})}
                 value = {this.state.address_line1}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
@@ -96,6 +101,14 @@ export class BusinessScreen extends Component {
                     if (this.checkPermissions()) {
                         this.state.edit = !this.state.edit;
                         updateBusinessRating(this.state.id);
+                        updateBusinessInfo(
+                            this.state.id,
+                            this.state.name,
+                            this.state.information,
+                            this.state.address_line1,
+                            this.state.address_line2
+                        );
+                        this.RefreshInfo();
                         this.forceUpdate();
                     }
                 }}>
