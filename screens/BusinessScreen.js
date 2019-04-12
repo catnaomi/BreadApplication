@@ -4,9 +4,10 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
-import {getBusinessData} from '../db/firebase';
+import {getBusinessData, updateBusinessRating} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
+import RatingDisplay from "./RatingDisplay"
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
@@ -31,6 +32,7 @@ export class BusinessScreen extends Component {
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
         }
+        updateBusinessRating(this.state.id);
     }
 
     componentDidMount() {
@@ -43,6 +45,7 @@ export class BusinessScreen extends Component {
                     address_line2: b_object.address_line2,
                     information: b_object.information,
                     reviews: b_object.reviews,
+                    rating: b_object.rating,
                 })
             }
         })
@@ -56,6 +59,7 @@ export class BusinessScreen extends Component {
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
+        var RatingField = (<RatingDisplay rating = {this.state.rating}/>);
         var NameField = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 24}}
@@ -69,10 +73,10 @@ export class BusinessScreen extends Component {
         var AddressField_line1 = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 18, flexWrap: 'wrap'}}
-                placeholder = {this.state.address}
+                placeholder = {this.state.address_line1}
                 ref = 'name'
                 onChangeText={(text) => this.setState({address: text})}
-                value = {this.state.address}
+                value = {this.state.address_line1}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
 
@@ -91,6 +95,7 @@ export class BusinessScreen extends Component {
                 onPress={() => {
                     if (this.checkPermissions()) {
                         this.state.edit = !this.state.edit;
+                        updateBusinessRating(this.state.id);
                         this.forceUpdate();
                     }
                 }}>
@@ -177,6 +182,9 @@ export class BusinessScreen extends Component {
                         </View>
                         <View style = {{flex: 1}}>
                             <View style = {{flex: 1, top: 10, left: 10}}>
+                                {RatingField}
+                            </View>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
@@ -205,7 +213,7 @@ export class BusinessScreen extends Component {
                             this.state.tab = 0;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Info
                         </Text>
                     </TouchableHighlight>
@@ -215,7 +223,7 @@ export class BusinessScreen extends Component {
                             this.state.tab = 1;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Reviews
                         </Text>
                     </TouchableHighlight>
@@ -225,8 +233,17 @@ export class BusinessScreen extends Component {
                             this.state.tab = 2;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Documents
+                        </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        style = {[styles.tabSelectable, styles.tabDeselected]}
+                        onPress = {() => {
+                            //TODO: Navigate to owner's user page
+                        }}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
+                            Owner
                         </Text>
                     </TouchableHighlight>
                 </View>
