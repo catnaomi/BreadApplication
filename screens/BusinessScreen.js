@@ -73,10 +73,10 @@ export class BusinessScreen extends Component {
         var AddressField_line1 = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 18, flexWrap: 'wrap'}}
-                placeholder = {this.state.address}
+                placeholder = {this.state.address_line1}
                 ref = 'name'
                 onChangeText={(text) => this.setState({address: text})}
-                value = {this.state.address}
+                value = {this.state.address_line1}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
 
@@ -213,7 +213,7 @@ export class BusinessScreen extends Component {
                             this.state.tab = 0;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Info
                         </Text>
                     </TouchableHighlight>
@@ -223,7 +223,7 @@ export class BusinessScreen extends Component {
                             this.state.tab = 1;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Reviews
                         </Text>
                     </TouchableHighlight>
@@ -233,8 +233,17 @@ export class BusinessScreen extends Component {
                             this.state.tab = 2;
                             this.forceUpdate();
                         }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Documents
+                        </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        style = {[styles.tabSelectable, styles.tabDeselected]}
+                        onPress = {() => {
+                            //TODO: Navigate to owner's user page
+                        }}>
+                        <Text style = {{textAlign: 'center', fontSize: 16}}>
+                            Owner
                         </Text>
                     </TouchableHighlight>
                 </View>

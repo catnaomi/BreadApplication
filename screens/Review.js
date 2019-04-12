@@ -4,8 +4,9 @@ import {getReviewData} from "../db/firebase";
 import {getUserData} from "../db/firebase";
 import {getBusinessData} from "../db/firebase";
 import RatingDisplay from "./RatingDisplay";
+import {withNavigation} from "react-navigation";
 
-export default class Review extends Component {
+class Review extends Component {
     static navigationOptions = {
         title: 'Leave a Review',
     };
@@ -70,7 +71,7 @@ export default class Review extends Component {
                             <View style = {[styles.ReviewProfile]}>
                                 <TouchableHighlight
                                     style = {{width: '100%', height: 40, justifyContent: 'center'}}
-                                    onPress = {() => {}}>
+                                    onPress = {() => {this.props.navigation.navigate('BusinessScreen', {id: this.state.business_id});}}>
                                     <View style = {{flexDirection: 'row'}}>
                                         <Text style = {{fontSize: 16, color: 'black'}}>{this.state.author}</Text>
                                         <Text style = {{fontSize: 16, color: 'darkgrey'}}> on </Text>
@@ -91,6 +92,8 @@ export default class Review extends Component {
         )
     }
 }
+
+export default withNavigation(Review);
 
 const styles = StyleSheet.create ({
     Review: {
