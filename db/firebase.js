@@ -85,7 +85,7 @@ function getAdminData(email) {
 
 //************* BUSINESS ********************
 
-function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2) {
+function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2, rating) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
@@ -100,9 +100,11 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
     control: control_number,
     address_line1: address_line1,
     address_line2: address_line2,
+    rating: rating,
     removed: false,
   }).catch((err) => console.log(err));
 }
+
 
 function addReviewToBusiness(business_id, reviews) {
     const format_id = business_id.replace(".","-");
@@ -143,10 +145,13 @@ function getAllBusinessData() {
   });
 }
 
+function updateBusinessRating(business_id) {
+  
+}
 //************* REVIEW ********************
 
 
-function addReviewToDatabase(review_id, review_content, user_id, business_id, date) {
+function addReviewToDatabase(review_id, review_content, user_id, business_id, date, rating) {
   const format_id = review_id.replace(".","-");
   firebase.database().ref('reviews/' + review_id).set({
     review_id:format_id,
@@ -154,6 +159,7 @@ function addReviewToDatabase(review_id, review_content, user_id, business_id, da
     user_id: user_id,
     business_id: business_id,
     date:date,
+    rating:rating,
   }).catch((err) => console.log(err));
 } 
 
@@ -166,6 +172,7 @@ function getReviewData(review_id) {
       user_id: snapshot.val().user_id,
       business_id: snapshot.val().business_id,
       date: snapshot.val().date,
+      rating: snapshot.val().rating,
     }
   });
 }

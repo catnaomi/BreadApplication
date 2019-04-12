@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {getBusinessData} from '../db/firebase';
 import { withNavigation } from 'react-navigation';
+import RatingDisplay from './RatingDisplay';
 
 class BusinessPreview extends Component {
     constructor(props) {
@@ -29,7 +30,10 @@ class BusinessPreview extends Component {
                 onPress ={() => {
                     this.props.navigation.navigate('BusinessScreen', {id: this.props.id});
                 }}>
-                <Text>Business Name: {this.state.name}</Text>
+                <View style = {{flex: 1}}>
+                    <Text>Business Name: {this.state.name}</Text>
+                    <RatingDisplay rating = {1.5}/>
+                </View>
             </TouchableHighlight>
         )
     }
