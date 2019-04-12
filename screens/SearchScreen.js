@@ -39,8 +39,10 @@ export class SearchScreen extends Component {
 }
 
 export class SearchResult extends Component {
-    static navigationOptions = {
-        title: 'Search Results',
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: 'Search Result: ' + navigation.getParam('searchQuery'),
+        };
     };
 
     constructor(props) {
@@ -89,7 +91,7 @@ function getArray(data) {
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id}/>
+    return <BusinessPreview id={business_id} key={business_id}/>
 }
 
 /*

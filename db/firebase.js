@@ -72,7 +72,7 @@ function registerAdmin(email, password, history, settings) {
 
 function getAdminData(email) {
   const format_email = email.replace(".","-");
-  return firebase.database().ref('admins/' + format_id).once('value').then(function(snapshot) {
+  return firebase.database().ref('admins/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id:snapshot.val().user_id,
       admin_email:snapshot.val().admin_email,
@@ -169,6 +169,17 @@ function updateBusinessRating(business_id) {
     })
   })
 }
+
+function removeBusiness(business_id, name, owner, email, address_line1, address_line2, controlNumber) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id).set({
+    //TODO: Add other fields if necessary
+    removed: true,
+  }).catch((err) => console.log(err));
+
+}
+
+
 //************* REVIEW ********************
 
 
@@ -181,6 +192,7 @@ function addReviewToDatabase(review_id, review_content, user_id, business_id, da
     business_id: business_id,
     date:date,
     rating:rating,
+    flagged: 0,
   }).catch((err) => console.log(err));
 } 
 
@@ -204,6 +216,14 @@ function getAllReviews() {
   });
 }
 
+function removeReview(review_id, user_id, business_id) {
+  const format_id = review_id.replace(".","-");
+  return firebase.database().ref('reviews/' + format_id).once('value').then(function(snapshot) {
+    snapshot.val().remove();
+  }).catch((err) => console.log(err));
+}
+
+
 //************* EXPORTS ********************
 
 module.exports = {
@@ -222,4 +242,6 @@ module.exports = {
   getAllBusinessData: getAllBusinessData,
   setBusinessRating: setBusinessRating,
   updateBusinessRating: updateBusinessRating,
+  removeBusiness: removeBusiness,
+  removeReview: removeReview,
 };

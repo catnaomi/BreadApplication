@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
     TouchableOpacity, View, ScrollView, Alert} from "react-native";
-import {getBusinessData, doesUserExist} from '../db/firebase';
+import {getBusinessData, removeBusiness} from '../db/firebase';
 
 export default class AdminAdd extends Component {
 
@@ -10,10 +10,12 @@ export default class AdminAdd extends Component {
         this.state = {
             permissions: this.checkPermissions(),
             name: '',
-            address: '',
+            address_line1: '',
+            address_line2: '',
             email: '',
             owner: '',
             controlNumber: '',
+            id: '',
         }
     }
 
@@ -29,7 +31,7 @@ export default class AdminAdd extends Component {
                 onPress={() => {
                     if (self.state.name == '') {
                         Alert.alert('Business name field is not complete');
-                    } else if (self.state.address == '') {
+                    } else if (self.state.address_line1 == '') {
                         Alert.alert('Address field is not complete');
                     } else if (self.state.email == '') {
                         Alert.alert('Email field is not complete');
@@ -38,11 +40,13 @@ export default class AdminAdd extends Component {
                     } else if (self.state.controlNumber = '') {
                         Alert.alert('Control number field is not complete');
                     } else if (self.state.id == '') {
-                        Alert.alert('Alert field is not complete');
+                        Alert.alert('ID field is not complete');
                     } else {
                         getBusinessData(self.state.id).then(response => {
                             if (response != undefined) {
-                                response.removed == true;
+                                //response.removed == true;
+                                removeBusiness(self.state.id, self.state.name, self.state.owner, self.state.owner,
+                                    self.state.address_line1, self.state.address_line2, self.state.controlNumber);
                                 Alert.alert(self.state.name + " has now been removed");
                             } else {
                                 Alert.alert('Business was not found in the database')
@@ -79,8 +83,13 @@ export default class AdminAdd extends Component {
                             <Text style={styles.title}>Business Address:</Text>
                             <TextInput
                                 style={styles.entryText}
-                                placeholder={"Address of Business"}
-                                onChangeText={(new_address) => this.setState({address: new_address})}
+                                placeholder={"Line 1"}
+                                onChangeText={(new_address1) => self.setState({address_line1:new_address1})}
+                            />
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Line 2"}
+                                onChangeText={(new_address2) => self.setState({address_line2:new_address2})}
                             />
                         </View>
 
@@ -155,14 +164,13 @@ const styles = StyleSheet.create({
         color: '#ffab40'
     },
     title: {
-
         backgroundColor: '#ffab40',
         fontSize: 18,
         color: 'white',
         padding: '2%',
     },
     entry: {
-        height: '20%',
+        flex: 1,
     },
     entryText: {
         fontSize: 18,
@@ -175,5 +183,5 @@ const validate = (email) => {
     const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
     return expression.test(String(email).toLowerCase())
-}
+};
 
