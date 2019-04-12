@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, TouchableHighlight, Image} from "react-native";
 import {getReviewData} from "../db/firebase";
 import {getUserData} from "../db/firebase";
 import {getBusinessData} from "../db/firebase";
+import RatingDisplay from "./RatingDisplay";
 
 export default class Review extends Component {
     static navigationOptions = {
@@ -30,6 +31,7 @@ export default class Review extends Component {
                     content: r_object.review_content,
                     user_id: r_object.user_id,
                     business_id: r_object.business_id,
+                    rating: r_object.rating,
                 });
                 getUserData('default@default-com').then(u_object => {
                     if (u_object != undefined) {
@@ -50,11 +52,36 @@ export default class Review extends Component {
     }
 
     render () {
+        var pfp = require('../assets/images/profile/profilesmall.png');
+        var arrow = require('../assets/images/icons/arrow.png');
         return (
             <View style = {styles.Review}>
-                <View style = {{flex: 1, left: 10, top: 20, paddingRight: 10, paddingBottom: 20}}>
-                    <View style = {styles.ReviewProfile}>
-                        <Text style={{fontSize: 16}}>{this.state.author}<Text style = {{color: 'grey'}}> left a review on </Text>{this.state.business}</Text>
+                <View style = {{flex: 1}}/>
+                <View style = {{flex: 9}}>
+                    <View style = {{flexDirection: 'row'}}>
+                        <TouchableHighlight
+                            style = {{left: 10, borderWidth: 1, width: 64, height: 64, borderRadius: 64, overflow: 'hidden'}}
+                            onPress = {() => {}}>
+                            <Image
+                                style = {{width: 64, height: 64}}
+                                source = {pfp}/>
+                        </TouchableHighlight>
+                        <View style = {{left: 20, width: '100%', height: 64}}>
+                            <View style = {[styles.ReviewProfile]}>
+                                <TouchableHighlight
+                                    style = {{width: '100%', height: 40, justifyContent: 'center'}}
+                                    onPress = {() => {}}>
+                                    <View style = {{flexDirection: 'row'}}>
+                                        <Text style = {{fontSize: 16, color: 'black'}}>{this.state.author}</Text>
+                                        <Text style = {{fontSize: 16, color: 'darkgrey'}}> on </Text>
+                                        <Text style = {{fontSize: 16, color: 'black'}}>{this.state.business}</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </View>
+                            <View style = {[styles.ReviewRating]}>
+                                <RatingDisplay rating={this.state.rating}/>
+                            </View>
+                        </View>
                     </View>
                     <View style = {styles.ReviewContent}>
                         <Text style={{fontSize: 14}}>{this.state.content}</Text>
@@ -70,18 +97,27 @@ const styles = StyleSheet.create ({
         height: 150,
         width: '100%',
         borderBottomWidth: 1,
-        borderColor: 'grey',
+        borderColor: 'lightgrey'
     },
     ReviewHeader: {
         flex: 1,
         flexDirection: 'row',
     },
     ReviewProfile: {
-        flex: 1,
         fontSize: 18,
+        height: 40,
+        width: '100%',
+        flexDirection: 'row',
     },
     ReviewContent: {
-        flex: 3,
+        width: '100%',
+        height: 86,
         fontSize: 12,
+        padding: 10,
+    },
+    ReviewRating: {
+        height: 24,
+        width: '100%',
+        flexDirection: 'row',
     }
 });

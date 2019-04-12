@@ -32,6 +32,7 @@ export class BusinessScreen extends Component {
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
         }
+        updateBusinessRating(this.state.id);
     }
 
     componentDidMount() {

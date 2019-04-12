@@ -20,7 +20,6 @@ export default class RatingDisplay extends Component {
                 starArray[i] = 1;
             }
         }
-        console.log(starArray);
         return (
             <View style = {styles.ratingBounds}>
                 {starArray.map(function (val) {

@@ -3,6 +3,10 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import {addReviewToDatabase, getBusinessData, addReviewToBusiness, updateBusinessRating} from '../db/firebase';
 
 export default class ReviewScreen extends Component {
+    static navigationOptions = {
+        title: 'Leave a Review',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -102,7 +106,7 @@ export default class ReviewScreen extends Component {
                         </View>
                     </View>
                 </View>
-                <View style = {{flex: 1, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
+                <View style = {{flex: 0.5, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
                     <View style = {{flex: 1}}/>
                     {/*Rating Select*/}
                     <View style = {{flex: 1}}>
