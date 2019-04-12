@@ -135,6 +135,7 @@ function getBusinessData(business_id) {
       address_line1: snapshot.val().address_line1,
       address_line2: snapshot.val().address_line2,
       removed: snapshot.val().removed,
+      rating: snapshot.val().rating,
     }
   });
 }
@@ -145,8 +146,28 @@ function getAllBusinessData() {
   });
 }
 
+function setBusinessRating(business_id, rating) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id + '/rating/').set(rating).catch((err) => console.log(err));
+}
+
 function updateBusinessRating(business_id) {
-  
+  let biz;
+  let ratingTotal = 0;
+  let ratingNumber = 0;
+  let rating = 0;
+  getBusinessData(business_id).then(b_object => {
+    biz = b_object;
+
+    biz.reviews.map(function(review) {
+      getReviewData(review).then(r_object => {
+        ratingNumber++;
+        ratingTotal += r_object.rating;
+        rating = ratingTotal / ratingNumber;
+        setBusinessRating(business_id, rating);
+      })
+    })
+  })
 }
 //************* REVIEW ********************
 
@@ -199,4 +220,6 @@ module.exports = {
   doesUserExist: doesUserExist,
   addReviewToBusiness: addReviewToBusiness,
   getAllBusinessData: getAllBusinessData,
+  setBusinessRating: setBusinessRating,
+  updateBusinessRating: updateBusinessRating,
 };

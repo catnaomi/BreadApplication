@@ -4,9 +4,10 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
-import {getBusinessData} from '../db/firebase';
+import {getBusinessData, updateBusinessRating} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
+import RatingDisplay from "./RatingDisplay"
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
@@ -43,6 +44,7 @@ export class BusinessScreen extends Component {
                     address_line2: b_object.address_line2,
                     information: b_object.information,
                     reviews: b_object.reviews,
+                    rating: b_object.rating,
                 })
             }
         })
@@ -56,6 +58,7 @@ export class BusinessScreen extends Component {
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
+        var RatingField = (<RatingDisplay rating = {this.state.rating}/>);
         var NameField = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 24}}
@@ -91,6 +94,7 @@ export class BusinessScreen extends Component {
                 onPress={() => {
                     if (this.checkPermissions()) {
                         this.state.edit = !this.state.edit;
+                        updateBusinessRating(this.state.id);
                         this.forceUpdate();
                     }
                 }}>
@@ -176,6 +180,9 @@ export class BusinessScreen extends Component {
                             </View>
                         </View>
                         <View style = {{flex: 1}}>
+                            <View style = {{flex: 1, top: 10, left: 10}}>
+                                {RatingField}
+                            </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
                             </View>

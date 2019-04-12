@@ -32,4 +32,5 @@ addReviewToDatabase(
     'Cras malesuada lacus vitae condimentum rutrum. Etiam urna nibh, pellentesque vel gravida in, fermentum ut nisl. Donec efficitur consequat viverra.',
     'default@default-com',
     '5',
-    1554077657)
+    1554077657,
+    4)
