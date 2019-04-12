@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
-import {navigate} from 'react-navigation';
+import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
-import {getUserData, doesUserExist} from "../db/firebase";
-import { createStackNavigator } from 'react-navigation';
+import {getUserData, getAdminData, doesUserExist} from "../db/firebase";
+import {AdminNavigator} from "./AdminLanding";
 
 class LoginScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
         }
     }
@@ -17,6 +17,8 @@ class LoginScreen extends Component {
         var logo = require('../assets/images/logos/texthoriz.png');
         const { navigate } = LoginStack;
         var sel = this;
+        let self = this;
+
         return (
             <View style = {{flex: 1}}>
                 <View style = {styles.imageView}>
@@ -25,17 +27,18 @@ class LoginScreen extends Component {
                 <View style = {{flex : 1}}>
                     <TextInput
                         style={styles.loginField}
-                        placeholder = "email or phone number"
+                        placeholder = "email"
                         ref='user'
-                        onChangeText = {(text) => this.setState({username: text})}
-                        value = {this.state.username}
+                        onChangeText = {(text) => self.setState({email: text})}
+                        value = {self.state.email}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
-                        onChangeText = {(text) => this.setState({password: text})}
-                        value = {this.state.password}
+                        onChangeText = {(text) => self.setState({password: text})}
+                        value = {self.state.password}
                     />
                     <View style = {styles.loginButton}>
                         <Button
@@ -69,6 +72,21 @@ class LoginScreen extends Component {
                                     })
                                 }
                                 //Alert.alert(this.state.username + '\nadded to database');
+                                getAdminData(self.state.email).then(admin => {
+                                    if (admin !== undefined) {
+                                        this.props.navigation.navigate('AdminNavigator')
+                                    }
+                                })
+
+                                getUserData(self.state.email).then(user => {
+                                    if (user !== undefined) {
+                                        //TODO: Change from AdminNavigator
+                                        this.props.navigation.navigate('AdminNavigator')
+                                    } else {
+                                        Aler.alert("Email or Password is incorrect")
+                                    }
+                                })
+
                             }}
                             title="Login"
                         />
@@ -96,7 +114,7 @@ class LoginScreen extends Component {
                 </View>
                 <View style = {styles.registerButton}>
                     <Button
-                        onPress = { () => {this.props.navigation.navigate('Register')}}
+                        onPress = {() => {this.props.navigation.navigate('Register')}}
                         title = "Register"
                     />
                 </View>
@@ -149,8 +167,9 @@ const styles = StyleSheet.create ({
 });
 
 export const LoginStack = createStackNavigator({
-    Login: {screen: LoginScreen},
-    Register: RegisterScreen,
+        Login: {screen: LoginScreen},
+        Register:{screen: RegisterScreen},
+        AdminNavigator: {screen: AdminNavigator},
 },
 {
     headerMode: 'none',

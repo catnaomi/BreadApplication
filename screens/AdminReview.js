@@ -1,9 +1,38 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Linking, RefreshControl} from "react-native";
+import {getBusinessData, getReviewData, getUserData, getAllReviews, getAllBusinessData} from "../db/firebase";
+import Review from "./Review";
 
 export default class AdminReview extends Component {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            reviews: [],
+            refreshing: false,
+        };
+    }
+    //
+    // _onRefresh = () => {
+    //     this.setState({refreshing: true});
+    //     fetchData().then(() => {
+    //         this.setState({refreshing: false});
+    //     });
+    // }
+
+    componentDidMount() {
+        let self = this;
+        getAllReviews().then(response => {
+            self.setState({
+                reviews: getArray(response)
+            })
+        })
+    }
+
     render() {
+        let self = this;
         var logo = require('../assets/images/logos/texthoriz.png');
+
         return (
             <View style={styles.screenView}>
                 <View style={styles.imageView}>
@@ -12,10 +41,41 @@ export default class AdminReview extends Component {
                         style={styles.breadLogo}
                     />
                 </View>
+                <View style={styles.optionView}>
+                    <ScrollView style={styles.innerOption}>
+                        {
+                            this.state.reviews.map(function(review) {
+                                if ((review !== undefined) && (+review.flagged >= 0)) {
+                                    return GetReviewFromID(review.review_id);
+                                }
+                            })
+                        }
+                        <TouchableOpacity
+                            onPress={() =>{this.forceUpdate()}}
+                            style={[styles.title, {alignItems: 'center'}]}>
+                            <Text style={{fontSize: 16, color:'white', fontWeight: 'bold'}}>Refresh</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                </View>
             </View>
 
         )};
 
+}
+
+
+function getArray(data) {
+    arr = [];
+    for(var key in data) {
+        if (data.hasOwnProperty(key)) {
+            arr[key] = data[key] // convert object to array
+        }
+    }
+    return arr;
+}
+
+function GetReviewFromID(review_id) {
+    return (<Review id={review_id} key={review_id}/>);
 }
 
 const styles = StyleSheet.create({
@@ -24,15 +84,30 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     imageView: {
-        height: '15%',
+        flex: 1,
         width: '100%',
-        top: '5%',
     },
     breadLogo: {
         position: 'absolute',
         width: '75%',
         height: '100%',
         left: '12.5%',
+    },
+    optionView: {
+        flex: 6,
+        width: '100%',
+    },
+    innerOption: {
+        width: '90%',
+        left: '5%',
+        flexGrow: 1,
+        flexDirection: 'column',
+    },
+    title: {
+        backgroundColor: '#ffab40',
+        fontSize: 18,
+        color: 'white',
+        padding: '2%',
     },
 });
 

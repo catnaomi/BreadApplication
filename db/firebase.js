@@ -72,7 +72,7 @@ function registerAdmin(email, password, history, settings) {
 
 function getAdminData(email) {
   const format_email = email.replace(".","-");
-  return firebase.database().ref('admins/' + format_id).once('value').then(function(snapshot) {
+  return firebase.database().ref('admins/' + format_email).once('value').then(function(snapshot) {
     return {
       user_id:snapshot.val().user_id,
       admin_email:snapshot.val().admin_email,
@@ -85,7 +85,7 @@ function getAdminData(email) {
 
 //************* BUSINESS ********************
 
-function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2) {
+function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number, address_line1, address_line2, rating) {
   const format_id = business_id.replace(".","-");
   firebase.database().ref('businesses/' + format_id).set({
     business_id:format_id,
@@ -100,7 +100,15 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
     control: control_number,
     address_line1: address_line1,
     address_line2: address_line2,
+    rating: rating,
+    removed: false,
   }).catch((err) => console.log(err));
+}
+
+
+function addReviewToBusiness(business_id, reviews) {
+    const format_id = business_id.replace(".","-");
+    firebase.database().ref('businesses/' + format_id + "/reviews/").set(reviews).catch((err) => console.log(err));
 }
 
 function getBusinessWithID(business_id) {
@@ -126,6 +134,8 @@ function getBusinessData(business_id) {
       control: snapshot.val().control,
       address_line1: snapshot.val().address_line1,
       address_line2: snapshot.val().address_line2,
+      removed: snapshot.val().removed,
+      rating: snapshot.val().rating,
     }
   });
 }
@@ -136,10 +146,44 @@ function getAllBusinessData() {
   });
 }
 
+function setBusinessRating(business_id, rating) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id + '/rating/').set(rating).catch((err) => console.log(err));
+}
+
+function updateBusinessRating(business_id) {
+  let biz;
+  let ratingTotal = 0;
+  let ratingNumber = 0;
+  let rating = 0;
+  getBusinessData(business_id).then(b_object => {
+    biz = b_object;
+
+    biz.reviews.map(function(review) {
+      getReviewData(review).then(r_object => {
+        ratingNumber++;
+        ratingTotal += r_object.rating;
+        rating = ratingTotal / ratingNumber;
+        setBusinessRating(business_id, rating);
+      })
+    })
+  })
+}
+
+function removeBusiness(business_id, name, owner, email, address_line1, address_line2, controlNumber) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id).set({
+    //TODO: Add other fields if necessary
+    removed: true,
+  }).catch((err) => console.log(err));
+
+}
+
+
 //************* REVIEW ********************
 
 
-function addReviewToDatabase(review_id, review_content, user_id, business_id, date) {
+function addReviewToDatabase(review_id, review_content, user_id, business_id, date, rating) {
   const format_id = review_id.replace(".","-");
   firebase.database().ref('reviews/' + review_id).set({
     review_id:format_id,
@@ -147,6 +191,8 @@ function addReviewToDatabase(review_id, review_content, user_id, business_id, da
     user_id: user_id,
     business_id: business_id,
     date:date,
+    rating:rating,
+    flagged: 0,
   }).catch((err) => console.log(err));
 } 
 
@@ -159,9 +205,22 @@ function getReviewData(review_id) {
       user_id: snapshot.val().user_id,
       business_id: snapshot.val().business_id,
       date: snapshot.val().date,
+      rating: snapshot.val().rating,
     }
   });
 }
+
+function getAllReviews() {
+  return firebase.database().ref('reviews/').once('value').then(function(snapshot) {
+    return snapshot.val();
+  });
+}
+
+function removeReview(review_id, user_id, business_id) {
+  const format_id = review_id.replace(".","-");
+  return firebase.database().ref('reviews/' + format_id).once('value').then(function(snapshot) {
+    snapshot.val().remove();
+  }).catch((err) => console.log(err));
 
 //************UPLOAD IMAGE******************
 
@@ -171,8 +230,6 @@ async function uploadImage(uri, imageName) {
   var metadata = { contentType: "image/jpeg" };
   var ref = firebase.storage().ref().child("images/" + imageName + ".jpg");
   return ref.put(blob, metadata);
-}
-
 
 //************* EXPORTS ********************
 
@@ -186,7 +243,17 @@ module.exports = {
   getBusinessWithID: getBusinessWithID,
   addReviewToDatabase: addReviewToDatabase,
   getReviewData: getReviewData,
+  getAllReviews: getAllReviews,
   doesUserExist: doesUserExist,
+<<<<<<< HEAD
   getAllBusinessData: getAllBusinessData,
   uploadImage: uploadImage
+=======
+  addReviewToBusiness: addReviewToBusiness,
+  getAllBusinessData: getAllBusinessData,
+  setBusinessRating: setBusinessRating,
+  updateBusinessRating: updateBusinessRating,
+  removeBusiness: removeBusiness,
+  removeReview: removeReview,
+>>>>>>> 89fade8f5e84f3faeca590f288ca891c0958d211
 };

@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, View} from "react-native";
 export default class BusinessPage extends Component {
 
     render() {
-        var businessImage = require('../assets/images/icons/dummyRestaurant.jpg');
+        var businessImage = require('../assets/images/profile/dummyRestaurant.jpg');
         var ratings = require('../assets/images/icons/rating.png');
         return (
 

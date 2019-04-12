@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import {navigate} from 'react-navigation';
-import {registerUser, getUserData, doesUserExist} from "../db/firebase.js";
+import {registerUser, getUserData, doesUserExist, registerAdmin} from "../db/firebase.js";
 import { createStackNavigator } from 'react-navigation';
 
 export default class RegisterScreen extends Component {
@@ -37,6 +37,7 @@ export default class RegisterScreen extends Component {
                         value = {this.state.usernamechk}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "password"
                         ref='pass'
@@ -44,6 +45,7 @@ export default class RegisterScreen extends Component {
                         value = {this.state.password}
                     />
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.loginField}
                         placeholder = "repeat password"
                         ref='passchk'
@@ -80,6 +82,7 @@ export default class RegisterScreen extends Component {
                                             console.log("User does not exist-- Adding!");
                                             registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
                                             Alert.alert(sel.state.username + '\nis now registered to the database');
+                                            this.props.navigation.goBack();
                                         }
 
                                     })

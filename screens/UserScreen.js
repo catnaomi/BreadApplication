@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, Alert} from "react-native";
 
-import {BusinessStack} from './BusinessScreen'
+import {BusinessStack, BusinessScreen} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
+import cache from '../userCache'
 
 import {ImagePicker} from 'expo';
 import {uploadImage} from '../db/firebase.js';
@@ -16,8 +17,8 @@ export default class UserScreen extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            permission: this.checkPermissions(),
             name: 'Default Name',
+            user_id: 'default',
             reviews: [
                 {
                     date: 1554057121,
@@ -73,10 +74,10 @@ export default class UserScreen extends Component {
             /> :
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
-        var EditButton = (this.checkPermissions() ?
+        var EditButton = (checkPermissions(this.state.user_id) ?
             <TouchableHighlight
                 onPress={() => {
-                    if (this.checkPermissions()) {
+                    if (checkPermissions(this.state.user_id)) {
                         this.state.edit = !this.state.edit;
                         this.forceUpdate();
                     }
@@ -139,19 +140,17 @@ export default class UserScreen extends Component {
             } else if (props.tab == 1) { // favorites
                 return (
                     <ScrollView>
-                        <BusinessPreview name="Dallie's Diner"/>
-                        <BusinessPreview name="Eugene's"/>
-                        <BusinessPreview name="Frederick Fair"/>
-                        <BusinessPreview name="Rocky Mountain Pizza"/>
+                        <BusinessPreview id={'5'}/>
+
                     </ScrollView>
                 );
             } else { //businesses
                 return (
                     <ScrollView>
-                        <BusinessPreview name="A"/>
-                        <BusinessPreview name="B"/>
-                        <BusinessPreview name="C"/>
-                        <BusinessPreview name="D"/>
+                        <BusinessPreview id='5'/>
+                        <BusinessPreview id='1'/>
+                        <BusinessPreview id='2'/>
+                        <BusinessPreview id='4'/>
                     </ScrollView>
                 );
             }
@@ -232,9 +231,12 @@ export default class UserScreen extends Component {
     }
 }
 
+function checkPermissions(user_id) {
+    return cache.user_id === user_id
+}
+
 export const UserStack = createStackNavigator({
     UserScreen: {screen: UserScreen},
-    BusinessScreen: {screen: BusinessStack},
 });
 
 const styles = StyleSheet.create ({

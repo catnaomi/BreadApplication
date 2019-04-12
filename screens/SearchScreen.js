@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableHighlight} from "react-native";
+import {StyleSheet, Text, View, TouchableHighlight, ScrollView} from "react-native";
 import {createStackNavigator} from 'react-navigation';
-import {getBusinessWithID} from '../db/firebase'
+import {getBusinessWithID, getAllBusinessData} from '../db/firebase'
+import BusinessPreview from './BusinessPreview'
+import {BusinessScreen} from './BusinessScreen'
 
 export class SearchScreen extends Component {
 
@@ -17,7 +19,7 @@ export class SearchScreen extends Component {
                 <View style = {styles.searchHeader}>
                     <View style = {{flex : 1, borderLeftWidth: 1, justifyContent: 'center', alignContent: 'center'}}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Businesses Found:
+                            Businesses with search type:
                         </Text>
                     </View>
                 </View>
@@ -37,39 +39,68 @@ export class SearchScreen extends Component {
 }
 
 export class SearchResult extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: 'Search Result: ' + navigation.getParam('searchQuery'),
+        };
+    };
+
     constructor(props) {
         super(props)
         this.state = {
-            name: "no name right now"
+            name: "no name yet",
+            searchQuery: this.props.navigation.state.params.searchQuery,
+            data: []
         }
     }
 
     componentDidMount() {
         var self = this;
-        getBusinessWithID("id_1").then(response => {
+        getAllBusinessData().then(response => {
             self.setState({
-                name: response
+                data: getArray(response)
             })
         })
     }
 
     render() {
-        return(
+        return (
             <View style = {{width: '100%', height: '100%'}}>
-                <View style = {styles.searchContent}>
-                    <View style = {{left: 10, top: 10}}>
-                        <Text>THIS IS A SEARCH RESULT PAGE for bussiness with name:: {this.state.name}</Text>
-                    </View>
-                </View>
+                <ScrollView>
+                    {
+                        this.state.data.map(function(businessObject) {
+                            if(businessObject !== undefined){
+                                return GetPreviewForBusiness(businessObject.business_id);
+                            }
+                        }) 
+                    }
+                </ScrollView>
             </View>
         );
     }
 }
 
+function getArray(data) {
+    arr = [];
+    for(var key in data) {
+        if (data.hasOwnProperty(key)) {          
+            arr[key] = data[key] // convert object to array
+        }
+    }
+    return arr
+}
+
+function GetPreviewForBusiness(business_id) {
+    return <BusinessPreview id={business_id} key={business_id}/>
+}
+
+/*
 export const SearchScreenStack = createStackNavigator({
   SearchScreen: {screen: SearchScreen},
   SearchResult: {screen: SearchResult},
+    BusinessScreen: {screen: BusinessScreen},
 }, {initialRoute: 'SearchScreen'});
+*/
 
 const styles = StyleSheet.create ({
     searchBar: {
@@ -91,4 +122,68 @@ const styles = StyleSheet.create ({
         flex: 6,
         borderWidth: 1,
     },
+    tabText: {
+        fontSize: 25,
+        alignItems: 'center',
+    },
+    profileHeader: {
+        flex: 4,
+        backgroundColor: 'lightgrey',
+    },
+    profileTabs: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    profileContent: {
+        flex: 5,
+    },
+    profilePicture: {
+        resizeMode: 'cover',
+        left: 10,
+        width: 150,
+        height: 150,
+        padding: 0,
+        borderWidth: 1,
+        borderColor: 'grey',
+    },
+    profileImage: {
+        resizeMode: 'cover',
+        width: 150,
+        height: 150,
+    },
+    editIcon: {
+        flex: 1,
+        resizeMode: 'contain',
+        overflow: 'hidden',
+    },
+    editIconImage: {
+        resizeMode: 'contain',
+        width: 32,
+        height: 32,
+    },
+    tabSelectable: {
+        flex : 1,
+        borderLeftWidth: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    tabSelected: {
+        backgroundColor: 'lightgrey',
+    },
+    tabDeselected: {
+        backgroundColor: 'white',
+    },
+    addReview: {
+        height: 100,
+        width: '50%',
+        left: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+    },
+    businessInfo: {
+        flex: 1,
+        fontSize: 18,
+        flexWrap: 'wrap',
+    }
 });

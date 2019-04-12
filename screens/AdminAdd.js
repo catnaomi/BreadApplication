@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
  TouchableOpacity, View, ScrollView, Alert} from "react-native";
+import {doesUserExist, registerBusiness, getBusinessData} from '../db/firebase'
 
 export default class AdminAdd extends Component {
 
@@ -9,11 +10,15 @@ export default class AdminAdd extends Component {
         this.state = {
             permissions: this.checkPermissions(),
             name: '',
-            address: '',
+            address_line1: '',
+            address_line2: '',
+            description: '',
+            city: '',
+            state: '',
+            zip: '',
             email: '',
             owner: '',
             controlNumber: '',
-            add: false,
             id: ''
         }
     }
@@ -24,9 +29,39 @@ export default class AdminAdd extends Component {
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
-        var addButton = (this.checkPermissions() ?
+        var self = this;
+        var addButton = (self.checkPermissions() ?
             <TouchableOpacity
-                onPress={() => Linking.openURL(sosurl)} style={{alignItems: 'center'}}>
+                onPress={() => {
+                    if (self.state.name == '') {
+                        Alert.alert('Business name field is not complete');
+                    } else if (self.state.address_line1 == '') {
+                        Alert.alert('Address field is not complete');
+                    } else if (self.state.email == '') {
+                        Alert.alert('Email field is not complete');
+                    } else if (self.state.owner = '') {
+                        Alert.alert('Owner field is not complete');
+                    } else if (self.state.controlNumber = '') {
+                        Alert.alert('Control number field is not complete');
+                    } else if (self.state.id == '') {
+                        Alert.alert(' ID field is not complete');
+                    } else {
+                        // getBusinessData(self.state.id).then(response => {
+                        //     if (response != undefined) {
+                        //         Alert.alert('Business is already in the database!');
+                        //     } else {
+                        //         registerBusiness(self.state.id, self.state.name,'', self.state.owner,
+                        //             '', '', '', self.state.email, '',
+                        //             self.state.controlNumber, self.state.address, '');
+                        //         Alert.alert(self.state.name + " is now in the database");
+                        //     }
+                        //})
+                        registerBusiness(self.state.id, self.state.name,'', self.state.owner,
+                            '', self.state.description, '', self.state.email, '',
+                            self.state.controlNumber, self.state.address_line1, self.state.address_line2);
+                        Alert.alert(self.state.name + " is now in the database");
+                    }
+                }} style={{alignItems: 'center'}}>
                 <Text style={styles.text}>Register Business</Text>
             </TouchableOpacity>
             : <View/>);
@@ -47,7 +82,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Business Id"}
-                                onChangeText={(new_address) => this.setState({address:new_address})}
+                                onChangeText={(new_id) => self.setState({id:new_id})}
                             />
                         </View>
 
@@ -56,7 +91,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name"}
-                                onChangeText={(new_name) => this.setState({name:new_name})}
+                                onChangeText={(new_name) => self.setState({name:new_name})}
                             />
                         </View>
 
@@ -64,8 +99,13 @@ export default class AdminAdd extends Component {
                             <Text style={styles.title}>Business Address:</Text>
                             <TextInput
                                 style={styles.entryText}
-                                placeholder={"Address of Business"}
-                                onChangeText={(new_address) => this.setState({address:new_address})}
+                                placeholder={"Line 1"}
+                                onChangeText={(new_address1) => self.setState({address_line1:new_address1})}
+                            />
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Line 2"}
+                                onChangeText={(new_address2) => self.setState({address_line2:new_address2})}
                             />
                         </View>
 
@@ -74,7 +114,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Email of Business"}
-                                onChangeText={(new_email) => this.setState({email: new_email})}
+                                onChangeText={(new_email) => self.setState({email: new_email})}
                             />
                         </View>
 
@@ -83,7 +123,7 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Name of Owner of Business"}
-                                onChangeText={(new_owner) => this.setState({owner:new_owner})}
+                                onChangeText={(new_owner) => self.setState({owner:new_owner})}
                             />
                         </View>
 
@@ -92,13 +132,26 @@ export default class AdminAdd extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Control Number of Business"}
-                                onChangeText={(new_controlNumber) => this.setState({controlNumber: new_controlNumber})}
+                                onChangeText={(new_controlNumber) => self.setState({controlNumber: new_controlNumber})}
                             />
                         </View>
 
-                        <View style={[styles.title, {alignItems: 'center'}]}>
-                            <TouchableOpacity onPress={() => Linking.openURL(sosurl)}>
-                                <Text style={{fontSize: 15, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
+                        <View style={styles.entry}>
+                            <Text style={styles.title}>Description of Business:</Text>
+                            <TextInput
+                                style={styles.entryText}
+                                placeholder={"Description"}
+                                onChangeText={(new_description) => self.setState({description: new_description})}
+                            />
+                        </View>
+
+
+                        <View style={styles.entry}>
+                            <TouchableOpacity
+                                onPress={() => Linking.openURL(sosurl)}
+                                style={[styles.title, {alignItems: 'center'}]}>
+
+                                <Text style={{fontSize: 16, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -122,7 +175,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     imageView: {
-        height: '15%',
+        flex: 1,
         width: '100%',
     },
     breadLogo: {
@@ -132,15 +185,14 @@ const styles = StyleSheet.create({
         left: '12.5%',
     },
     optionView: {
-        flex: 1,
-
+        flex: 6,
+        width: '100%',
     },
     innerOption: {
         width: '90%',
         left: '5%',
-        // flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'space-around',
+        flexGrow: 1,
+        flexDirection: 'column',
     },
     text: {
         fontSize: 25,
@@ -149,14 +201,13 @@ const styles = StyleSheet.create({
         color: '#ffab40'
     },
     title: {
-
         backgroundColor: '#ffab40',
         fontSize: 18,
         color: 'white',
         padding: '2%',
     },
     entry: {
-        height: '20%',
+        flex: 1,
     },
     entryText: {
         fontSize: 18,
@@ -165,3 +216,8 @@ const styles = StyleSheet.create({
     }
 });
 
+const validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    return expression.test(String(email).toLowerCase())
+}
