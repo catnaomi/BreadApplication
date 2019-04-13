@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, RefreshControl} from "react-native";
 
+import {getBusinessData, getUserData, updateUserName} from '../db/firebase';
 import {BusinessStack, BusinessScreen} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
@@ -15,22 +16,41 @@ export default class UserScreen extends Component {
         super (props);
         this.state = {
             name: 'Default Name',
-            user_id: 'default',
-            reviews: [
-                {
-                    date: 1554057121,
-                    review_id: 0,
-                    review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-                        '                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus. ' +
-                        '                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis, ' +
-                        '                            consequat purus ac, mattis arcu. Duis interdum ex a',
-                    user_id: 0,
-                    business_id: 0,
-                }
-            ],
+            user_id: 'default@default-com',
+            reviews: ['Cru'],
+            favorites: [],
+            businesses: ['5'],
             edit: false,
             tab: 0,
+            refreshing: false,
         }
+
+
+        if (this.props.navigation.state.params) {
+            this.state.id = this.props.navigation.state.params.id;
+        }
+    }
+
+    componentDidMount() {
+        this.RefreshInfo();
+    }
+
+    RefreshInfo() {
+        if(this.state.refreshing) {
+            this.state.refreshing = true;
+        }
+        var self = this;
+        getUserData(this.state.user_id).then(u_object => {
+            if (u_object != undefined) {
+                self.setState({
+                    name: u_object.name,
+                    reviews: u_object.reviews,
+                    favorites: u_object.favorites,
+                    businesses: u_object.businesses,
+                })
+                self.state.refreshing = false;
+            }
+        })
     }
 
     render() {
@@ -52,7 +72,9 @@ export default class UserScreen extends Component {
             <TouchableHighlight
                 onPress={() => {
                     if (checkPermissions(this.state.user_id)) {
+                        updateUserName(this.state.user_id, this.state.name);
                         this.state.edit = !this.state.edit;
+                        this.RefreshInfo();
                         this.forceUpdate();
                     }
                 }}>
@@ -81,50 +103,36 @@ export default class UserScreen extends Component {
             BusinessSelectStyle = styles.tabSelected;
         }
 
+        let self = this;
         function TabContent (props) {
             if (props.tab == 0) { //review
                 return (
                     <ScrollView>
-                        {/*
-                        <Review
-                            business="Dallie's Diner"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nunc ornare nunc quis risus vulputate bibendum. Quisque ultrices tincidunt lacus.
-                            Vivamus vitae finibus lectus. Vestibulum vitae leo magna. Sed at libero venenatis,
-                            consequat purus ac, mattis arcu. Duis interdum ex a."
-                        />
-                        <Review
-                            business ="McDonald's"
-                            contents = "sucks. don't go here."
-                        />
-                        <Review
-                            business="Barry's Farm"
-                            content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Sed consequat blandit mi eu feugiat. Nunc dictum auctor massa ac volutpat.
-                            Morbi eget orci tellus. Fusce lacinia, eros eu feugiat pellentesque,
-                            nisi leo posuere lacus, ut bibendum est nisi eget est."
-                        />
-                        <Review
-                            business = "Cindy's Store"
-                            contents = "Quisque ut purus leo.
-                            Orci varius natoque penatibus et magnis."
-                        />*/}
+                        {self.state.reviews ?
+                            self.state.reviews.map(function(reviewid) {
+                            return GetReviewFromID(reviewid);
+                        }) : <View/>
+                        }
                     </ScrollView>
                 );
             } else if (props.tab == 1) { // favorites
                 return (
                     <ScrollView>
-                        <BusinessPreview id={'5'}/>
-
+                        {self.state.favorites ?
+                            self.state.favorites.map(function(bizid) {
+                            return GetPreviewForBusiness("" + bizid);
+                        }) : <View/>
+                        }
                     </ScrollView>
                 );
             } else { //businesses
                 return (
                     <ScrollView>
-                        <BusinessPreview id='5'/>
-                        <BusinessPreview id='1'/>
-                        <BusinessPreview id='2'/>
-                        <BusinessPreview id='4'/>
+                        {self.state.businesses ?
+                            self.state.businesses.map(function(bizid) {
+                            return GetPreviewForBusiness(bizid);
+                        }) : <View/>
+                        }
                     </ScrollView>
                 );
             }
@@ -200,6 +208,14 @@ export default class UserScreen extends Component {
             </View>
         );
     }
+}
+
+function GetReviewFromID (id) {
+    return (<Review id = {id}/>);
+}
+
+function GetPreviewForBusiness(business_id) {
+    return <BusinessPreview id={business_id}/>
 }
 
 function checkPermissions(user_id) {

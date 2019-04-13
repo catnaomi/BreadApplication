@@ -3,6 +3,7 @@ import {registerUser} from "./db/firebase";
 import {LandingStack} from "./screens/LandingScreen"
 import {UserStack} from "./screens/UserScreen"
 import {BusinessStack} from "./screens/BusinessScreen"
+import {FavoritesStack} from "./screens/FavoriteScreen"
 import {SettingsStack} from "./screens/SettingsScreen"
 import {SearchScreenStack} from "./screens/SearchScreen"
 import manual_data_entry from './db/manual_data_entry'
@@ -21,7 +22,7 @@ import {
 
 export const TabNavigator = createBottomTabNavigator({
    Find: {screen: LandingStack},
-   Favorites: {screen: BusinessStack},
+   Favorites: {screen: FavoritesStack},
    Profile: {screen: UserStack},
    Settings: {screen: SettingsStack},
    /*Search: {screen: SearchScreenStack},*/
@@ -29,6 +30,6 @@ export const TabNavigator = createBottomTabNavigator({
 
 
 // only set true for demoing
-console.disableYellowBox = true;
+console.disableYellowBox = false;
 
 export default createAppContainer(TabNavigator);

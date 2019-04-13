@@ -20,8 +20,9 @@ function registerUser(email, name, password, favorites, reviews, settings, profi
     name: name,
     user_email:email,
     hash_pass: password,
-    favorites:favorites,
-    reviews:reviews,
+    favorites: [],
+    reviews: [],
+    businesses: [],
     settings:settings,
     profile_pic_id: profile_pic_id
   }).catch((err) => console.log(err));
@@ -37,6 +38,7 @@ function getUserData(email) {
       hash_pass: snapshot.val().hash_pass,
       favorites: snapshot.val().favorites,
       reviews:snapshot.val().reviews,
+      businesses:snapshot.val().businesses,
       settings: snapshot.val().settings,
       profile_pic_id: snapshot.val().profile_pic_id
     }
@@ -56,6 +58,25 @@ function doesUserExist(email) {
 });
 }
 
+function addReviewToUser(user_id, reviews) {
+  const format_id = user_id.replace(".","-");
+  firebase.database().ref('users/' + format_id + "/reviews/").set(reviews).catch((err) => console.log(err));
+}
+
+function addFavoritesToUser(user_id, favorites) {
+  const format_id = user_id.replace(".","-");
+  firebase.database().ref('users/' + format_id + "/favorites/").set(favorites).catch((err) => console.log(err));
+}
+
+function addBusinessToUser(user_id, businesses) {
+  const format_id = user_id.replace(".","-");
+  firebase.database().ref('users/' + format_id + "/businesses/").set(businesses).catch((err) => console.log(err));
+}
+
+function updateUserName(user_id, name) {
+  const format_id = user_id.replace(".","-");
+  firebase.database().ref('users/' + format_id + "/name").set(name).catch((err) => console.log(err));
+}
 //************* ADMIN ********************
 
 
@@ -105,6 +126,13 @@ function registerBusiness(business_id, name, reviews, owner, picture_ids, descri
   }).catch((err) => console.log(err));
 }
 
+function updateBusinessInfo(business_id, name, information, address_line1, address_line2) {
+  const format_id = business_id.replace(".","-");
+  firebase.database().ref('businesses/' + format_id + '/name').set(name).catch((err) => console.log(err));
+  firebase.database().ref('businesses/' + format_id + '/information').set(information).catch((err) => console.log(err));
+  firebase.database().ref('businesses/' + format_id + '/address_line1').set(address_line1).catch((err) => console.log(err));
+  firebase.database().ref('businesses/' + format_id + '/address_line2').set(address_line2).catch((err) => console.log(err));
+}
 
 function addReviewToBusiness(business_id, reviews) {
     const format_id = business_id.replace(".","-");
@@ -245,4 +273,9 @@ module.exports = {
   updateBusinessRating: updateBusinessRating,
   removeBusiness: removeBusiness,
   removeReview: removeReview,
+  addReviewToUser: addReviewToUser,
+  addFavoritesToUser: addFavoritesToUser,
+  addBusinessToUser: addBusinessToUser,
+  updateUserName: updateUserName,
+  updateBusinessInfo: updateBusinessInfo,
 };

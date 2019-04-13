@@ -4,10 +4,11 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
-import {getBusinessData, updateBusinessRating} from '../db/firebase';
+import {getBusinessData, updateBusinessRating, updateBusinessInfo} from '../db/firebase';
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
 import RatingDisplay from "./RatingDisplay"
+import FavoritesButton from "./FavoritesButton"
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
@@ -27,7 +28,9 @@ export class BusinessScreen extends Component {
             reviews: [],
             edit: false,
             tab: 0,
-        };
+            refreshing: false,
+            owner_id: '',
+        }
 
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
@@ -36,6 +39,10 @@ export class BusinessScreen extends Component {
     }
 
     componentDidMount() {
+        this.RefreshInfo();
+    }
+
+    RefreshInfo() {
         var self = this;
         getBusinessData(this.state.id).then(b_object => {
             if (b_object != undefined) {
@@ -46,6 +53,7 @@ export class BusinessScreen extends Component {
                     information: b_object.information,
                     reviews: b_object.reviews,
                     rating: b_object.rating,
+                    owner_id: b_object.owner,
                 })
             }
         })
@@ -75,7 +83,7 @@ export class BusinessScreen extends Component {
                 style = {{fontSize: 18, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line1}
                 ref = 'name'
-                onChangeText={(text) => this.setState({address: text})}
+                onChangeText={(text) => this.setState({address_line1: text})}
                 value = {this.state.address_line1}
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
@@ -96,6 +104,14 @@ export class BusinessScreen extends Component {
                     if (this.checkPermissions()) {
                         this.state.edit = !this.state.edit;
                         updateBusinessRating(this.state.id);
+                        updateBusinessInfo(
+                            this.state.id,
+                            this.state.name,
+                            this.state.information,
+                            this.state.address_line1,
+                            this.state.address_line2
+                        );
+                        this.RefreshInfo();
                         this.forceUpdate();
                     }
                 }}>
@@ -144,7 +160,6 @@ export class BusinessScreen extends Component {
                                         review_ids: self.state.reviews,
                                         business_id: self.state.id,
                                     });
-                                console.log(self.state.reviews);
                             }}
                             >
                             <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
@@ -172,7 +187,7 @@ export class BusinessScreen extends Component {
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
                     <View style = {{flex: 1}}/>
-                    <View style = {{flex: 3, flexDirection: 'row'}}>
+                    <View style = {{flex: 6, flexDirection: 'row', backgroundColor: 'green'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
                                 <Image style = {styles.profileImage}
@@ -181,8 +196,11 @@ export class BusinessScreen extends Component {
                             </View>
                         </View>
                         <View style = {{flex: 1}}>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexDirection: 'row'}}>
                                 {RatingField}
+                                <View style = {{top: -20, left: 15}}>
+                                    <FavoritesButton id={this.state.id}/>
+                                </View>
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
@@ -241,6 +259,7 @@ export class BusinessScreen extends Component {
                         style = {[styles.tabSelectable, styles.tabDeselected]}
                         onPress = {() => {
                             //TODO: Navigate to owner's user page
+                            this.props.navigation.navigate('UserScreen', {id: this.state.owner_id});
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Owner
