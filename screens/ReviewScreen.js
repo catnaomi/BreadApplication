@@ -29,7 +29,7 @@ export default class ReviewScreen extends Component {
         if (this.props.navigation.state.params) {
             this.state.business_id = this.props.navigation.state.params.business_id;
         }
-        console.log(cache.user_id);
+;
     }
 
     componentDidMount() {
@@ -161,12 +161,10 @@ export default class ReviewScreen extends Component {
 
                         //insert in db
                         addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515', this.state.rating);
-                        console.log(this.props.navigation.state.params.review_ids);
                         if(this.props.navigation.state.params.review_ids !== undefined &&
                             this.props.navigation.state.params.business_id !== undefined) {
                             let ids = this.props.navigation.state.params.review_ids;
                             ids.push(review_id);
-                            console.log(review_id);
                             this.state.user_reviews.push(review_id);
                             addReviewToBusiness(this.props.navigation.state.params.business_id, ids);
                             addReviewToUser(cache.user_id, this.state.user_reviews);

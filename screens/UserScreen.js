@@ -18,7 +18,7 @@ export default class UserScreen extends Component {
             name: 'Default Name',
             user_id: 'default@default-com',
             reviews: ['Cru'],
-            favorites: ['5'],
+            favorites: [],
             businesses: ['5'],
             edit: false,
             tab: 0,
@@ -120,7 +120,7 @@ export default class UserScreen extends Component {
                     <ScrollView>
                         {self.state.favorites ?
                             self.state.favorites.map(function(bizid) {
-                            return GetPreviewForBusiness(bizid);
+                            return GetPreviewForBusiness("" + bizid);
                         }) : <View/>
                         }
                     </ScrollView>
@@ -215,7 +215,7 @@ function GetReviewFromID (id) {
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} key={business_id}/>
+    return <BusinessPreview id={business_id}/>
 }
 
 function checkPermissions(user_id) {

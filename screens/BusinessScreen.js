@@ -8,6 +8,7 @@ import {getBusinessData, updateBusinessRating, updateBusinessInfo} from '../db/f
 import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
 import RatingDisplay from "./RatingDisplay"
+import FavoritesButton from "./FavoritesButton"
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
@@ -28,6 +29,7 @@ export class BusinessScreen extends Component {
             edit: false,
             tab: 0,
             refreshing: false,
+            owner_id: '',
         }
 
         if (this.props.navigation.state.params) {
@@ -51,6 +53,7 @@ export class BusinessScreen extends Component {
                     information: b_object.information,
                     reviews: b_object.reviews,
                     rating: b_object.rating,
+                    owner_id: b_object.owner,
                 })
             }
         })
@@ -157,7 +160,6 @@ export class BusinessScreen extends Component {
                                         review_ids: self.state.reviews,
                                         business_id: self.state.id,
                                     });
-                                console.log(self.state.reviews);
                             }}
                             >
                             <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
@@ -185,7 +187,7 @@ export class BusinessScreen extends Component {
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
                     <View style = {{flex: 1}}/>
-                    <View style = {{flex: 3, flexDirection: 'row'}}>
+                    <View style = {{flex: 6, flexDirection: 'row', backgroundColor: 'green'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
                                 <Image style = {styles.profileImage}
@@ -194,8 +196,11 @@ export class BusinessScreen extends Component {
                             </View>
                         </View>
                         <View style = {{flex: 1}}>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 1, top: 10, left: 10, flexDirection: 'row'}}>
                                 {RatingField}
+                                <View style = {{top: -20, left: 15}}>
+                                    <FavoritesButton id={this.state.id}/>
+                                </View>
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
                                 {NameField}
@@ -254,6 +259,7 @@ export class BusinessScreen extends Component {
                         style = {[styles.tabSelectable, styles.tabDeselected]}
                         onPress = {() => {
                             //TODO: Navigate to owner's user page
+                            this.props.navigation.navigate('UserScreen', {id: this.state.owner_id});
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 16}}>
                             Owner

@@ -62,7 +62,7 @@ class Review extends Component {
                     <View style = {{flexDirection: 'row'}}>
                         <TouchableHighlight
                             style = {{left: 10, borderWidth: 1, width: 64, height: 64, borderRadius: 64, overflow: 'hidden'}}
-                            onPress = {() => {}}>
+                            onPress = {() => {this.props.navigation.navigate('UserScreen', {id: this.state.user_id});}}>
                             <Image
                                 style = {{width: 64, height: 64}}
                                 source = {pfp}/>
