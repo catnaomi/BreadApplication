@@ -12,13 +12,6 @@ export default class AdminReview extends Component {
             refreshing: false,
         };
     }
-    //
-    // _onRefresh = () => {
-    //     this.setState({refreshing: true});
-    //     fetchData().then(() => {
-    //         this.setState({refreshing: false});
-    //     });
-    // }
 
     componentDidMount() {
         let self = this;
@@ -45,8 +38,8 @@ export default class AdminReview extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.reviews.map(function(review) {
-                                if ((review !== undefined) && (+review.flagged >= 0)) {
-                                    return GetReviewFromID(review.review_id);
+                                if ((review !== undefined) && (+getReviewData(review).flagged >= 0)) {
+                                    return GetReviewFromID(review);
                                 }
                             })
                         }
@@ -65,12 +58,12 @@ export default class AdminReview extends Component {
 
 
 function getArray(data) {
-    arr = [];
-    for(var key in data) {
-        if (data.hasOwnProperty(key)) {
-            arr[key] = data[key] // convert object to array
-        }
+    let arr = [];
+    let keys = Object.keys(data);
+    for (var i = 0; i < keys.length; i++) {
+        arr.push(keys[i]);
     }
+    console.log(arr);
     return arr;
 }
 

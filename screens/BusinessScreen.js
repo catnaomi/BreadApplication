@@ -27,7 +27,7 @@ export class BusinessScreen extends Component {
             reviews: [],
             edit: false,
             tab: 0,
-        }
+        };
 
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
