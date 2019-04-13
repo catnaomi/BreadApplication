@@ -22,15 +22,6 @@ class SettingsScreen extends Component {
                         </Text>
                     </TouchableHighlight>
                 </View>
-                <View style = {[{flex: 1}, styles.SettingsScroll]}>
-                    <TouchableHighlight
-                        style = {styles.SettingsEntry}
-                        onPress = {() => {navigate('Admin')}}>
-                        <Text style = {styles.EntryFont}>
-                            Admin
-                        </Text>
-                    </TouchableHighlight>
-                </View>
             </View>
         );
     }

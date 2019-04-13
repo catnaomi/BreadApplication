@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
-import {addReviewToDatabase, getBusinessData, addReviewToBusiness} from '../db/firebase';
+import {addReviewToDatabase, getBusinessData, addReviewToBusiness, updateBusinessRating} from '../db/firebase';
 
 export default class ReviewScreen extends Component {
+    static navigationOptions = {
+        title: 'Leave a Review',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,11 +25,33 @@ export default class ReviewScreen extends Component {
             edit: false,
             tab: 0,
             review: '',
+            rating: 3,
         }
     }
 
     checkPermissions() {
         return true;
+    }
+
+    GetRatingButton(rate) {
+
+        var starFilled = require('../assets/images/icons/star-filled.png');
+        var starHalf = require('../assets/images/icons/star-halffilled.png');
+        var starEmpty = require('../assets/images/icons/star-unfilled.png');
+        return (
+
+            <TouchableHighlight
+                style = {styles.ratingButtons}
+                onPress = {() => {
+                    this.state.rating = rate;
+                    this.forceUpdate();
+                }}>
+                <Image
+                    style = {styles.ratingButtons}
+                    source = {(this.state.rating >= rate) ? starFilled : starEmpty}
+                />
+            </TouchableHighlight>
+        )
     }
 
     render() {
@@ -80,6 +106,19 @@ export default class ReviewScreen extends Component {
                         </View>
                     </View>
                 </View>
+                <View style = {{flex: 0.5, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
+                    <View style = {{flex: 1}}/>
+                    {/*Rating Select*/}
+                    <View style = {{flex: 1}}>
+                        <View style = {{width: 120, height: 24, flexDirection: 'row'}}>
+                            {this.GetRatingButton(1)}
+                            {this.GetRatingButton(2)}
+                            {this.GetRatingButton(3)}
+                            {this.GetRatingButton(4)}
+                            {this.GetRatingButton(5)}
+                        </View>
+                    </View>
+                </View>
                 {/*Review Body*/}
                 <View style={{flex:5, width:'90%', left: '5%'}}>
                     <ScrollView>
@@ -97,7 +136,7 @@ export default class ReviewScreen extends Component {
                         let review_id = this.state.review.substr(0, 3);
 
                         //insert in db
-                        addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515');
+                        addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515', this.state.rating);
                         console.log(this.props.navigation.state.params.review_ids);
                         if(this.props.navigation.state.params.review_ids != undefined &&
                             this.props.navigation.state.params.business_id != undefined) {
@@ -105,6 +144,7 @@ export default class ReviewScreen extends Component {
                             ids.push(review_id);
                             console.log(review_id);
                             addReviewToBusiness(this.props.navigation.state.params.business_id, ids);
+                            updateBusinessRating(this.props.navigation.state.params.business_id);
                         }
                         this.props.navigation.goBack();
                     }}>
@@ -156,5 +196,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgrey',
         top: '25%',
         alignItems: 'center',
+    },
+    ratingButtons: {
+        flex: 1,
+        width: 25,
+        height: 25,
     }
 });

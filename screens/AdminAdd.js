@@ -151,14 +151,14 @@ export default class AdminAdd extends Component {
                                 self.setState({sector: itemValue})
                                 }>
 
-                                <Picker.PickerItem label={"Dining"} value={"dining"}/>
-                                <Picker.PickerItem label={"Legal"} value={"legal"}/>
-                                <Picker.PickerItem label={"Clothing"} value={"clothing"}/>
-                                <Picker.PickerItem label={"Auto"} value={"auto"}/>
-                                <Picker.PickerItem label={"Beauty"} value={"beauty"}/>
-                                <Picker.PickerItem label={"Health"} value={"health"}/>
-                                <Picker.PickerItem label={"Cleaning"} value={"cleaning"}/>
-                                <Picker.PickerItem label={"Financial"} value={"financial"}/>
+                                <Picker.Item label={"Dining"} value={"dining"}/>
+                                <Picker.Item label={"Legal"} value={"legal"}/>
+                                <Picker.Item label={"Clothing"} value={"clothing"}/>
+                                <Picker.Item label={"Auto"} value={"auto"}/>
+                                <Picker.Item label={"Beauty"} value={"beauty"}/>
+                                <Picker.Item label={"Health"} value={"health"}/>
+                                <Picker.Item label={"Cleaning"} value={"cleaning"}/>
+                                <Picker.Item label={"Financial"} value={"financial"}/>
                             </Picker>
                         </View>
 

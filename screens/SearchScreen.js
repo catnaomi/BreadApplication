@@ -46,7 +46,7 @@ export class SearchResult extends Component {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             name: "no name yet",
             searchQuery: this.props.navigation.state.params.searchQuery,
@@ -58,7 +58,7 @@ export class SearchResult extends Component {
         var self = this;
         getAllBusinessData().then(response => {
             self.setState({
-                data: getArray(response)
+                data: getArray(response, self)
             })
         })
     }
@@ -80,11 +80,25 @@ export class SearchResult extends Component {
     }
 }
 
-function getArray(data) {
-    arr = [];
+function getArray(data, self) {
+    var arr = [];
     for(var key in data) {
         if (data.hasOwnProperty(key)) {          
-            arr[key] = data[key] // convert object to array
+            var name = data[key].name;
+            var description = data[key].description;
+            info = data[key].information;
+            var aggregated = name + description + info;
+            aggregated = aggregated.trim();
+            var key_words = self.state.searchQuery.trim().split(" ");
+            for(var word_index in key_words) {
+                var word = key_words[word_index];
+                if(aggregated.indexOf(word) != -1) {
+                    console.log('word match: ', word);
+                    console.log('keywords: ', key_words);
+                    arr[key] = data[key]; // convert object to array
+                    break;    
+                }
+            }
         }
     }
     return arr

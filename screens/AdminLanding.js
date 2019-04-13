@@ -8,7 +8,7 @@ import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
 import {LoginStack} from "./LoginScreen";
 
-class adminLandingScreen extends Component {
+export class adminLandingScreen extends Component {
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
@@ -61,11 +61,6 @@ class adminLandingScreen extends Component {
 
     };
 }
-
-const backAction = NavigationActions.back({
-    key: null
-});
-
 
 export const AdminNavigator = createStackNavigator({
     Landing: {screen: adminLandingScreen},
