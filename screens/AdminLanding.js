@@ -6,9 +6,9 @@ import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
-import {LoginStack} from "./LoginScreen";
 
-export class adminLandingScreen extends Component {
+
+export default class adminLandingScreen extends Component {
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
@@ -23,29 +23,29 @@ export class adminLandingScreen extends Component {
                 <View style={styles.optionView}>
                     <View style={styles.innerOption}>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Add')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminAdd')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Add a Business</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Remove')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminRemove')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Remove a Business</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Review')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminReview')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Reviews</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Businesses')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminBusinesses')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Review Flagged Businesses</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
                             //this.props.navigation.navigate('Landing');
-                            this.props.navigation.goBack('Login');
+                            this.props.navigation.goBack();
                             Alert.alert('You have successfully been logged out')
                             }
                         }>

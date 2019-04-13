@@ -3,7 +3,12 @@ import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Im
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
 import {getAdminData, getUserData} from "../db/firebase";
-import {AdminNavigator} from "./AdminLanding"
+//import {AdminNavigator} from "./AdminLanding"
+import adminLandingScreen from "./AdminLanding"
+import AdminAdd from './AdminAdd';
+import AdminReview from './AdminReview';
+import AdminRemove from './AdminRemove';
+import AdminBusinesses from "./AdminBusinesses";
 
 class LoginScreen extends Component {
     constructor (props) {
@@ -43,9 +48,9 @@ class LoginScreen extends Component {
                             onPress={() => {
                                 getAdminData(self.state.email).then(admin => {
                                     if (admin !== undefined) {
-                                        this.props.navigation.navigate('AdminNavigator')
+                                        this.props.navigation.navigate('AdminLanding')
                                     }
-                                })
+                                });
 
                                 getUserData(self.state.email).then(user => {
                                     if (user !== undefined) {
@@ -138,7 +143,12 @@ const styles = StyleSheet.create ({
 export const LoginStack = createStackNavigator({
         Login: {screen: LoginScreen},
         Register:{screen: RegisterScreen},
-        AdminNavigator: {screen: AdminNavigator},
+        //AdminNavigator: {screen: AdminNavigator},
+        AdminLanding: {screen: adminLandingScreen},
+        AdminBusinesses: {screen: AdminBusinesses},
+        AdminRemove: {screen: AdminRemove},
+        AdminAdd: {screen: AdminAdd},
+        AdminReview: {screen: AdminReview},
 },
 {
     headerMode: 'none',

@@ -39,9 +39,6 @@ export default class AdminBusinesses extends Component {
                                 if((businessObject !== undefined) && (businessObject.removed !== false)){
                                     return GetPreviewForBusiness(businessObject.business_id);
                                 }
-                                // if((businessObject !== undefined)){
-                                //     return GetPreviewForBusiness(businessObject.business_id);
-                                // }
                             })
                         }
                     </ScrollView>
