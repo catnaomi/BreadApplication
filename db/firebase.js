@@ -176,6 +176,7 @@ function getReviewData(review_id) {
       user_id: snapshot.val().user_id,
       business_id: snapshot.val().business_id,
       date: snapshot.val().date,
+      flagged: snapshot.val().flagged,
     }
   });
 }

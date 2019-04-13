@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
 import {LoginStack}from "./LoginScreen"
+import {AdminNavigator} from "./AdminLanding";
 import { createStackNavigator } from "react-navigation";
 
 class SettingsScreen extends Component {
@@ -21,6 +22,15 @@ class SettingsScreen extends Component {
                         </Text>
                     </TouchableHighlight>
                 </View>
+                <View style = {[{flex: 1}, styles.SettingsScroll]}>
+                    <TouchableHighlight
+                        style = {styles.SettingsEntry}
+                        onPress = {() => {navigate('Admin')}}>
+                        <Text style = {styles.EntryFont}>
+                            Admin
+                        </Text>
+                    </TouchableHighlight>
+                </View>
             </View>
         );
     }
@@ -29,6 +39,7 @@ class SettingsScreen extends Component {
 export const SettingsStack = createStackNavigator({
     Settings: {screen: SettingsScreen},
     Login: {screen: LoginStack},
+    Admin: {screen: AdminNavigator}
 });
 
 const styles = StyleSheet.create ({
