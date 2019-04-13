@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableHighlight, ScrollView, Image} from "react-native";
-import {createStackNavigator} from 'react-navigation';
-import {getBusinessWithID, getAllBusinessData} from '../db/firebase'
+import {StyleSheet, View, ScrollView, Image} from "react-native";
+import {getAllBusinessData} from '../db/firebase'
 import BusinessPreview from './BusinessPreview'
-import {BusinessScreen} from './BusinessScreen'
 
 export default class AdminBusinesses extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             name: "no name yet",
             data: []
@@ -24,7 +22,6 @@ export default class AdminBusinesses extends Component {
     }
 
     render() {
-        let self = this;
         var logo = require('../assets/images/logos/texthoriz.png');
 
         return (
@@ -42,6 +39,9 @@ export default class AdminBusinesses extends Component {
                                 if((businessObject !== undefined) && (businessObject.removed !== false)){
                                     return GetPreviewForBusiness(businessObject.business_id);
                                 }
+                                // if((businessObject !== undefined)){
+                                //     return GetPreviewForBusiness(businessObject.business_id);
+                                // }
                             })
                         }
                     </ScrollView>
@@ -53,13 +53,13 @@ export default class AdminBusinesses extends Component {
 }
 
 function getArray(data) {
-    arr = [];
+    var arr = [];
     for(var key in data) {
         if (data.hasOwnProperty(key)) {
             arr[key] = data[key] // convert object to array
         }
     }
-    return arr
+    return arr;
 }
 
 function GetPreviewForBusiness(business_id) {
@@ -91,4 +91,4 @@ const styles = StyleSheet.create ({
         flexGrow: 1,
         flexDirection: 'column',
     },
-})
+});

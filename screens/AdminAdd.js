@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
- TouchableOpacity, View, ScrollView, Alert} from "react-native";
-import {doesUserExist, registerBusiness, getBusinessData} from '../db/firebase'
+import {Image, Linking, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView,
+    Alert, Picker} from "react-native";
+import {registerBusiness, getBusinessData} from '../db/firebase'
 
 export default class AdminAdd extends Component {
 
@@ -19,7 +19,9 @@ export default class AdminAdd extends Component {
             email: '',
             owner: '',
             controlNumber: '',
-            id: ''
+            id: '',
+            sector: '',
+
         }
     }
 
@@ -46,20 +48,16 @@ export default class AdminAdd extends Component {
                     } else if (self.state.id == '') {
                         Alert.alert(' ID field is not complete');
                     } else {
-                        // getBusinessData(self.state.id).then(response => {
-                        //     if (response != undefined) {
-                        //         Alert.alert('Business is already in the database!');
-                        //     } else {
-                        //         registerBusiness(self.state.id, self.state.name,'', self.state.owner,
-                        //             '', '', '', self.state.email, '',
-                        //             self.state.controlNumber, self.state.address, '');
-                        //         Alert.alert(self.state.name + " is now in the database");
-                        //     }
-                        //})
-                        registerBusiness(self.state.id, self.state.name,'', self.state.owner,
-                            '', self.state.description, '', self.state.email, '',
-                            self.state.controlNumber, self.state.address_line1, self.state.address_line2);
-                        Alert.alert(self.state.name + " is now in the database");
+                        getBusinessData(self.state.id).then(response => {
+                            if (response != undefined) {
+                                Alert.alert( self.state.name + " is already in the database!");
+                            } else {
+                                registerBusiness(self.state.id, self.state.name,'', self.state.owner,
+                                    '', self.state.description, '', self.state.email, '',
+                                    self.state.controlNumber, self.state.address_line1, self.state.address_line2);
+                                Alert.alert(self.state.name + " is now in the database");
+                            }
+                        })
                     }
                 }} style={{alignItems: 'center'}}>
                 <Text style={styles.text}>Register Business</Text>
@@ -145,6 +143,24 @@ export default class AdminAdd extends Component {
                             />
                         </View>
 
+                        <View style={styles.entry}>
+                            <Text style={styles.title}>Type of Business</Text>
+                            <Picker
+                                selectedValue={self.state.sector}
+                                onValueChange={(itemValue) =>
+                                self.setState({sector: itemValue})
+                                }>
+
+                                <Picker.Item label={"Dining"} value={"dining"}/>
+                                <Picker.Item label={"Legal"} value={"legal"}/>
+                                <Picker.Item label={"Clothing"} value={"clothing"}/>
+                                <Picker.Item label={"Auto"} value={"auto"}/>
+                                <Picker.Item label={"Beauty"} value={"beauty"}/>
+                                <Picker.Item label={"Health"} value={"health"}/>
+                                <Picker.Item label={"Cleaning"} value={"cleaning"}/>
+                                <Picker.Item label={"Financial"} value={"financial"}/>
+                            </Picker>
+                        </View>
 
                         <View style={styles.entry}>
                             <TouchableOpacity
@@ -215,9 +231,3 @@ const styles = StyleSheet.create({
         padding: '2%'
     }
 });
-
-const validate = (email) => {
-    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-
-    return expression.test(String(email).toLowerCase())
-}

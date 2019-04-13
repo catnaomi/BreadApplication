@@ -6,10 +6,10 @@ import {registerUser, getUserData, registerAdmin, getAdminData,
 
 // function registerBusiness(business_id, name, reviews, owner, picture_ids, description, location, email, information, control_number) 
 
-registerBusiness('1', 'Burger King', [], 'Jeff Kim', [], "A very fine establishment for culinary cusine.", {}, "jkim@gmail.com", "more information.....", 1, '', '', 3)
-registerBusiness('2', 'McDonalds', [], 'John Smith', [], "Fast Food for those in need", {}, "jsmith@gmail.com", "more information.....", 2, '', '', 3)
-registerBusiness('3', 'Taco Bell', [], 'Jared dopper', [], "Authentic Mexican Food", {}, "jdopper@gmail.com", "more information.....", 3, '', '', 3)
-registerBusiness('4', 'Wendys', [], 'Jessica Upwork', [], "Authentic Cuban Food", {}, "Jupwork@gmail.com", "more information.....", 4 , '', '', 3)
+registerBusiness('1', 'Burger King', [], 'Jeff Kim', [], "A very fine establishment for culinary cusine.", {}, "jkim@gmail.com", "more information.....", 1, '', '', 3);
+registerBusiness('2', 'McDonalds', [], 'John Smith', [], "Fast Food for those in need", {}, "jsmith@gmail.com", "more information.....", 2, '', '', 3);
+registerBusiness('3', 'Taco Bell', [], 'Jared dopper', [], "Authentic Mexican Food", {}, "jdopper@gmail.com", "more information.....", 3, '', '', 3);
+registerBusiness('4', 'Wendys', [], 'Jessica Upwork', [], "Authentic Cuban Food", {}, "Jupwork@gmail.com", "more information.....", 4 , '', '', 3);
 
 registerBusiness(
     '5',
@@ -24,7 +24,7 @@ registerBusiness(
     4,
     '4 State St.',
     'Smryna, GA 33222',
-    3)
+    3);
 
 
 // function addReviewToDatabase(review_id, review_content, user_id, business_id, date)
@@ -34,4 +34,4 @@ addReviewToDatabase(
     'default@default-com',
     '5',
     1554077657,
-    4)
+    4);

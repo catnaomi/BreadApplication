@@ -234,6 +234,7 @@ function getReviewData(review_id) {
       business_id: snapshot.val().business_id,
       date: snapshot.val().date,
       rating: snapshot.val().rating,
+      flagged: snapshot.val().flagged,
     }
   });
 }

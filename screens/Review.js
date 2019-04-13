@@ -34,7 +34,7 @@ class Review extends Component {
                     business_id: r_object.business_id,
                     rating: r_object.rating,
                 });
-                getUserData('default@default-com').then(u_object => {
+                getUserData(self.state.user_id).then(u_object => {
                     if (u_object != undefined) {
                         self.setState({
                             author: u_object.name,
