@@ -5,6 +5,7 @@ import {getUserData} from "../db/firebase";
 import {getBusinessData} from "../db/firebase";
 import RatingDisplay from "./RatingDisplay";
 import {withNavigation} from "react-navigation";
+import FlaggedButton from "./FlaggedButton";
 
 class Review extends Component {
     static navigationOptions = {
@@ -21,6 +22,7 @@ class Review extends Component {
             business_id: '',
             business: 'Default Business',
             date: 0,
+            user: '',
         };
     }
 
@@ -92,7 +94,9 @@ class Review extends Component {
         )
     }
 }
-
+function GetFlag(review_id, user) {
+    return (<FlaggedButton id={review_id} type={"Review"} user={user} key={review_id}/>);
+}
 export default withNavigation(Review);
 
 const styles = StyleSheet.create ({

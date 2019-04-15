@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {getBusinessData} from '../db/firebase';
 import { withNavigation } from 'react-navigation';
 import RatingDisplay from './RatingDisplay';
+import FlaggedButton from "./FlaggedButton";
 
 class BusinessPreview extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class BusinessPreview extends Component {
             rating: 0,
             address_line1: '',
             address_line2: '',
+            user: '',
         }
     }
     componentDidMount() {
@@ -63,6 +65,10 @@ class BusinessPreview extends Component {
             </TouchableHighlight>
         )
     }
+}
+
+function GetFlag(business_id, user) {
+    return (<FlaggedButton id={business_id} type={"Business"} user={user} key={business_id}/>);
 }
 
 export default withNavigation(BusinessPreview);
