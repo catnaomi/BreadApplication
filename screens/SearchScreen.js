@@ -105,7 +105,7 @@ function getArray(data, self) {
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} key={business_id}/>
+    return <BusinessPreview id={business_id} user={"consumer"} key={business_id}/>
 }
 
 /*

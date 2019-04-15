@@ -9,7 +9,7 @@ export default class FavoritesButton extends Component {
         super(props);
         this.state = {
             favorited: false,
-        }
+        };
         console.log(this.props.id);
     }   
 

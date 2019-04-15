@@ -23,7 +23,7 @@ export default class UserScreen extends Component {
             edit: false,
             tab: 0,
             refreshing: false,
-        }
+        };
 
 
         if (this.props.navigation.state.params) {
@@ -47,7 +47,7 @@ export default class UserScreen extends Component {
                     reviews: u_object.reviews,
                     favorites: u_object.favorites,
                     businesses: u_object.businesses,
-                })
+                });
                 self.state.refreshing = false;
             }
         })
@@ -211,11 +211,11 @@ export default class UserScreen extends Component {
 }
 
 function GetReviewFromID (id) {
-    return (<Review id = {id}/>);
+    return (<Review id = {id} user={"owner"}/>);
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id}/>
+    return <BusinessPreview id={business_id} user={"owner"}/>
 }
 
 function checkPermissions(user_id) {

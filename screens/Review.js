@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight, Image} from "react-native";
-import {getReviewData} from "../db/firebase";
-import {getUserData} from "../db/firebase";
-import {getBusinessData} from "../db/firebase";
+import {getReviewData, getUserData, getBusinessData} from "../db/firebase";
 import RatingDisplay from "./RatingDisplay";
 import {withNavigation} from "react-navigation";
+import FlaggedButton from "./FlaggedButton";
 
 class Review extends Component {
     static navigationOptions = {
@@ -67,10 +66,10 @@ class Review extends Component {
                                 style = {{width: 64, height: 64}}
                                 source = {pfp}/>
                         </TouchableHighlight>
-                        <View style = {{left: 20, width: '100%', height: 64}}>
+                        <View style = {{left: 20, width: '90%', height: 64}}>
                             <View style = {[styles.ReviewProfile]}>
                                 <TouchableHighlight
-                                    style = {{width: '100%', height: 40, justifyContent: 'center'}}
+                                    style = {{width: '90%', height: 40, justifyContent: 'center'}}
                                     onPress = {() => {this.props.navigation.navigate('BusinessScreen', {id: this.state.business_id});}}>
                                     <View style = {{flexDirection: 'row'}}>
                                         <Text style = {{fontSize: 16, color: 'black'}}>{this.state.author}</Text>
@@ -81,18 +80,19 @@ class Review extends Component {
                             </View>
                             <View style = {[styles.ReviewRating]}>
                                 <RatingDisplay rating={this.state.rating}/>
+                                <FlaggedButton id={this.props.id} type={"review"} user={this.props.user}/>
                             </View>
                         </View>
                     </View>
                     <View style = {styles.ReviewContent}>
                         <Text style={{fontSize: 14}}>{this.state.content}</Text>
                     </View>
+
                 </View>
             </View>
         )
     }
 }
-
 export default withNavigation(Review);
 
 const styles = StyleSheet.create ({

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
+import {StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
 import {LoginStack}from "./LoginScreen"
 import {AdminNavigator} from "./AdminLanding";
 import { createStackNavigator } from "react-navigation";
@@ -9,7 +9,6 @@ class SettingsScreen extends Component {
         title: 'Settings',
     };
     render() {
-
         const { navigate } = this.props.navigation;
         return (
             <View style = {{flex: 1}}>

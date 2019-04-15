@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import { createStackNavigator, NavigationActions} from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import AdminAuthenticate  from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
@@ -44,7 +44,6 @@ export default class adminLandingScreen extends Component {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
-                            //this.props.navigation.navigate('Landing');
                             this.props.navigation.goBack();
                             Alert.alert('You have successfully been logged out')
                             }
@@ -69,8 +68,6 @@ export const AdminNavigator = createStackNavigator({
     Review: {screen: AdminReview},
     Remove: {screen: AdminRemove},
     Businesses: {screen: AdminBusinesses},
-    //Login: LoginStack,
-
 },
 {
     headerMode: 'none',

@@ -4,11 +4,10 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
-import {getBusinessData, updateBusinessRating, updateBusinessInfo} from '../db/firebase';
-import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
-import RatingDisplay from "./RatingDisplay"
-import FavoritesButton from "./FavoritesButton"
+import RatingDisplay from "./RatingDisplay";
+import FavoritesButton from "./FavoritesButton";
+import {updateBusinessRating, updateBusinessInfo, getBusinessData} from "../db/firebase"
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
@@ -30,7 +29,7 @@ export class BusinessScreen extends Component {
             tab: 0,
             refreshing: false,
             owner_id: '',
-        }
+        };
 
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
@@ -178,7 +177,7 @@ export class BusinessScreen extends Component {
             }
         }
         function GetReviewFromID (id) {
-            return (<Review id = {id}/>);
+            return (<Review id = {id} user={"consumer"}/>);
         }
 
 
