@@ -4,6 +4,7 @@ import {getBusinessData} from '../db/firebase';
 import { withNavigation } from 'react-navigation';
 import RatingDisplay from './RatingDisplay';
 import FlaggedButton from "./FlaggedButton";
+import FavoritesButton from './FavoritesButton';
 
 class BusinessPreview extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ class BusinessPreview extends Component {
             rating: 0,
             address_line1: '',
             address_line2: '',
-            user: '',
         }
     }
     componentDidMount() {
@@ -61,14 +61,16 @@ class BusinessPreview extends Component {
                             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>
                         </View>
                     </View>
+                    <View style = {{left: -50, top: 10, height: 154}}>
+                        <FavoritesButton id = {this.props.id}/>
+                    </View>
+                    <View style = {{left: -25, top: 10, height: 154}}>
+                        <FlaggedButton id={this.props.id} type={"business"} user={this.props.user} />
+                    </View>
                 </View>
             </TouchableHighlight>
         )
     }
-}
-
-function GetFlag(business_id, user) {
-    return (<FlaggedButton id={business_id} type={"Business"} user={user} key={business_id}/>);
 }
 
 export default withNavigation(BusinessPreview);

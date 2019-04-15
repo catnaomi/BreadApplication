@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity} from "react-native";
-import {addReviewToDatabase, getBusinessData, addReviewToBusiness, updateBusinessRating} from '../db/firebase';
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, KeyboardAvoidingView} from "react-native";
+import {
+    addReviewToDatabase,
+    getBusinessData,
+    addReviewToBusiness,
+    updateBusinessRating,
+    getUserData,
+    addReviewToUser,
+} from '../db/firebase';
+import cache from '../userCache';
 
 export default class ReviewScreen extends Component {
     static navigationOptions = {
@@ -10,23 +18,41 @@ export default class ReviewScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            permission: this.checkPermissions(),
-            name: 'Austin Neely',
-            reviews: [
-                {
-                    date: 15540571212,
-                    review_id: 0,
-                    review_content: '',
-                    user_id: 0,
-                    business_id: 0,
-                }
-
-            ],
-            edit: false,
-            tab: 0,
+            id: '0',
+            name: 'error name',
+            biz_name: 'error biz',
+            business_id: '0',
+            user_reviews: [],
             review: '',
             rating: 3,
+        };
+        if (this.props.navigation.state.params) {
+            this.state.business_id = this.props.navigation.state.params.business_id;
         }
+    }
+
+    componentDidMount() {
+        this.RefreshInfo();
+        this.forceUpdate();
+    }
+
+    RefreshInfo() {
+        var self = this;
+        getUserData(cache.user_id).then(u_object => {
+            if (u_object !== undefined) {
+                self.setState({
+                    name: u_object.name,
+                    user_reviews: u_object.reviews ? u_object.reviews : [],
+                })
+            }
+        });
+        getBusinessData(this.state.business_id).then(b_object => {
+            if (b_object !== undefined) {
+                self.setState({
+                    biz_name: b_object.name,
+                })
+            }
+        })
     }
 
     checkPermissions() {
@@ -55,7 +81,7 @@ export default class ReviewScreen extends Component {
     }
 
     render() {
-        var profile = require('../assets/images/profile/profile.png');
+        var pfp = require('../assets/images/profile/profilesmall.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
@@ -87,29 +113,25 @@ export default class ReviewScreen extends Component {
         return (
             <View style={styles.screenView}>
                 {/*Profile header*/}
-                <View style = {styles.profileHeader}>
-                    <View style = {{flex: 3, flexDirection: 'row'}}>
-                        <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
-                            <View style = {styles.profilePicture}>
-                                <Image
-                                    source = {profile}
-                                />
-                            </View>
-                        </View>
-                        <View style = {{flex: 2}}>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
-                                {NameField}
-                            </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>1 Review</Text>
-                            </View>
-                        </View>
+                <View style = {{paddingTop: 10, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
+                    <View
+                        style = {{left: 10, borderWidth: 1, width: 64, height: 64, borderRadius: 64, overflow: 'hidden'}}>
+                        <Image
+                            style = {{width: 64, height: 64}}
+                            source = {pfp}/>
                     </View>
-                </View>
-                <View style = {{flex: 0.5, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
-                    <View style = {{flex: 1}}/>
-                    {/*Rating Select*/}
-                    <View style = {{flex: 1}}>
+                    <View style = {{left: 20, width: '100%', height: 64}}>
+                        <View style = {[styles.ReviewProfile]}>
+                            <View
+                                style = {{width: '100%', height: 40, justifyContent: 'center'}}>
+                                <View style = {{flexDirection: 'row'}}>
+                                    <Text style = {{fontSize: 16, color: 'black'}}>{this.state.name}</Text>
+                                    <Text style = {{fontSize: 16, color: 'darkgrey'}}> on </Text>
+                                    <Text style = {{fontSize: 16, color: 'black'}}>{this.state.biz_name}</Text>
+                                </View>
+                            </View>
+                        </View>
+                        {/*Rating Select*/}
                         <View style = {{width: 120, height: 24, flexDirection: 'row'}}>
                             {this.GetRatingButton(1)}
                             {this.GetRatingButton(2)}
@@ -120,15 +142,16 @@ export default class ReviewScreen extends Component {
                     </View>
                 </View>
                 {/*Review Body*/}
-                <View style={{flex:5, width:'90%', left: '5%'}}>
+                <KeyboardAvoidingView behavior = 'padding' style={{flex:5, width:'90%', left: '5%'}}>
                     <ScrollView>
                         <TextInput
-                            style={{color:'black', fontSize: 25}}
-                            placeholder='Add your review Here!'
+                            multiline = {true}
+                            style={{color:'black', fontSize: 20}}
+                            placeholder='wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool wow cool'
                             onChangeText={(text) => this.setState({review: text})}
                         />
                     </ScrollView>
-                </View>
+                </KeyboardAvoidingView>
                 {/*Save & Publish*/}
                 <View style={{flex:1, backgroundColor: 'lightgrey'}}>
                     <TouchableOpacity style={styles.saveButton}
@@ -137,13 +160,13 @@ export default class ReviewScreen extends Component {
 
                         //insert in db
                         addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515', this.state.rating);
-                        console.log(this.props.navigation.state.params.review_ids);
-                        if(this.props.navigation.state.params.review_ids != undefined &&
-                            this.props.navigation.state.params.business_id != undefined) {
+                        if(this.props.navigation.state.params.review_ids !== undefined &&
+                            this.props.navigation.state.params.business_id !== undefined) {
                             let ids = this.props.navigation.state.params.review_ids;
                             ids.push(review_id);
-                            console.log(review_id);
+                            this.state.user_reviews.push(review_id);
                             addReviewToBusiness(this.props.navigation.state.params.business_id, ids);
+                            addReviewToUser(cache.user_id, this.state.user_reviews);
                             updateBusinessRating(this.props.navigation.state.params.business_id);
                         }
                         this.props.navigation.goBack();
@@ -201,5 +224,16 @@ const styles = StyleSheet.create({
         flex: 1,
         width: 25,
         height: 25,
-    }
+    },
+    ReviewRating: {
+        height: 24,
+        width: '100%',
+        flexDirection: 'row',
+    },
+    ReviewProfile: {
+        fontSize: 18,
+        height: 40,
+        width: '100%',
+        flexDirection: 'row',
+    },
 });

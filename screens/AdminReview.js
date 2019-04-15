@@ -38,7 +38,7 @@ export default class AdminReview extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.reviews.map(function(review) {
-                                // if ((review !== undefined) && (+getReviewData(review).flagged >= 0)) {
+                                // if ((review !== undefined) && (+getReviewData(review).flagged >= 0)  && (review.removed === false)) {
                                 //     return GetReviewFromID(review);
                                 // }
                                 if ((review !== undefined)) {
@@ -71,8 +71,9 @@ function getArray(data) {
 }
 
 function GetReviewFromID(review_id) {
-    return (<Review id={review_id} type={} key={review_id}/>);
+    return (<Review id={review_id} user={"admin"} key={review_id}/>);
 }
+
 
 const styles = StyleSheet.create({
     screenView: {
