@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, Text} from "react-native";
 import {addFavoritesToUser, getUserData} from "../db/firebase";
 import cache from "../userCache";
 import BusinessPreview from "./BusinessPreview";

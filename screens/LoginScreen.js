@@ -3,12 +3,13 @@ import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Im
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
 import {getAdminData, getUserData} from "../db/firebase";
-//import {AdminNavigator} from "./AdminLanding"
 import adminLandingScreen from "./AdminLanding"
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
+
+import {LandingStack} from "./LandingScreen"
 
 import cache from '../userCache'
 
@@ -55,6 +56,8 @@ class LoginScreen extends Component {
                                         cache.isAdmin = true
                                         cache.user_id = admin
                                         console.log(cache)
+                                        login_fail_count = 0;
+                                        alert("You have successfully loggined in " + cache.user_id + "!")
                                         this.props.navigation.navigate('AdminLanding')
                                     }
                                 }).catch(error => {
@@ -69,8 +72,11 @@ class LoginScreen extends Component {
                                         //TODO: Change from AdminNavigator
                                         // this.props.navigation.navigate('AdminNavigator')
                                         cache.user_id = user.user_id
+                                        cache.isUser = true
                                         console.log(cache)
-                                        alert("You have successfully login in as a User.")
+                                        login_fail_count = 0;
+                                        alert("You have successfully loggined in " + cache.user_id + "!")
+                                        this.props.navigation.navigate('LandingScreen')
                                     }
                                 }).catch(error => {
                                     login_fail_count += 1;
@@ -161,12 +167,12 @@ const styles = StyleSheet.create ({
 export const LoginStack = createStackNavigator({
         Login: {screen: LoginScreen},
         Register:{screen: RegisterScreen},
-        //AdminNavigator: {screen: AdminNavigator},
         AdminLanding: {screen: adminLandingScreen},
         AdminBusinesses: {screen: AdminBusinesses},
         AdminRemove: {screen: AdminRemove},
         AdminAdd: {screen: AdminAdd},
         AdminReview: {screen: AdminReview},
+        LandingScreen: {screen: LandingStack},
 },
 {
     headerMode: 'none',
