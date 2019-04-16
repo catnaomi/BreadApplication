@@ -49,5 +49,5 @@ export const FavoritesStack = createStackNavigator({
 });
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} user={"consumer"}/>
+    return <BusinessPreview id={business_id} user={"consumer"} key={business_id}/>
 }
