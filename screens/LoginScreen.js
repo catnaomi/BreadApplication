@@ -5,6 +5,8 @@ import RegisterScreen from './RegisterScreen';
 import {getAdminData, getUserData} from "../db/firebase";
 import {AdminNavigator} from "./AdminLanding"
 
+import cache from '../userCache'
+
 class LoginScreen extends Component {
     constructor (props) {
         super(props);
@@ -42,19 +44,22 @@ class LoginScreen extends Component {
                         <Button
                             onPress={() => {
                                 getAdminData(self.state.email).then(admin => {
+                                    console.log(admin)
                                     if (admin !== undefined) {
+                                        cache.isAdmin = true
+                                        cache.user_id = admin
                                         this.props.navigation.navigate('AdminNavigator')
                                     }
                                 })
 
-                                getUserData(self.state.email).then(user => {
-                                    if (user !== undefined) {
-                                        //TODO: Change from AdminNavigator
-                                        this.props.navigation.navigate('AdminNavigator')
-                                    } else {
-                                        Aler.alert("Email or Password is incorrect")
-                                    }
-                                })
+                                // getUserData(self.state.email).then(user => {
+                                //     if (user !== undefined) {
+                                //         //TODO: Change from AdminNavigator
+                                //         this.props.navigation.navigate('AdminNavigator')
+                                //     } else {
+                                //         Aler.alert("Email or Password is incorrect")
+                                //     }
+                                // })
 
                             }}
                             title="Login"
