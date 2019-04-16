@@ -25,7 +25,6 @@ export const TabNavigator = createBottomTabNavigator({
    Favorites: {screen: FavoritesStack},
    Profile: {screen: UserStack},
    Settings: {screen: SettingsStack},
-   /*Search: {screen: SearchScreenStack},*/
 }, {initialRouteName: 'Find'});
 
 

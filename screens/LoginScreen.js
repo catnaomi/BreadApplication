@@ -10,6 +10,8 @@ import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
 
+import cache from '../userCache'
+
 class LoginScreen extends Component {
     constructor (props) {
         super(props);
@@ -21,6 +23,7 @@ class LoginScreen extends Component {
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         let self = this;
+        let login_fail_count = 0;
 
         return (
             <View style = {{flex: 1}}>
@@ -47,17 +50,32 @@ class LoginScreen extends Component {
                         <Button
                             onPress={() => {
                                 getAdminData(self.state.email).then(admin => {
+                                    console.log(admin)
                                     if (admin !== undefined) {
+                                        cache.isAdmin = true
+                                        cache.user_id = admin
+                                        console.log(cache)
                                         this.props.navigation.navigate('AdminLanding')
+                                    }
+                                }).catch(error => {
+                                    login_fail_count += 1;
+                                    if(login_fail_count == 2) {
+                                        alert("Incorrect Username or Password");
                                     }
                                 });
 
                                 getUserData(self.state.email).then(user => {
                                     if (user !== undefined) {
                                         //TODO: Change from AdminNavigator
-                                        this.props.navigation.navigate('AdminNavigator')
-                                    } else {
-                                        Aler.alert("Email or Password is incorrect")
+                                        // this.props.navigation.navigate('AdminNavigator')
+                                        cache.user_id = user.user_id
+                                        console.log(cache)
+                                        alert("You have successfully login in as a User.")
+                                    }
+                                }).catch(error => {
+                                    login_fail_count += 1;
+                                    if(login_fail_count == 2) {
+                                        alert("Incorrect Username or Password");
                                     }
                                 })
 

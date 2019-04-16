@@ -211,11 +211,11 @@ export default class UserScreen extends Component {
 }
 
 function GetReviewFromID (id) {
-    return (<Review id = {id} user={"owner"}/>);
+    return (<Review id = {id} user={"owner"} key={id}/>);
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} user={"owner"}/>
+    return <BusinessPreview id={business_id} user={"owner"} key={business_id}/>
 }
 
 function checkPermissions(user_id) {
