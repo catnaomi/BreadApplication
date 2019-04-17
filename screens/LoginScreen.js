@@ -51,13 +51,13 @@ class LoginScreen extends Component {
                         <Button
                             onPress={() => {
                                 getAdminData(self.state.email).then(admin => {
-                                    console.log(admin)
+                                    console.log(admin);
                                     if (admin !== undefined) {
-                                        cache.isAdmin = true
-                                        cache.user_id = admin
-                                        console.log(cache)
+                                        cache.isAdmin = true;
+                                        cache.user_id = admin;
+                                        console.log(cache);
                                         login_fail_count = 0;
-                                        alert("You have successfully loggined in " + cache.user_id + "!")
+                                        alert("You have successfully loggined in " + cache.user_id + "!");
                                         this.props.navigation.navigate('AdminLanding')
                                     }
                                 }).catch(error => {
@@ -69,13 +69,11 @@ class LoginScreen extends Component {
 
                                 getUserData(self.state.email).then(user => {
                                     if (user !== undefined) {
-                                        //TODO: Change from AdminNavigator
-                                        // this.props.navigation.navigate('AdminNavigator')
-                                        cache.user_id = user.user_id
-                                        cache.isUser = true
-                                        console.log(cache)
+                                        cache.user_id = user.user_id;
+                                        cache.isUser = true;
+                                        console.log(cache);
                                         login_fail_count = 0;
-                                        alert("You have successfully loggined in " + cache.user_id + "!")
+                                        alert("You have successfully loggined in " + cache.user_id + "!");
                                         this.props.navigation.navigate('LandingScreen')
                                     }
                                 }).catch(error => {
@@ -90,32 +88,36 @@ class LoginScreen extends Component {
                         />
                     </View>
                 </View>
-                <View style = {{flex: 1}}>
-                    <View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}/>
-                    <View style = {[styles.thirdPartyButton, styles.googleButton]}>
+                {/*<View style = {{flex: 1}}>*/}
+                    {/*<View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}/>*/}
+                    {/*<View style = {[styles.thirdPartyButton, styles.googleButton]}>*/}
+                        {/*<Button*/}
+                            {/*onPress = { () => {}}*/}
+                            {/*title = "Login with Google"*/}
+                            {/*color = "#db3236"*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+                    {/*<View style = {[styles.thirdPartyButton, styles.facebookButton]}>*/}
+                        {/*<Button*/}
+                            {/*onPress = { () => {}}*/}
+                            {/*title = "Login with Facebook"*/}
+                            {/*color = "#3C5A99"*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+                {/*</View>*/}
+                <View style = {{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1}}>
+                        <Text style = {{left: '10%', top: 50}}>Don't have an account?</Text>
+                    </View>
+                    <View style = {styles.registerButton}>
                         <Button
-                            onPress = { () => {}}
-                            title = "Login with Google"
-                            color = "#db3236"
+                            onPress = {() => {this.props.navigation.navigate('Register')}}
+                            title = "Register"
+                            color={"white"}
                         />
                     </View>
-                    <View style = {[styles.thirdPartyButton, styles.facebookButton]}>
-                        <Button
-                            onPress = { () => {}}
-                            title = "Login with Facebook"
-                            color = "#3C5A99"
-                        />
-                    </View>
                 </View>
-                <View style = {{flex: 1}}>
-                    <Text style = {{left: '10%', top: 30}}>Don't have an account?</Text>
-                </View>
-                <View style = {styles.registerButton}>
-                    <Button
-                        onPress = {() => {this.props.navigation.navigate('Register')}}
-                        title = "Register"
-                    />
-                </View>
+
             </View>
         );
     }
@@ -137,14 +139,14 @@ const styles = StyleSheet.create ({
         left: '15%',
         width: '70%',
         borderBottomWidth: 1,
-        margin: 10,
+        margin: 5,
         flex: 1
     },
     loginButton: {
         left: '30%',
         width: '40%',
-        margin: 10,
-        flex: 1
+        margin: 5,
+        flex: 1,
     },
     thirdPartyButton: {
         left: '10%',
@@ -158,9 +160,12 @@ const styles = StyleSheet.create ({
     },
     registerButton: {
         position: 'absolute',
-        top: '78%',
-        left: '55%',
-        width: '40%'
+        top: 40,
+        left: '50%',
+        width: '40%',
+        color: 'white',
+        backgroundColor: '#ffab40',
+        //borderWidth: 1,
     },
 });
 

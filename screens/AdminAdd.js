@@ -146,6 +146,7 @@ export default class AdminAdd extends Component {
                         <View style={styles.entry}>
                             <Text style={styles.title}>Type of Business</Text>
                             <Picker
+                                style={{borderLeftWidth: 1, borderRightWidth: 1,  borderColor: '#D3D3D3', marginTop: 10}}
                                 selectedValue={self.state.sector}
                                 onValueChange={(itemValue) =>
                                 self.setState({sector: itemValue})
@@ -161,7 +162,6 @@ export default class AdminAdd extends Component {
                                 <Picker.Item label={"Financial"} value={"financial"}/>
                             </Picker>
                         </View>
-
                         <View style={styles.entry}>
                             <TouchableOpacity
                                 onPress={() => Linking.openURL(sosurl)}
@@ -169,6 +169,9 @@ export default class AdminAdd extends Component {
 
                                 <Text style={{fontSize: 16, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
                             </TouchableOpacity>
+                            <View style={styles.entry}>
+                                <Text style={{color: 'grey', textAlign: 'center', fontStyle:'italic'}}>The Secretary of State's website requires the control number for the business.</Text>
+                            </View>
                         </View>
 
                         <View>
@@ -224,6 +227,7 @@ const styles = StyleSheet.create({
     },
     entry: {
         flex: 1,
+        marginBottom: 10,
     },
     entryText: {
         fontSize: 18,

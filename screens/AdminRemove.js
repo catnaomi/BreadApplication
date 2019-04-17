@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     },
     entry: {
         flex: 1,
+        marginBottom: 10,
     },
     entryText: {
         fontSize: 18,
