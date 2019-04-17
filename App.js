@@ -70,7 +70,7 @@ export const TabNavigator = createBottomTabNavigator({
         style: {
             backgroundColor: breadColors.breadLightGrey,
         }
-    }});
+}});
 
 
 // only set true for demoing

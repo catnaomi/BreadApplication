@@ -3,7 +3,8 @@ import {Image, StyleSheet, Text, View, TouchableHighlight} from "react-native";
 import {getBusinessData} from '../db/firebase';
 import { withNavigation } from 'react-navigation';
 import RatingDisplay from './RatingDisplay';
-import FavoritesButton from './FavoritesButton'
+import FlaggedButton from "./FlaggedButton";
+import FavoritesButton from './FavoritesButton';
 
 class BusinessPreview extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class BusinessPreview extends Component {
                 <View style = {{flex: 1, flexDirection: 'row'}}>
                     <View style = {{left: 10, height: '100%', width: 120}}>
                         <View style = {{top: 10, height: 24, width: 120}}>
-                            <RatingDisplay rating = {this.state.rating}/>
+                            <RatingDisplay rating = {this.state.rating} key={new Date()}/>
                         </View>
                         <View style = {[{top: 20}, styles.BizIcon]}>
                             <Image
@@ -60,8 +61,11 @@ class BusinessPreview extends Component {
                             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>
                         </View>
                     </View>
-                    <View style = {{left: -20, top: 10, height: 154}}>
+                    <View style = {{left: -50, top: 10, height: 154}}>
                         <FavoritesButton id = {this.props.id}/>
+                    </View>
+                    <View style = {{left: -25, top: 10, height: 154}}>
+                        <FlaggedButton id={this.props.id} type={"business"} user={this.props.user} />
                     </View>
                 </View>
             </TouchableHighlight>

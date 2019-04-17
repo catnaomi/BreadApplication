@@ -1,22 +1,33 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
+import {StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
 import {LoginStack}from "./LoginScreen"
 import {AdminNavigator} from "./AdminLanding";
+import adminLandingScreen from "./AdminLanding"
+import {LandingStack} from "./LandingScreen"
 import { createStackNavigator } from "react-navigation";
+
+import cache from '../userCache'
 
 class SettingsScreen extends Component {
     static navigationOptions = {
         title: 'Settings',
     };
     render() {
-
         const { navigate } = this.props.navigation;
         return (
             <View style = {{flex: 1}}>
                 <View style = {[{flex: 1}, styles.SettingsScroll]}>
                     <TouchableHighlight
                         style = {styles.SettingsEntry}
-                        onPress = {() => {navigate('Login')}}>
+                        onPress = {() => {
+                            if(cache.isAdmin) {
+                                navigate('AdminLanding')    
+                            } else if(cache.isUser) {
+                                navigate('LandingScreen')
+                            } else {
+                                navigate('Login')
+                            }}
+                        }>
                         <Text style = {styles.EntryFont}>
                             Login / Logout
                         </Text>
@@ -30,7 +41,8 @@ class SettingsScreen extends Component {
 export const SettingsStack = createStackNavigator({
     Settings: {screen: SettingsScreen},
     Login: {screen: LoginStack},
-    Admin: {screen: AdminNavigator}
+    LandingScreen: {screen: LandingStack},
+    AdminLanding: {screen: adminLandingScreen}
 });
 
 const styles = StyleSheet.create ({

@@ -25,11 +25,10 @@ export default class ReviewScreen extends Component {
             user_reviews: [],
             review: '',
             rating: 3,
-        }
+        };
         if (this.props.navigation.state.params) {
             this.state.business_id = this.props.navigation.state.params.business_id;
         }
-;
     }
 
     componentDidMount() {
@@ -46,7 +45,7 @@ export default class ReviewScreen extends Component {
                     user_reviews: u_object.reviews ? u_object.reviews : [],
                 })
             }
-        })
+        });
         getBusinessData(this.state.business_id).then(b_object => {
             if (b_object !== undefined) {
                 self.setState({
