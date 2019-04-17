@@ -28,6 +28,8 @@ export default class UserScreen extends Component {
 
         if (this.props.navigation.state.params) {
             this.state.id = this.props.navigation.state.params.id;
+        } else {
+            this.state.id = cache.user_id;
         }
     }
 

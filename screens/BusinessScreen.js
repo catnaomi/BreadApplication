@@ -9,10 +9,15 @@ import LoginScreen from "./LoginScreen";
 import ReviewScreen from "./ReviewScreen";
 import RatingDisplay from "./RatingDisplay"
 import FavoritesButton from "./FavoritesButton"
+import {breadColors} from "../Colors"
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
         title: 'Business Details',
+        headerStyle: {
+            backgroundColor: breadColors.breadLightGrey,
+        },
     };
 
     constructor (props) {
@@ -68,6 +73,20 @@ export class BusinessScreen extends Component {
         var save = require('../assets/images/icons/save.png');
 
         var RatingField = (<RatingDisplay rating = {this.state.rating}/>);
+        var InfoField = (this.state.edit ?
+            <ScrollView>
+                <TextInput
+                    style = {{padding: 20}}
+                    placeholder = {this.state.information}
+                    ref = 'information'
+                    onChangeText={(text) => this.setState({information: text})}
+                    value = {this.state.information}
+                    multiline = {true}
+                />
+            </ScrollView> :
+            <ScrollView>
+                <Text style = {{padding: 20}}>{this.state.information}</Text>
+            </ScrollView>);
         var NameField = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 24}}
@@ -115,10 +134,9 @@ export class BusinessScreen extends Component {
                         this.forceUpdate();
                     }
                 }}>
-                <Image
-                    style={styles.editIconImage}
-                    source={this.state.edit ? save : edit}
-                />
+                <View style = {styles.editIconImage}>
+                    <MaterialCommunityIcons name = {this.state.edit ? 'content-save' : 'pencil-box'} size = {24} color = {breadColors.breadDarkGrey}/>
+                </View>
             </TouchableHighlight> :
             <View/>);
 
@@ -145,7 +163,7 @@ export class BusinessScreen extends Component {
             if (props.tab == 0) { //info
                 return (
                     <View style = {styles.BusinessInfo}>
-                        <Text style = {{padding: 20}}>{self.state.information}</Text>
+                        {InfoField}
                     </View>
                 );
             } else if (props.tab == 1) { //reviews
@@ -177,7 +195,7 @@ export class BusinessScreen extends Component {
                 );
             }
         }
-        function GetReviewFromID (id) {
+        function GetReviewFromID (id, i) {
             return (<Review id = {id}/>);
         }
 
@@ -187,7 +205,7 @@ export class BusinessScreen extends Component {
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
                     <View style = {{flex: 1}}/>
-                    <View style = {{flex: 6, flexDirection: 'row', backgroundColor: 'green'}}>
+                    <View style = {{flex: 6, flexDirection: 'row'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
                                 <Image style = {styles.profileImage}
@@ -276,7 +294,7 @@ export class BusinessScreen extends Component {
 
 export const BusinessStack = createStackNavigator({
     Business: {screen: BusinessScreen},
-    Review: {screen: ReviewScreen},
+    Review: ReviewScreen,
 });
 
 const styles = StyleSheet.create ({
@@ -286,7 +304,7 @@ const styles = StyleSheet.create ({
     },
     profileHeader: {
         flex: 4,
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     profileTabs: {
         flex: 1,
@@ -302,7 +320,7 @@ const styles = StyleSheet.create ({
         height: 150,
         padding: 0,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: breadColors.breadDarkGrey,
     },
     profileImage: {
         resizeMode: 'cover',
@@ -322,11 +340,12 @@ const styles = StyleSheet.create ({
     tabSelectable: {
         flex : 1,
         borderLeftWidth: 1,
+        borderColor: breadColors.breadDarkGrey,
         justifyContent: 'center',
         alignContent: 'center',
     },
     tabSelected: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     tabDeselected: {
         backgroundColor: 'white',

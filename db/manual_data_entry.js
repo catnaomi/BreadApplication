@@ -24,7 +24,7 @@ registerBusiness(
     4,
     '4 State St.',
     'Smryna, GA 33222',
-    3);
+    3.5);
 
 
 // function addReviewToDatabase(review_id, review_content, user_id, business_id, date)

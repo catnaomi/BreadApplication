@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View, Image, StyleSheet} from "react-native";
+import {breadColors} from "../Colors"
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default class RatingDisplay extends Component {
     constructor (props) {
@@ -35,17 +37,11 @@ function getStar(val) {
     var starHalf = require('../assets/images/icons/star-halffilled.png');
     var starEmpty = require('../assets/images/icons/star-unfilled.png');
     if (val == 0) {
-        return (<Image
-            style = {styles.ratingImage}
-            source = {starEmpty}/>);
+        return (<MaterialCommunityIcons name = 'star-outline' size = {24} color = {breadColors.breadYellow}/>);
     } else if (val == 1) {
-        return (<Image
-            style = {styles.ratingImage}
-            source = {starHalf}/>);
+        return (<MaterialCommunityIcons name = 'star-half' size = {24} color = {breadColors.breadYellow}/>);
     } else {
-        return (<Image
-            style = {styles.ratingImage}
-            source = {starFilled}/>);
+        return (<MaterialCommunityIcons name = 'star' size = {24} color = {breadColors.breadYellow}/>);
     }
 }
 
