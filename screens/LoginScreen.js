@@ -46,18 +46,20 @@ class LoginScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
+
                                 getAdminData(self.state.email).then(admin => {
                                     if (admin !== undefined) {
-                                        this.props.navigation.navigate('AdminLanding')
+                                        this.props.navigation.navigate('AdminLanding');
                                     }
                                 });
 
                                 getUserData(self.state.email).then(user => {
                                     if (user !== undefined) {
                                         //TODO: Change from AdminNavigator
-                                        this.props.navigation.navigate('AdminNavigator')
+                                        console.log("this is the user");
+                                        this.props.navigation.navigate('AdminNavigator');
                                     } else {
-                                        Aler.alert("Email or Password is incorrect")
+                                        Alert.alert("Email or Password is incorrect");
                                     }
                                 })
 
@@ -143,7 +145,6 @@ const styles = StyleSheet.create ({
 export const LoginStack = createStackNavigator({
         Login: {screen: LoginScreen},
         Register:{screen: RegisterScreen},
-        //AdminNavigator: {screen: AdminNavigator},
         AdminLanding: {screen: adminLandingScreen},
         AdminBusinesses: {screen: AdminBusinesses},
         AdminRemove: {screen: AdminRemove},
