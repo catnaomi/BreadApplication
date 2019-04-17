@@ -41,7 +41,7 @@ class BusinessPreview extends Component {
                 <View style = {{flex: 1, flexDirection: 'row'}}>
                     <View style = {{left: 10, height: '100%', width: 120}}>
                         <View style = {{top: 10, height: 24, width: 120}}>
-                            <RatingDisplay rating = {this.state.rating}/>
+                            <RatingDisplay rating = {this.state.rating} key={new Date()}/>
                         </View>
                         <View style = {[{top: 20}, styles.BizIcon]}>
                             <Image

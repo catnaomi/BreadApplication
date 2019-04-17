@@ -80,7 +80,7 @@ class Review extends Component {
                             </View>
                             <View style = {[styles.ReviewRating]}>
                                 <RatingDisplay rating={this.state.rating}/>
-                                <FlaggedButton id={this.props.id} type={"review"} user={this.props.user}/>
+                                <FlaggedButton id={this.props.id} type={"review"} user={this.props.user} key={this.props.id}/>
                             </View>
                         </View>
                     </View>

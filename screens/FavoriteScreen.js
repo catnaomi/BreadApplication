@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, Text} from "react-native";
 import {addFavoritesToUser, getUserData} from "../db/firebase";
 import cache from "../userCache";
 import BusinessPreview from "./BusinessPreview";
@@ -49,5 +49,5 @@ export const FavoritesStack = createStackNavigator({
 });
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} user={"consumer"}/>
+    return <BusinessPreview id={business_id} user={"consumer"} key={business_id}/>
 }

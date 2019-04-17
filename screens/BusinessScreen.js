@@ -177,7 +177,7 @@ export class BusinessScreen extends Component {
             }
         }
         function GetReviewFromID (id) {
-            return (<Review id = {id} user={"consumer"}/>);
+            return (<Review id = {id} user={"consumer"} key={id}/>);
         }
 
 

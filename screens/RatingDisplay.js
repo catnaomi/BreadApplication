@@ -29,6 +29,7 @@ export default class RatingDisplay extends Component {
         );
     }
 }
+key_count = 0;
 
 function getStar(val) {
     var starFilled = require('../assets/images/icons/star-filled.png');
@@ -37,15 +38,18 @@ function getStar(val) {
     if (val == 0) {
         return (<Image
             style = {styles.ratingImage}
-            source = {starEmpty}/>);
+            source = {starEmpty}
+            key= {key_count++}/>);
     } else if (val == 1) {
         return (<Image
             style = {styles.ratingImage}
-            source = {starHalf}/>);
+            source = {starHalf}
+            key= {key_count++}/>);
     } else {
         return (<Image
             style = {styles.ratingImage}
-            source = {starFilled}/>);
+            source = {starFilled}
+            key= {key_count++}/>);
     }
 }
 

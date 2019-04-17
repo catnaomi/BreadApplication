@@ -3,12 +3,15 @@ import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Im
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
 import {getAdminData, getUserData} from "../db/firebase";
-//import {AdminNavigator} from "./AdminLanding"
 import adminLandingScreen from "./AdminLanding"
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
+
+import {LandingStack} from "./LandingScreen"
+
+import cache from '../userCache'
 
 class LoginScreen extends Component {
     constructor (props) {
@@ -21,6 +24,7 @@ class LoginScreen extends Component {
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         let self = this;
+        let login_fail_count = 0;
 
         return (
             <View style = {{flex: 1}}>
@@ -46,20 +50,38 @@ class LoginScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-
                                 getAdminData(self.state.email).then(admin => {
+                                    console.log(admin);
                                     if (admin !== undefined) {
-                                        this.props.navigation.navigate('AdminLanding');
+                                        cache.isAdmin = true;
+                                        cache.user_id = admin;
+                                        console.log(cache);
+                                        login_fail_count = 0;
+                                        alert("You have successfully loggined in " + cache.user_id + "!");
+                                        this.props.navigation.navigate('AdminLanding')
+                                    }
+                                }).catch(error => {
+                                    login_fail_count += 1;
+                                    if(login_fail_count == 2) {
+                                        alert("Incorrect Username or Password");
                                     }
                                 });
 
                                 getUserData(self.state.email).then(user => {
                                     if (user !== undefined) {
                                         //TODO: Change from AdminNavigator
-                                        console.log("this is the user");
-                                        this.props.navigation.navigate('AdminNavigator');
-                                    } else {
-                                        Alert.alert("Email or Password is incorrect");
+                                        // this.props.navigation.navigate('AdminNavigator')
+                                        cache.user_id = user.user_id;
+                                        cache.isUser = true;
+                                        console.log(cache);
+                                        login_fail_count = 0;
+                                        alert("You have successfully loggined in " + cache.user_id + "!");
+                                        this.props.navigation.navigate('LandingScreen')
+                                    }
+                                }).catch(error => {
+                                    login_fail_count += 1;
+                                    if(login_fail_count == 2) {
+                                        alert("Incorrect Username or Password");
                                     }
                                 })
 
@@ -150,6 +172,7 @@ export const LoginStack = createStackNavigator({
         AdminRemove: {screen: AdminRemove},
         AdminAdd: {screen: AdminAdd},
         AdminReview: {screen: AdminReview},
+        LandingScreen: {screen: LandingStack},
 },
 {
     headerMode: 'none',
