@@ -112,12 +112,11 @@ export default class AdminAddAdmin extends Component {
 
 }
 
-const sosurl = "https://ecorp.sos.ga.gov/BusinessSearch";
-
 const styles = StyleSheet.create({
     screenView: {
         width: '100%',
         height: '100%',
+        flex: 1,
     },
     imageView: {
         flex: 1,

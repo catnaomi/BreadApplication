@@ -46,11 +46,6 @@ export default class AdminReview extends Component {
                                 }
                             })
                         }
-                        <TouchableOpacity
-                            onPress={() =>{this.forceUpdate()}}
-                            style={[styles.title, {alignItems: 'center'}]}>
-                            <Text style={{fontSize: 16, color:'white', fontWeight: 'bold'}}>Refresh</Text>
-                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>
@@ -66,7 +61,6 @@ function getArray(data) {
     for (var i = 0; i < keys.length; i++) {
         arr.push(keys[i]);
     }
-    console.log(arr);
     return arr;
 }
 
