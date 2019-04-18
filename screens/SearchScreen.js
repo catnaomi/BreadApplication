@@ -82,8 +82,9 @@ export class SearchResult extends Component {
 
 function getArray(data, self) {
     var arr = [];
+    counter = 0
     for(var key in data) {
-        if (data.hasOwnProperty(key)) {          
+        if (data.hasOwnProperty(key)) {       
             var name = data[key].name;
             var description = data[key].description;
             info = data[key].information;
@@ -93,10 +94,8 @@ function getArray(data, self) {
             for(var word_index in key_words) {
                 var word = key_words[word_index];
                 if(aggregated.indexOf(word) != -1) {
-                    console.log('word match: ', word);
-                    console.log('keywords: ', key_words);
-                    arr[key] = data[key]; // convert object to array
-                    break;    
+                    arr[counter++] = data[key]; // convert object to array
+                    break;
                 }
             }
         }

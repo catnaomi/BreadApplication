@@ -17,7 +17,7 @@ export default class FavoritesButton extends Component {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
             if (u_object != undefined) {
-                self.state.favorited = u_object.favorites.includes(self.props.id);
+                self.state.favorited = u_object.favorites != undefined ? u_object.favorites.includes(self.props.id) : false;
                 self.forceUpdate();
             }
         });

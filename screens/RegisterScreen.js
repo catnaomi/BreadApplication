@@ -73,13 +73,10 @@ export default class RegisterScreen extends Component {
                                 } else if (sel.state.password !== sel.state.passwordchk) {
                                     Alert.alert("Passwords do not match!");
                                 } else {
-                                //console.log(typeof(doesUserExist(sel.state.username)));
                                     doesUserExist(sel.state.username).then(response => {
                                         if (response) {
-                                            console.log("I found the user!");
                                             Alert.alert(sel.state.username + '\nis already in database');
                                         } else {
-                                            console.log("User does not exist-- Adding!");
                                             // var passwordHash = require('password-hash');
                                             // var hashedPas = passwordHash.generate(sel.state.password);
                                             registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
