@@ -80,9 +80,10 @@ function updateUserName(user_id, name) {
 //************* ADMIN ********************
 
 
-function registerAdmin(email, password, history, settings) {
+function registerAdmin(name, email, password, history, settings) {
   const format_email = email.replace(".","-");
   firebase.database().ref('admins/' + format_email).set({
+    name: name,
     user_id:format_email,
     admin_email:email,
     hash_pass: password,
@@ -95,6 +96,7 @@ function getAdminData(email) {
   const format_email = email.replace(".","-");
   return firebase.database().ref('admins/' + format_email).once('value').then(function(snapshot) {
     return {
+      name: snapshot.val().name,
       user_id:snapshot.val().user_id,
       admin_email:snapshot.val().admin_email,
       hash_pass: snapshot.val().hash_pass,
