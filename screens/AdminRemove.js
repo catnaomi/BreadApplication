@@ -2,8 +2,18 @@ import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
     TouchableOpacity, View, ScrollView, Alert} from "react-native";
 import {getBusinessData, removeBusiness} from '../db/firebase';
+import {breadColors} from "../Colors";
 
 export default class AdminAdd extends Component {
+    static navigationOptions = {
+        title: 'Administrative Portal',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
 
     constructor(props) {
         super(props);

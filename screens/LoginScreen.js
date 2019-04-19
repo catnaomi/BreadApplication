@@ -51,11 +51,9 @@ class LoginScreen extends Component {
                         <Button
                             onPress={() => {
                                 getAdminData(self.state.email).then(admin => {
-                                    console.log(admin)
                                     if (admin !== undefined) {
                                         cache.isAdmin = true
                                         cache.user_id = admin
-                                        console.log(cache)
                                         login_fail_count = 0;
                                         alert("You have successfully loggined in " + cache.user_id + "!")
                                         this.props.navigation.navigate('AdminLanding')
@@ -73,7 +71,6 @@ class LoginScreen extends Component {
                                         // this.props.navigation.navigate('AdminNavigator')
                                         cache.user_id = user.user_id
                                         cache.isUser = true
-                                        console.log(cache)
                                         login_fail_count = 0;
                                         alert("You have successfully loggined in " + cache.user_id + "!")
                                         this.props.navigation.navigate('LandingScreen')

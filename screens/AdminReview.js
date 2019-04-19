@@ -2,8 +2,19 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Linking, RefreshControl} from "react-native";
 import {getBusinessData, getReviewData, getUserData, getAllReviews, getAllBusinessData} from "../db/firebase";
 import Review from "./Review";
+import {breadColors} from "../Colors";
 
 export default class AdminReview extends Component {
+
+    static navigationOptions = {
+        title: 'Administrative Portal',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
 
     constructor (props) {
         super(props);
@@ -66,7 +77,6 @@ function getArray(data) {
     for (var i = 0; i < keys.length; i++) {
         arr.push(keys[i]);
     }
-    console.log(arr);
     return arr;
 }
 

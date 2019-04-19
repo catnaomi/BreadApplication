@@ -26,7 +26,7 @@ export class LandingScreen extends Component {
         var financialIcon = require('../assets/images/quickstart/financial-iconmdpi.png');
         var healthIcon = require('../assets/images/quickstart/health-iconmdpi.png');
         var legalIcon = require('../assets/images/quickstart/legal-iconmdpi.png');
-        var logoIcon = require('../assets/images/logos/breadbase.png');
+        var logoIcon = require('../assets/images/logos/texthoriz.png');
         return (
             <View>
                 {/* Logo */}
@@ -208,6 +208,7 @@ const styles = StyleSheet.create ({
         left: 190,
     },
     logoLanding: {
+        resizeMode: 'contain',
         position: 'absolute',
         top: 110,
         width: '100%',
@@ -216,7 +217,8 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
     },
     logoLandingImage: {
+        resizeMode: 'contain',
         height: 150,
-        width: 130,
+        width: '100%',
     },
 });

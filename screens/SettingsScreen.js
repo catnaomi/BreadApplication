@@ -7,10 +7,17 @@ import {LandingStack} from "./LandingScreen"
 import { createStackNavigator } from "react-navigation";
 
 import cache from '../userCache'
+import {breadColors} from "../Colors";
 
 class SettingsScreen extends Component {
     static navigationOptions = {
         title: 'Settings',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
     };
     render() {
         const { navigate } = this.props.navigation;

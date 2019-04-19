@@ -17,7 +17,10 @@ export class BusinessScreen extends Component {
     static navigationOptions = {
         title: 'Business Details',
         headerStyle: {
-            backgroundColor: breadColors.breadLightGrey,
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
         },
     };
 
@@ -181,7 +184,7 @@ export class BusinessScreen extends Component {
                                     });
                             }}
                             >
-                            <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                            <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
                         </TouchableHighlight>
                         {self.state.reviews.map(function(reviewid) {
                                 return GetReviewFromID(reviewid);
@@ -265,16 +268,6 @@ export class BusinessScreen extends Component {
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight
-                        style = {[styles.tabSelectable, BusinessSelectStyle]}
-                        onPress = {() => {
-                            this.state.tab = 2;
-                            this.forceUpdate();
-                        }}>
-                        <Text style = {{textAlign: 'center', fontSize: 16}}>
-                            Documents
-                        </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
                         style = {[styles.tabSelectable, styles.tabDeselected]}
                         onPress = {() => {
                             //TODO: Navigate to owner's user page
@@ -352,12 +345,13 @@ const styles = StyleSheet.create ({
         backgroundColor: 'white',
     },
     addReview: {
-        height: 100,
+        height: 50,
         width: '50%',
         left: '25%',
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1,
+        backgroundColor: breadColors.breadDarkTeal,
     },
     businessInfo: {
         flex: 1,

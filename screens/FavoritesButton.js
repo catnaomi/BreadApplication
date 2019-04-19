@@ -12,14 +12,17 @@ export default class FavoritesButton extends Component {
         this.state = {
             favorited: false,
         };
-        console.log(this.props.id);
     }   
 
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
             if (u_object != undefined) {
-                self.state.favorited = u_object.favorites.includes(self.props.id);
+                if (u_object.favorites) {
+                    self.state.favorited = u_object.favorites.includes(self.props.id);
+                } else {
+                    self.state.favorited = false;
+                }
                 self.forceUpdate();
             }
         });

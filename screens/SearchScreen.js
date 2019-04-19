@@ -4,6 +4,7 @@ import {createStackNavigator} from 'react-navigation';
 import {getBusinessWithID, getAllBusinessData} from '../db/firebase'
 import BusinessPreview from './BusinessPreview'
 import {BusinessScreen} from './BusinessScreen'
+import {breadColors} from "../Colors";
 
 export class SearchScreen extends Component {
 
@@ -42,6 +43,12 @@ export class SearchResult extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
           title: 'Search Result: ' + navigation.getParam('searchQuery'),
+            headerStyle: {
+                backgroundColor: breadColors.breadOrange,
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
         };
     };
 

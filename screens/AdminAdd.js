@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView,
     Alert, Picker} from "react-native";
-import {registerBusiness, getBusinessData} from '../db/firebase'
+import {registerBusiness, getBusinessData, addBusinessToUser} from '../db/firebase'
 
 export default class AdminAdd extends Component {
 
@@ -41,23 +41,26 @@ export default class AdminAdd extends Component {
                         Alert.alert('Address field is not complete');
                     } else if (self.state.email == '') {
                         Alert.alert('Email field is not complete');
-                    } else if (self.state.owner = '') {
+                    } else if (self.state.owner == '') {
                         Alert.alert('Owner field is not complete');
-                    } else if (self.state.controlNumber = '') {
+                    } else if (self.state.controlNumber == '') {
                         Alert.alert('Control number field is not complete');
                     } else if (self.state.id == '') {
                         Alert.alert(' ID field is not complete');
                     } else {
+                        /*
                         getBusinessData(self.state.id).then(response => {
                             if (response != undefined) {
                                 Alert.alert( self.state.name + " is already in the database!");
                             } else {
-                                registerBusiness(self.state.id, self.state.name,'', self.state.owner,
-                                    '', self.state.description, '', self.state.email, '',
-                                    self.state.controlNumber, self.state.address_line1, self.state.address_line2);
+
+                                //addBusinessToUser(self.state.owner, [self.state.id]);
                                 Alert.alert(self.state.name + " is now in the database");
                             }
-                        })
+                        })*/
+                        registerBusiness(self.state.id, self.state.name,[], self.state.owner,
+                            '', self.state.description, '', self.state.email, '',
+                            self.state.controlNumber, self.state.address_line1, self.state.address_line2, 0);
                     }
                 }} style={{alignItems: 'center'}}>
                 <Text style={styles.text}>Register Business</Text>
