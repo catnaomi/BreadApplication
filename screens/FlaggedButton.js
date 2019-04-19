@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     Button: {
         width: 24,
         height: 24,
-        left: 15,
+        left: 10,
 
     }
 });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView} from "react-native";
 import { createStackNavigator } from "react-navigation";
 import AdminAuthenticate  from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
@@ -7,7 +7,9 @@ import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
 import {breadColors} from "../Colors";
+import AdminAddAdmin from "./AdminAddAdmin";
 
+import cache from '../userCache';
 
 export default class adminLandingScreen extends Component {
     static navigationOptions = {
@@ -30,8 +32,7 @@ export default class adminLandingScreen extends Component {
                     />
                 </View>
                 <View style={styles.optionView}>
-                    <View style={styles.innerOption}>
-
+                    <ScrollView style={styles.innerOption}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminAdd')}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Add a Business</Text>
@@ -52,17 +53,22 @@ export default class adminLandingScreen extends Component {
                                 <Text style={styles.buttonText}>Review Flagged Businesses</Text>
                             </View>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminAddAdmin')}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Add Admin</Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
+                            cache.isAdmin = false;
                             this.props.navigation.goBack();
-                            Alert.alert('You have successfully been logged out')
+                            alert('You have successfully been logged out');
                             }
                         }>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>Logout</Text>
-
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
         );
@@ -101,7 +107,7 @@ const styles = StyleSheet.create ({
         width: '75%',
         height: '100%',
         left: '12.5%',
-        flex: 1
+        flex: 1,
     },
     optionView: {
         height: '70%',
@@ -111,18 +117,22 @@ const styles = StyleSheet.create ({
     innerOption: {
         width: '75%',
         left: '12.5%',
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'stretch',
+        // justifyContent: 'space-around',
+        // alignItems: 'stretch',
     },
     button: {
+        flex: 1,
         alignItems: 'center',
         backgroundColor: '#ffab40',
+        marginBottom: 10,
+        marginTop: 10,
     },
     buttonText: {
         fontSize: 22,
         padding: '10%',
-        color: 'white'
+        color: 'white',
+        textAlign: 'center',
     }
 });

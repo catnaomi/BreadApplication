@@ -33,20 +33,24 @@ class Review extends Component {
                     business_id: r_object.business_id,
                     rating: r_object.rating,
                 });
-                getUserData(self.state.user_id).then(u_object => {
-                    if (u_object != undefined) {
-                        self.setState({
-                            author: u_object.name,
-                        })
-                    }
-                });
-                getBusinessData(self.state.business_id).then(b_object => {
-                    if (b_object != undefined) {
-                        self.setState({
-                            business: b_object.name,
-                        })
-                    }
-                });
+                if(self.state.user_id != undefined) {
+                    getUserData(self.state.user_id).then(u_object => {
+                        if (u_object != undefined) {
+                            self.setState({
+                                author: u_object.name,
+                            })
+                        }
+                    });
+                }
+                if(self.state.business_id != undefined) {
+                    getBusinessData(self.state.business_id).then(b_object => {
+                        if (b_object != undefined) {
+                            self.setState({
+                                business: b_object.name,
+                            })
+                        }
+                    });
+                }
             }
         })
     }

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView, Image, TouchableOpacity, Text} from "react-native";
-import {getAllBusinessData} from '../db/firebase'
-import BusinessPreview from './BusinessPreview'
 import {breadColors} from "../Colors";
+import {getAllBusinessData, getBusinessData} from '../db/firebase';
+import AdminBusinessPreview from './AdminBusinessPreview';
+import BusinessPreview from './BusinessPreview';
 
 export default class AdminBusinesses extends Component {
     static navigationOptions = {
@@ -47,14 +48,14 @@ export default class AdminBusinesses extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.data.map(function(businessObject) {
-                                // if((businessObject !== undefined) && (businessObject.removed !== false)){
+                                // if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false) && (+getBusinessData(businessObject).flagged >= 0)
+                                // && (getBusinessData(businessObject).removed === false)){
                                 //     return GetPreviewForBusiness(businessObject.business_id);
                                 // }
-                                if((businessObject !== undefined) && (businessObject.removed === false)){
-                                    return GetPreviewForBusiness(businessObject.business_id);
+                                if((businessObject !== undefined)){
+                                    return GetPreviewForBusiness(businessObject);
                                 }
                             })
-                        }
                         }
                         <TouchableOpacity
                             onPress={() =>{this.forceUpdate()}}
@@ -70,17 +71,16 @@ export default class AdminBusinesses extends Component {
 }
 
 function getArray(data) {
-    var arr = [];
-    for(var key in data) {
-        if (data.hasOwnProperty(key)) {
-            arr[key] = data[key] // convert object to array
-        }
+    let arr = [];
+    let keys = Object.keys(data);
+    for (var i = 0; i < keys.length; i++) {
+        arr.push(keys[i]);
     }
     return arr;
 }
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} user={"admin"} key={business_id}/>
+    return <AdminBusinessPreview id={business_id} user={"admin"} key={business_id}/>
 }
 
 const styles = StyleSheet.create ({

@@ -57,11 +57,6 @@ export default class AdminReview extends Component {
                                 }
                             })
                         }
-                        <TouchableOpacity
-                            onPress={() =>{this.forceUpdate()}}
-                            style={[styles.title, {alignItems: 'center'}]}>
-                            <Text style={{fontSize: 16, color:'white', fontWeight: 'bold'}}>Refresh</Text>
-                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>

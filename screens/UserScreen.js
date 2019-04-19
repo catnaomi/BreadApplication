@@ -140,7 +140,7 @@ export default class UserScreen extends Component {
                     <ScrollView>
                         {self.state.favorites ?
                             self.state.favorites.map(function(bizid) {
-                            return GetPreviewForBusiness("" + bizid);
+                            return GetPreviewForBusinessFav("" + bizid);
                         }) : <View/>
                         }
                     </ScrollView>
@@ -232,9 +232,14 @@ function GetReviewFromID (id) {
     return (<Review id = {id} user={"owner"} key={id}/>);
 }
 
+function GetPreviewForBusinessFav(business_id) {
+    return <BusinessPreview id={business_id} user={"consumer"}/>
+}
+
 function GetPreviewForBusiness(business_id) {
     return <BusinessPreview id={business_id} user={"owner"} key={business_id}/>
 }
+
 
 function checkPermissions(user_id) {
     return cache.user_id === user_id

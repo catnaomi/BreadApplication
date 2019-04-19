@@ -22,23 +22,25 @@ class SettingsScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <View style = {{flex: 1}}>
-                <View style = {[{flex: 1}, styles.SettingsScroll]}>
-                    <TouchableHighlight
-                        style = {styles.SettingsEntry}
-                        onPress = {() => {
-                            if(cache.isAdmin) {
-                                navigate('AdminLanding')    
-                            } else if(cache.isUser) {
-                                navigate('LandingScreen')
-                            } else {
-                                navigate('Login')
-                            }}
-                        }>
-                        <Text style = {styles.EntryFont}>
-                            Login / Logout
-                        </Text>
-                    </TouchableHighlight>
+            <View style = {styles.screenView}>
+                <View style = {styles.optionView}>
+                    <ScrollView style={styles.innerOption}>
+                        <TouchableHighlight
+                            style = {styles.SettingsEntry}
+                            onPress = {() => {
+                                if(cache.isAdmin) {
+                                    navigate('AdminLanding')
+                                } else if(cache.isUser) {
+                                    navigate('LandingScreen')
+                                } else {
+                                    navigate('Login')
+                                }}
+                            }>
+                            <Text style = {styles.EntryFont}>
+                                Login / Logout
+                            </Text>
+                        </TouchableHighlight>
+                    </ScrollView>
                 </View>
             </View>
         );
@@ -53,19 +55,32 @@ export const SettingsStack = createStackNavigator({
 });
 
 const styles = StyleSheet.create ({
-    SettingsScroll: {
-
+    screenView: {
+        width: '100%',
+        height: '100%',
+        flex: 1,
+    },
+    optionView: {
+        height: '70%',
+        width: '100%',
+        flex: 6,
+    },
+    innerOption: {
+        width: '75%',
+        left: '12.5%',
+        flexGrow: 1,
+        flexDirection: 'column',
     },
     SettingsEntry: {
-        height: 75,
-        width: '100%',
-        borderColor: 'grey',
-        borderBottomWidth: 1,
-        alignContent: 'center',
+        marginTop: 20,
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#ffab40',
     },
     EntryFont: {
-        top: 20,
-        left: 20,
-        fontSize: 18,
+        fontSize: 22,
+        padding: '10%',
+        color: 'white',
+        textAlign: 'center',
     }
 });

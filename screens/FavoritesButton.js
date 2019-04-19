@@ -23,6 +23,7 @@ export default class FavoritesButton extends Component {
                 } else {
                     self.state.favorited = false;
                 }
+                self.state.favorited = u_object.favorites != undefined ? u_object.favorites.includes(self.props.id) : false;
                 self.forceUpdate();
             }
         });

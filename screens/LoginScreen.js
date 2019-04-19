@@ -8,6 +8,7 @@ import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
+import AdminAddAdmin from './AdminAddAdmin';
 
 import {LandingStack} from "./LandingScreen"
 
@@ -27,25 +28,12 @@ class LoginScreen extends Component {
         let login_fail_count = 0;
 
         return (
-            <View style = {{flex: 1}}>
-                <View style = {styles.imageView}>
-                    
-                </View>
-                <View style = {{flex : 1}}>
-                    <TextInput
-                        style={styles.loginField}
-                        placeholder = "email"
-                        ref='user'
-                        onChangeText = {(text) => self.setState({email: text})}
-                        value = {self.state.email}
-                    />
-                    <TextInput
-                        secureTextEntry={true}
-                        style={styles.loginField}
-                        placeholder = "password"
-                        ref='pass'
-                        onChangeText = {(text) => self.setState({password: text})}
-                        value = {self.state.password}
+            <View style = {styles.screenView}>
+                <View style={{flex:1}}/>
+                <View style={styles.imageView}>
+                    <Image
+                        source={logo}
+                        style={styles.breadLogo}
                     />
                     <View style = {styles.loginButton}>
                         <Button
@@ -82,43 +70,95 @@ class LoginScreen extends Component {
                                     }
                                 })
 
-                            }}
-                            title="Login"
+                </View>
+                <View style = {styles.optionView}>
+                    <View style={styles.innerOption}>
+                        <TextInput
+                            style={styles.loginField}
+                            placeholder = "Email"
+                            ref='user'
+                            onChangeText = {(text) => self.setState({email: text})}
+                            value = {self.state.email}
                         />
+                        <TextInput
+                            secureTextEntry={true}
+                            style={styles.loginField}
+                            placeholder = "Password"
+                            ref='pass'
+                            onChangeText = {(text) => self.setState({password: text})}
+                            value = {self.state.password}
+                        />
+                        <View style = {styles.loginButton}>
+                            <Button
+                                onPress={() => {
+                                    getAdminData(self.state.email).then(admin => {
+                                        if (admin !== undefined) {
+                                            if (admin.hash_pass !== self.state.password) {
+                                                Alert.alert("Incorrect Username or Password");
+                                            } else {
+                                                cache.isAdmin = true;
+                                                cache.user_id = admin;
+                                                login_fail_count = 0;
+                                                alert("You have successfully loggined in " + cache.user_id + "!");
+                                                this.props.navigation.navigate('AdminLanding');
+                                            }
+                                        }
+                                    }).catch(error => {
+                                        login_fail_count += 1;
+                                        if(login_fail_count == 2) {
+                                            alert("Incorrect Username or Password");
+                                        }
+                                    });
+
+                                    getUserData(self.state.email).then(user => {
+                                        if (user !== undefined) {
+                                            if (user.hash_pass !== self.state.password) {
+                                                Alert.alert("Incorrect Username or Password");
+                                            } else {
+                                                cache.user_id = user.user_id;
+                                                cache.isUser = true;
+                                                login_fail_count = 0;
+                                                alert("You have successfully loggined in " + cache.user_id + "!");
+                                                this.props.navigation.navigate('LandingScreen');
+                                            }
+                                        }
+                                    }).catch(error => {
+                                        login_fail_count += 1;
+                                        if(login_fail_count == 2) {
+                                            alert("Incorrect Username or Password");
+                                        }
+                                    })
+                                }}
+                                title="Login"
+                                color={"white"}
+                            />
+                        </View>
                     </View>
                 </View>
-                <View style = {{flex: 1}}>
-                    <View style = {{top: 10, height: 1, topBorderWidth: 1, left: '10%', width: '80%', backgroundColor: 'black'}}/>
-                    <View style = {[styles.thirdPartyButton, styles.googleButton]}>
+                <View style = {{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1}}>
+                        <Text style = {{left: '10%'}}>Don't have an account?</Text>
+                    </View>
+                    <View style = {styles.registerButton}>
                         <Button
-                            onPress = { () => {}}
-                            title = "Login with Google"
-                            color = "#db3236"
-                        />
-                    </View>
-                    <View style = {[styles.thirdPartyButton, styles.facebookButton]}>
-                        <Button
-                            onPress = { () => {}}
-                            title = "Login with Facebook"
-                            color = "#3C5A99"
+                            onPress = {() => {this.props.navigation.navigate('Register')}}
+                            title = "Register"
+                            color={"white"}
                         />
                     </View>
                 </View>
-                <View style = {{flex: 1}}>
-                    <Text style = {{left: '10%', top: 30}}>Don't have an account?</Text>
-                </View>
-                <View style = {styles.registerButton}>
-                    <Button
-                        onPress = {() => {this.props.navigation.navigate('Register')}}
-                        title = "Register"
-                    />
-                </View>
+
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create ({
+    screenView: {
+        width: '100%',
+        height: '100%',
+        flex: 1,
+    },
     imageView: {
         height: '15%',
         width: '100%',
@@ -126,38 +166,45 @@ const styles = StyleSheet.create ({
     },
     breadLogo: {
         position: 'absolute',
-        width: '100%',
+        width: '75%',
         height: '100%',
-
+        left: '12.5%',
+        flex: 1
+    },
+    optionView: {
+        flex: 5,
+        width: '100%',
+    },
+    innerOption: {
+        width: '90%',
+        left: '5%',
+        flexGrow: 1,
+        flexDirection: 'column',
     },
     loginField: {
-        left: '15%',
-        width: '70%',
+        left: '10%',
+        width: '80%',
+        marginTop: '5%',
+        paddingTop: '8%',
         borderBottomWidth: 1,
-        margin: 10,
-        flex: 1
+        fontSize: 18,
     },
     loginButton: {
+        top:'5%',
         left: '30%',
         width: '40%',
-        margin: 10,
-        flex: 1
+        marginTop: '5%',
+        backgroundColor: '#ffab40',
     },
     thirdPartyButton: {
         left: '10%',
         width: '80%'
     },
-    googleButton: {
-        top: 30,
-    },
-    facebookButton: {
-        top: 60,
-    },
     registerButton: {
         position: 'absolute',
-        top: '78%',
-        left: '55%',
-        width: '40%'
+        left: '50%',
+        width: '40%',
+        backgroundColor: '#ffab40',
     },
 });
 
@@ -169,6 +216,7 @@ export const LoginStack = createStackNavigator({
         AdminRemove: {screen: AdminRemove},
         AdminAdd: {screen: AdminAdd},
         AdminReview: {screen: AdminReview},
+        AdminAddAdmin: {screen: AdminAddAdmin},
         LandingScreen: {screen: LandingStack},
 },
 {

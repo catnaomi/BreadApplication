@@ -47,6 +47,8 @@ export default class AdminAdd extends Component {
                         Alert.alert('Control number field is not complete');
                     } else if (self.state.id == '') {
                         Alert.alert(' ID field is not complete');
+                    } else if(!validate(self.state.email)) {
+                        Alert.alert("E-mail address is invalid!");
                     } else {
                         /*
                         getBusinessData(self.state.id).then(response => {
@@ -149,6 +151,7 @@ export default class AdminAdd extends Component {
                         <View style={styles.entry}>
                             <Text style={styles.title}>Type of Business</Text>
                             <Picker
+                                style={{borderLeftWidth: 1, borderRightWidth: 1,  borderColor: '#D3D3D3', marginTop: 10}}
                                 selectedValue={self.state.sector}
                                 onValueChange={(itemValue) =>
                                 self.setState({sector: itemValue})
@@ -164,7 +167,6 @@ export default class AdminAdd extends Component {
                                 <Picker.Item label={"Financial"} value={"financial"}/>
                             </Picker>
                         </View>
-
                         <View style={styles.entry}>
                             <TouchableOpacity
                                 onPress={() => Linking.openURL(sosurl)}
@@ -172,6 +174,9 @@ export default class AdminAdd extends Component {
 
                                 <Text style={{fontSize: 16, color:'blue', fontWeight: 'bold'}}>Authenticate on Secretary of State Website</Text>
                             </TouchableOpacity>
+                            <View style={styles.entry}>
+                                <Text style={{color: 'grey', textAlign: 'center', fontStyle:'italic'}}>The Secretary of State's website requires the control number for the business.</Text>
+                            </View>
                         </View>
 
                         <View>
@@ -227,6 +232,7 @@ const styles = StyleSheet.create({
     },
     entry: {
         flex: 1,
+        marginBottom: 10,
     },
     entryText: {
         fontSize: 18,
@@ -234,3 +240,9 @@ const styles = StyleSheet.create({
         padding: '2%'
     }
 });
+
+const validate = (email) => {
+    const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    return expression.test(String(email).toLowerCase())
+};

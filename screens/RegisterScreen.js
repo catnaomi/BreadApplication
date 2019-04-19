@@ -63,7 +63,7 @@ export default class RegisterScreen extends Component {
                         <Button
                             onPress={() => {
                                 if (sel.state.username == '' || sel.state.password == '' || sel.state.name == '') {
-                                    Alert.alert("One or more fields missing input!");
+                                    Alert.alert("One or more fields are missing input!");
                                 } else if (!validate(sel.state.username)) {
                                     Alert.alert("E-mail address is invalid!");
                                 } else if (sel.state.password.length < 7) {
@@ -73,13 +73,12 @@ export default class RegisterScreen extends Component {
                                 } else if (sel.state.password !== sel.state.passwordchk) {
                                     Alert.alert("Passwords do not match!");
                                 } else {
-                                //console.log(typeof(doesUserExist(sel.state.username)));
                                     doesUserExist(sel.state.username).then(response => {
                                         if (response) {
-                                            console.log("I found the user!");
                                             Alert.alert(sel.state.username + '\nis already in database');
                                         } else {
-                                            console.log("User does not exist-- Adding!");
+                                            // var passwordHash = require('password-hash');
+                                            // var hashedPas = passwordHash.generate(sel.state.password);
                                             registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
                                             Alert.alert(sel.state.username + '\nis now registered to the database');
                                             this.props.navigation.goBack();
@@ -124,4 +123,4 @@ const validate = (email) => {
     const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
     return expression.test(String(email).toLowerCase())
-}
+};
