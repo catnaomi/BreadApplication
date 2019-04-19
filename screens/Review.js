@@ -56,7 +56,7 @@ class Review extends Component {
     }
 
     render () {
-        var pfp = require('../assets/images/profile/profilesmall.png');
+        var pfp = require('../assets/images/profile/user_profile_pic.png');
         var arrow = require('../assets/images/icons/arrow.png');
         return (
             <View style = {styles.Review}>
