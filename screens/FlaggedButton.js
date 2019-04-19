@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View, Alert} from "react-native";
 import {removeBusiness, removeReview, flagBusiness, flagReview} from "../db/firebase";
-
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default class FlaggedButton extends Component {
     constructor(props) {
@@ -21,8 +21,8 @@ export default class FlaggedButton extends Component {
      */
     getImage(type, user) {
         let self = this;
-        var flag = require("../assets/images/icons/flag.png");
-        var trash = require("../assets/images/icons/trash.png");
+        var flag = <MaterialCommunityIcons name = {'flag-outline'} size = {24} color = {'black'}/>;
+        var trash = <MaterialCommunityIcons name = {'trash-can'} size = {24} color = {'black'}/>;
 
         if (self.props.type === "business") {
             if (self.props.user === "admin") {
@@ -73,9 +73,9 @@ export default class FlaggedButton extends Component {
                             }
                         }
                     }}>
-                    <Image
-                        source={this.getImage(this.state.type, this.state.user)}
-                    />
+                    <View>
+                        {this.getImage(this.state.type, this.state.user)}
+                    </View>
                 </TouchableOpacity>
             </View>
         )

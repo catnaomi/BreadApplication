@@ -13,8 +13,19 @@ import AdminAddAdmin from './AdminAddAdmin';
 import {LandingStack} from "./LandingScreen"
 
 import cache from '../userCache'
+import {breadColors} from "../Colors";
 
 class LoginScreen extends Component {
+    static navigationOptions = {
+        title: 'Business Details',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
+
     constructor (props) {
         super(props);
         this.state = {
@@ -35,41 +46,6 @@ class LoginScreen extends Component {
                         source={logo}
                         style={styles.breadLogo}
                     />
-                    <View style = {styles.loginButton}>
-                        <Button
-                            onPress={() => {
-                                getAdminData(self.state.email).then(admin => {
-                                    if (admin !== undefined) {
-                                        cache.isAdmin = true
-                                        cache.user_id = admin
-                                        login_fail_count = 0;
-                                        alert("You have successfully loggined in " + cache.user_id + "!")
-                                        this.props.navigation.navigate('AdminLanding')
-                                    }
-                                }).catch(error => {
-                                    login_fail_count += 1;
-                                    if(login_fail_count == 2) {
-                                        alert("Incorrect Username or Password");
-                                    }
-                                });
-
-                                getUserData(self.state.email).then(user => {
-                                    if (user !== undefined) {
-                                        //TODO: Change from AdminNavigator
-                                        // this.props.navigation.navigate('AdminNavigator')
-                                        cache.user_id = user.user_id
-                                        cache.isUser = true
-                                        login_fail_count = 0;
-                                        alert("You have successfully loggined in " + cache.user_id + "!")
-                                        this.props.navigation.navigate('LandingScreen')
-                                    }
-                                }).catch(error => {
-                                    login_fail_count += 1;
-                                    if(login_fail_count == 2) {
-                                        alert("Incorrect Username or Password");
-                                    }
-                                })
-
                 </View>
                 <View style = {styles.optionView}>
                     <View style={styles.innerOption}>
@@ -128,6 +104,7 @@ class LoginScreen extends Component {
                                             alert("Incorrect Username or Password");
                                         }
                                     })
+
                                 }}
                                 title="Login"
                                 color={"white"}
@@ -194,7 +171,7 @@ const styles = StyleSheet.create ({
         left: '30%',
         width: '40%',
         marginTop: '5%',
-        backgroundColor: '#ffab40',
+        backgroundColor: breadColors.breadOrange,
     },
     thirdPartyButton: {
         left: '10%',
@@ -204,7 +181,7 @@ const styles = StyleSheet.create ({
         position: 'absolute',
         left: '50%',
         width: '40%',
-        backgroundColor: '#ffab40',
+        backgroundColor: breadColors.breadDarkTeal,
     },
 });
 
@@ -218,10 +195,10 @@ export const LoginStack = createStackNavigator({
         AdminReview: {screen: AdminReview},
         AdminAddAdmin: {screen: AdminAddAdmin},
         LandingScreen: {screen: LandingStack},
-},
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
-});
+    },
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
+    });

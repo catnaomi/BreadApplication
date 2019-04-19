@@ -256,7 +256,7 @@ const styles = StyleSheet.create ({
     },
     profileHeader: {
         flex: 3,
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     profileTabs: {
         flex: 1,
@@ -272,7 +272,7 @@ const styles = StyleSheet.create ({
         height: 100,
         borderRadius: 50,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: breadColors.breadLightGrey,
         overflow: 'hidden',
     },
     editIcon: {
@@ -292,7 +292,7 @@ const styles = StyleSheet.create ({
         alignContent: 'center',
     },
     tabSelected: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     tabDeselected: {
         backgroundColor: 'white',

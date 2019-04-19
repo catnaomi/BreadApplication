@@ -72,7 +72,7 @@ class Review extends Component {
                         </TouchableHighlight>
                         <View style = {{left: 20, width: '90%', height: 64}}>
                             <View style = {[styles.ReviewProfile]}>
-                                <TouchableHighlight
+                                <View
                                     style = {{width: '90%', height: 40, justifyContent: 'center'}}
                                     onPress = {() => {this.props.navigation.navigate('BusinessScreen', {id: this.state.business_id});}}>
                                     <View style = {{flexDirection: 'row'}}>
@@ -80,7 +80,7 @@ class Review extends Component {
                                         <Text style = {{fontSize: 16, color: 'darkgrey'}}> on </Text>
                                         <Text style = {{fontSize: 16, color: 'black'}}>{this.state.business}</Text>
                                     </View>
-                                </TouchableHighlight>
+                                </View>
                             </View>
                             <View style = {[styles.ReviewRating]}>
                                 <RatingDisplay rating={this.state.rating}/>

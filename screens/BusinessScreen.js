@@ -11,6 +11,7 @@ import FavoritesButton from "./FavoritesButton"
 import {breadColors} from "../Colors"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {updateBusinessRating, updateBusinessInfo, getBusinessData} from "../db/firebase"
+import cache from '../userCache'
 
 
 export class BusinessScreen extends Component {
@@ -28,7 +29,6 @@ export class BusinessScreen extends Component {
         super (props);
         this.state = {
             id: '5',
-            permission: this.checkPermissions(),
             name: 'Default Name',
             address_line1: '100 Main St.',
             address_line2: 'Atlanta, GA 33333',
@@ -38,7 +38,7 @@ export class BusinessScreen extends Component {
             edit: false,
             tab: 0,
             refreshing: false,
-            owner_id: '',
+            owner_id: 'default@default-com',
         };
 
         if (this.props.navigation.state.params) {
@@ -68,8 +68,8 @@ export class BusinessScreen extends Component {
         })
     }
 
-    checkPermissions() {
-        return true;
+    checkPermissions(owner_id) {
+        return cache.user_id === this.state.owner_id;
     }
     render() {
         var profile = require('../assets/images/profile/dummyRestaurant.jpg');
@@ -121,10 +121,10 @@ export class BusinessScreen extends Component {
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
 
-        var EditButton = (this.checkPermissions() ?
+        var EditButton = (this.checkPermissions(this.state.owner_id) ?
             <TouchableHighlight
                 onPress={() => {
-                    if (this.checkPermissions()) {
+                    if (this.checkPermissions(this.state.owner_id)) {
                         this.state.edit = !this.state.edit;
                         updateBusinessRating(this.state.id);
                         updateBusinessInfo(
@@ -175,20 +175,25 @@ export class BusinessScreen extends Component {
                 return (
                     <ScrollView style = {{flex: 1}}>
                         <TouchableHighlight
-                            style={styles.addReview}
+                            style={[styles.addReview, {flexDirection: 'row'}]}
                             onPress={() => {
                                 self.props.navigation.navigate('Review',
                                     {
-                                        review_ids: self.state.reviews,
+                                        review_ids: (self.state.reviews !== undefined )? self.state.reviews : [],
                                         business_id: self.state.id,
                                     });
                             }}
                             >
-                            <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                            <View style = {{flexDirection: 'row'}}>
+                                <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>     Add A Review!  </Text>
+                                <MaterialCommunityIcons name = {'comment-plus'} size = {24} color = {'white'}/>
+                            </View>
                         </TouchableHighlight>
-                        {self.state.reviews.map(function(reviewid) {
+                        {self.state.reviews !== undefined ?
+                            (self.state.reviews.map(function(reviewid) {
                                 return GetReviewFromID(reviewid);
-                            })}
+                            })) : <View/>
+                        }
                     </ScrollView>
                 );
             } else { //documents
@@ -234,7 +239,7 @@ export class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "error"} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "0"} Reviews</Text>
                             </View>
                         </View>
                     </View>
@@ -346,12 +351,11 @@ const styles = StyleSheet.create ({
     },
     addReview: {
         height: 50,
-        width: '50%',
-        left: '25%',
+        width: '100%',
+        left: 0,
         alignItems: 'center',
-        justifyContent: 'center',
         borderBottomWidth: 1,
-        backgroundColor: breadColors.breadDarkTeal,
+        backgroundColor: breadColors.breadLightTeal,
     },
     businessInfo: {
         flex: 1,
