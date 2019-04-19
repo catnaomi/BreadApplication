@@ -64,7 +64,7 @@ class BusinessPreview extends Component {
                     <View style = {{left: -50, top: 10, height: 154}}>
                         <FavoritesButton id = {this.props.id}/>
                     </View>
-                    <View style = {{left: -25, top: 10, height: 154}}>
+                    <View style = {{left: -40, top: 10, height: 154}}>
                         <FlaggedButton id={this.props.id} type={"business"} user={this.props.user} />
                     </View>
                 </View>

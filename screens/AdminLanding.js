@@ -6,12 +6,21 @@ import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
+import {breadColors} from "../Colors";
 import AdminAddAdmin from "./AdminAddAdmin";
 
 import cache from '../userCache';
 
 export default class adminLandingScreen extends Component {
-
+    static navigationOptions = {
+        title: 'Administrative Portal',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         return (

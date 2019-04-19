@@ -3,6 +3,8 @@ import {addFavorite, removeFavorite} from "../Favorites"
 import {Image, StyleSheet, TouchableHighlight, View} from "react-native";
 import cache from "../userCache"
 import {addFavoritesToUser, getUserData} from "../db/firebase";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {breadColors} from "../Colors";
 
 export default class FavoritesButton extends Component {
     constructor(props) {
@@ -10,13 +12,17 @@ export default class FavoritesButton extends Component {
         this.state = {
             favorited: false,
         };
-        console.log(this.props.id);
     }   
 
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
             if (u_object != undefined) {
+                if (u_object.favorites) {
+                    self.state.favorited = u_object.favorites.includes(self.props.id);
+                } else {
+                    self.state.favorited = false;
+                }
                 self.state.favorited = u_object.favorites != undefined ? u_object.favorites.includes(self.props.id) : false;
                 self.forceUpdate();
             }
@@ -41,9 +47,13 @@ export default class FavoritesButton extends Component {
                             this.forceUpdate();
                         }
                     }}>
-                    <Image
-                        style = {styles.FavoritesContainer}
-                        source= {this.state.favorited ? heart_filled : heart_unfilled}/>
+                    <View
+                        style = {styles.FavoritesContainer}>
+                        <MaterialCommunityIcons name = {(this.state.favorited ? 'heart' : 'heart-outline')}
+                        size = {24} color = {(this.state.favorited ? breadColors.breadRed : breadColors.breadDarkGrey)}/>
+                    </View>
+
+
                 </TouchableHighlight>
             </View>
         );

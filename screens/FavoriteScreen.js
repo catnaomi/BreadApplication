@@ -1,16 +1,23 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text} from "react-native";
+import {Text, ScrollView, View} from "react-native";
 import {addFavoritesToUser, getUserData} from "../db/firebase";
 import cache from "../userCache";
 import BusinessPreview from "./BusinessPreview";
-import {createStackNavigator} from "react-navigation";
+import {createStackNavigator, NavigationEvents} from "react-navigation";
 import {SearchResult} from "./SearchScreen";
 import {BusinessScreen} from "./BusinessScreen";
 import {LandingScreen} from "./LandingScreen";
+import {breadColors} from "../Colors"
 
 class FavoriteScreen extends Component {
     static navigationOptions = {
         title: 'Favorites',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
     };
 
     constructor (props) {
@@ -23,23 +30,40 @@ class FavoriteScreen extends Component {
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
-            console.log(u_object);
             if (u_object != undefined) {
-                self.state.favorites = u_object.favorites;
+                if (u_object.favorites) {
+                    self.state.favorites = u_object.favorites;
+                }
                 self.forceUpdate();
             }
         })
+        this.forceUpdate();
     }
 
     render() {
       return (
-          <ScrollView style = {{flex: 1}}>
-              {this.state.favorites ?
+          <View>
+          <NavigationEvents
+              onWillFocus={payload => {
+                  let self = this;
+                  getUserData(cache.user_id).then(u_object => {
+                      if (u_object != undefined) {
+                          if (u_object.favorites) {
+                              self.state.favorites = u_object.favorites;
+                          }
+                          self.forceUpdate();
+                      }
+                  })
+              }}
+          />
+          <ScrollView>
+              {this.state.favorites.length ?
                   this.state.favorites.map(function(bizid) {
                       return GetPreviewForBusiness("" + bizid);
-                  }) : <Text>user has no faves</Text>
+                  }) : <Text style = {{padding: 20}}>You currently have no favorites!</Text>
               }
           </ScrollView>
+          </View>
       );
   }
 }
@@ -49,5 +73,5 @@ export const FavoritesStack = createStackNavigator({
 });
 
 function GetPreviewForBusiness(business_id) {
-    return <BusinessPreview id={business_id} user={"consumer"} key={business_id}/>
+    return <BusinessPreview id={business_id} user={"consumer"}/>
 }

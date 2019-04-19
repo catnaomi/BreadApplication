@@ -4,12 +4,20 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View
 import {getBusinessData, getUserData, updateUserName} from '../db/firebase';
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
-import {createStackNavigator} from "react-navigation";
+import {createStackNavigator, NavigationEvents} from "react-navigation";
 import cache from '../userCache'
+import {breadColors} from "../Colors";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default class UserScreen extends Component {
     static navigationOptions = {
         title: 'Profile',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
     };
     constructor (props) {
         super (props);
@@ -26,17 +34,30 @@ export default class UserScreen extends Component {
 
 
         if (this.props.navigation.state.params) {
-            this.state.id = this.props.navigation.state.params.id;
+            this.state.user_id = this.props.navigation.state.params.id;
+        } else {
+            this.state.user_id = cache.user_id;
         }
     }
 
     componentDidMount() {
         this.RefreshInfo();
+        this.forceUpdate();
+    }
+
+    componentWillMount() {
+        this.RefreshInfo();
+        this.forceUpdate();
     }
 
     RefreshInfo() {
         if(this.state.refreshing) {
             this.state.refreshing = true;
+        }
+        if (this.props.navigation.state.params) {
+            this.state.user_id = this.props.navigation.state.params.id;
+        } else {
+            this.state.user_id = cache.user_id;
         }
         var self = this;
         getUserData(this.state.user_id).then(u_object => {
@@ -77,10 +98,9 @@ export default class UserScreen extends Component {
                         this.forceUpdate();
                     }
                 }}>
-                <Image
-                    style={styles.editIconImage}
-                    source={this.state.edit ? save : edit}
-                />
+                <View style = {styles.editIconImage}>
+                    <MaterialCommunityIcons name = {this.state.edit ? 'content-save' : 'pencil-box'} size = {24} color = {breadColors.breadDarkGrey}/>
+                </View>
             </TouchableHighlight> :
             <View/>);
 
@@ -141,6 +161,12 @@ export default class UserScreen extends Component {
 
         return (
             <View style = {{width: '100%', height: '100%'}}>
+                <NavigationEvents
+                    onWillFocus={payload => {
+                        this.RefreshInfo();
+                        this.forceUpdate();
+                    }}
+                />
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
                     <View style = {{flex: 1}}/>
@@ -175,6 +201,7 @@ export default class UserScreen extends Component {
                         style = {[styles.tabSelectable, ReviewSelectStyle]}
                         onPress = {() => {
                             this.state.tab = 0;
+                            this.RefreshInfo();
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
@@ -185,20 +212,11 @@ export default class UserScreen extends Component {
                         style = {[styles.tabSelectable, FavoriteSelectStyle]}
                         onPress = {() => {
                             this.state.tab = 1;
+                            this.RefreshInfo();
                             this.forceUpdate();
                         }}>
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
                             Favorites
-                        </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.tabSelectable, BusinessSelectStyle]}
-                        onPress = {() => {
-                            this.state.tab = 2;
-                            this.forceUpdate();
-                        }}>
-                        <Text style = {{textAlign: 'center', fontSize: 18}}>
-                            Business
                         </Text>
                     </TouchableHighlight>
                 </View>
@@ -238,7 +256,7 @@ const styles = StyleSheet.create ({
     },
     profileHeader: {
         flex: 3,
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     profileTabs: {
         flex: 1,
@@ -254,7 +272,7 @@ const styles = StyleSheet.create ({
         height: 100,
         borderRadius: 50,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: breadColors.breadLightGrey,
         overflow: 'hidden',
     },
     editIcon: {
@@ -274,7 +292,7 @@ const styles = StyleSheet.create ({
         alignContent: 'center',
     },
     tabSelected: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     tabDeselected: {
         backgroundColor: 'white',

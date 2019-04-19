@@ -26,7 +26,7 @@ export class LandingScreen extends Component {
         var financialIcon = require('../assets/images/quickstart/financial-iconmdpi.png');
         var healthIcon = require('../assets/images/quickstart/health-iconmdpi.png');
         var legalIcon = require('../assets/images/quickstart/legal-iconmdpi.png');
-        var logoIcon = require('../assets/images/logos/breadbase.png');
+        var logoIcon = require('../assets/images/logos/texthoriz.png');
         return (
             <View style={styles.screenView}>
 
@@ -48,97 +48,119 @@ export class LandingScreen extends Component {
                     />
                 </View>
 
-                <View>
+                <View style = {{position: 'absolute', top: '50%', width: '100%', height: '50%'}}>
                     {/* Quickstart Buttons */}
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.diningIcon]}
-                        onPress = {() => {
-                            console.log("dining search...");
-                            navigate('SearchResult', {searchQuery: 'dining'})
-                        }}>
-                        <Image
-                            source = {diningIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.autoIcon]}
-                        onPress = {() => {
-                            console.log("auto search...");
-                            navigate('SearchResult', {searchQuery: 'auto'})
-                        }}>
-                        <Image
-                            source = {autoIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.clothingIcon]}
-                        onPress = {() => {
-                            console.log("clothing search...");
-                            navigate('SearchResult', {searchQuery: 'clothing'})
+                    <View style = {{flexDirection: 'row', height: 100}}>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.diningIcon]}
+                                onPress = {() => {
+                                    console.log("dining search...");
+                                    navigate('SearchResult', {searchQuery: 'dining'})
+                                }}>
+                                <Image
+                                    source = {diningIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.autoIcon]}
+                                onPress = {() => {
+                                    console.log("auto search...");
+                                    navigate('SearchResult', {searchQuery: 'auto'})
+                                }}>
+                                <Image
+                                    source = {autoIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.clothingIcon]}
+                                onPress = {() => {
+                                    console.log("clothing search...");
+                                    navigate('SearchResult', {searchQuery: 'clothing'})
 
-                        }}>
-                        <Image
-                            source = {clothingIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.cleaningIcon]}
-                        onPress = {() => {
-                            console.log("cleaning search...");
-                            navigate('SearchResult', {searchQuery: 'cleaning'})
-                        }}>
-                        <Image
-                            source = {cleaningIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.beautyIcon]}
-                        onPress = {() => {
-                            console.log("beauty search...");
-                            navigate('SearchResult', {searchQuery: 'beauty'})
-                        }}>
-                        <Image
-                            source = {beautyIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.financialIcon]}
-                        onPress = {() => {
-                            console.log("financial search...");
-                            navigate('SearchResult', {searchQuery: 'financial'})
-                        }}>
-                        <Image
-                            source = {financialIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.healthIcon]}
-                        onPress = {() => {
-                            console.log("health search...");
-                            navigate('SearchResult', {searchQuery: 'health'})
-                        }}>
-                        <Image
-                            source = {healthIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style = {[styles.quickstartIcon, styles.legalIcon]}
-                        onPress = {() => {
-                            console.log("legal search...");
-                            navigate('SearchResult', {searchQuery: 'legal'})
-                        }}>
-                        <Image
-                            source = {legalIcon}
-                            style = {styles.quickstartIconImages}
-                        />
-                    </TouchableHighlight>
+                                }}>
+                                <Image
+                                    source = {clothingIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                    <View style = {{flexDirection: 'row', height: 100}}>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.cleaningIcon]}
+                                onPress = {() => {
+                                    console.log("cleaning search...");
+                                    navigate('SearchResult', {searchQuery: 'cleaning'})
+                                }}>
+                                <Image
+                                    source = {cleaningIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.beautyIcon]}
+                                onPress = {() => {
+                                    console.log("beauty search...");
+                                    navigate('SearchResult', {searchQuery: 'beauty'})
+                                }}>
+                                <Image
+                                    source = {beautyIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                    <View style = {{flexDirection: 'row', height: 100}}>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.financialIcon]}
+                                onPress = {() => {
+                                    console.log("financial search...");
+                                    navigate('SearchResult', {searchQuery: 'financial'})
+                                }}>
+                                <Image
+                                    source = {financialIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.healthIcon]}
+                                onPress = {() => {
+                                    console.log("health search...");
+                                    navigate('SearchResult', {searchQuery: 'health'})
+                                }}>
+                                <Image
+                                    source = {healthIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <TouchableHighlight
+                                style = {[styles.quickstartIcon, styles.legalIcon]}
+                                onPress = {() => {
+                                    console.log("legal search...");
+                                    navigate('SearchResult', {searchQuery: 'legal'})
+                                }}>
+                                <Image
+                                    source = {legalIcon}
+                                    style = {styles.quickstartIconImages}
+                                />
+                            </TouchableHighlight>
+                        </View>
+                    </View>
 
                 </View>
             </View>
@@ -188,47 +210,40 @@ const styles = StyleSheet.create ({
         borderRadius: 10,
     },
     quickstartIcon: {
-        position: 'absolute',
         width: 80,
         height: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     quickstartIconImages: {
         width: 80,
         height: 80,
     },
     diningIcon: {
-        top: 270,
-        left: 40,
     },
     autoIcon: {
-        top: 270,
-        left: 140,
+
     },
     clothingIcon: {
-        top: 270,
-        left: 240,
+
     },
     beautyIcon: {
-        top: 470,
-        left: 40,
+
     },
     financialIcon: {
-        top: 470,
-        left: 140,
+
     },
     healthIcon: {
-        top: 470,
-        left: 240,
+
     },
     legalIcon: {
-        top: 370,
-        left: 90,
+
     },
     cleaningIcon: {
-        top: 370,
-        left: 190,
+
     },
     logoLanding: {
+        resizeMode: 'contain',
         position: 'absolute',
         top: 110,
         width: '100%',
@@ -237,7 +252,8 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
     },
     logoLandingImage: {
+        resizeMode: 'contain',
         height: 150,
-        width: 130,
+        width: '100%',
     },
 });

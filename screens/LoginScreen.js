@@ -13,8 +13,19 @@ import AdminAddAdmin from './AdminAddAdmin';
 import {LandingStack} from "./LandingScreen"
 
 import cache from '../userCache'
+import {breadColors} from "../Colors";
 
 class LoginScreen extends Component {
+    static navigationOptions = {
+        title: 'Business Details',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
+
     constructor (props) {
         super(props);
         this.state = {
@@ -160,7 +171,7 @@ const styles = StyleSheet.create ({
         left: '30%',
         width: '40%',
         marginTop: '5%',
-        backgroundColor: '#ffab40',
+        backgroundColor: breadColors.breadOrange,
     },
     thirdPartyButton: {
         left: '10%',
@@ -170,7 +181,7 @@ const styles = StyleSheet.create ({
         position: 'absolute',
         left: '50%',
         width: '40%',
-        backgroundColor: '#ffab40',
+        backgroundColor: breadColors.breadDarkTeal,
     },
 });
 
@@ -184,10 +195,10 @@ export const LoginStack = createStackNavigator({
         AdminReview: {screen: AdminReview},
         AdminAddAdmin: {screen: AdminAddAdmin},
         LandingScreen: {screen: LandingStack},
-},
-{
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
-});
+    },
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
+    });

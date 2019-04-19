@@ -1,10 +1,21 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView, Image, TouchableOpacity, Text} from "react-native";
+import {breadColors} from "../Colors";
 import {getAllBusinessData, getBusinessData} from '../db/firebase';
 import AdminBusinessPreview from './AdminBusinessPreview';
 import BusinessPreview from './BusinessPreview';
 
 export default class AdminBusinesses extends Component {
+    static navigationOptions = {
+        title: 'Administrative Portal',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
+    };
+
     constructor(props) {
         super(props);
         this.state = {

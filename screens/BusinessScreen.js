@@ -5,20 +5,30 @@ import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
 import ReviewScreen from "./ReviewScreen";
-import RatingDisplay from "./RatingDisplay";
-import FavoritesButton from "./FavoritesButton";
+
+import RatingDisplay from "./RatingDisplay"
+import FavoritesButton from "./FavoritesButton"
+import {breadColors} from "../Colors"
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {updateBusinessRating, updateBusinessInfo, getBusinessData} from "../db/firebase"
+import cache from '../userCache'
+
 
 export class BusinessScreen extends Component {
     static navigationOptions = {
         title: 'Business Details',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
     };
 
     constructor (props) {
         super (props);
         this.state = {
             id: '5',
-            permission: this.checkPermissions(),
             name: 'Default Name',
             address_line1: '100 Main St.',
             address_line2: 'Atlanta, GA 33333',
@@ -28,7 +38,7 @@ export class BusinessScreen extends Component {
             edit: false,
             tab: 0,
             refreshing: false,
-            owner_id: '',
+            owner_id: 'default@default-com',
         };
 
         if (this.props.navigation.state.params) {
@@ -58,8 +68,8 @@ export class BusinessScreen extends Component {
         })
     }
 
-    checkPermissions() {
-        return true;
+    checkPermissions(owner_id) {
+        return cache.user_id === this.state.owner_id;
     }
     render() {
         var profile = require('../assets/images/profile/dummyRestaurant.jpg');
@@ -67,6 +77,20 @@ export class BusinessScreen extends Component {
         var save = require('../assets/images/icons/save.png');
 
         var RatingField = (<RatingDisplay rating = {this.state.rating}/>);
+        var InfoField = (this.state.edit ?
+            <ScrollView>
+                <TextInput
+                    style = {{padding: 20}}
+                    placeholder = {this.state.information}
+                    ref = 'information'
+                    onChangeText={(text) => this.setState({information: text})}
+                    value = {this.state.information}
+                    multiline = {true}
+                />
+            </ScrollView> :
+            <ScrollView>
+                <Text style = {{padding: 20}}>{this.state.information}</Text>
+            </ScrollView>);
         var NameField = (this.state.edit ?
             <TextInput
                 style = {{fontSize: 24}}
@@ -97,10 +121,10 @@ export class BusinessScreen extends Component {
             /> :
             <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
 
-        var EditButton = (this.checkPermissions() ?
+        var EditButton = (this.checkPermissions(this.state.owner_id) ?
             <TouchableHighlight
                 onPress={() => {
-                    if (this.checkPermissions()) {
+                    if (this.checkPermissions(this.state.owner_id)) {
                         this.state.edit = !this.state.edit;
                         updateBusinessRating(this.state.id);
                         updateBusinessInfo(
@@ -114,10 +138,9 @@ export class BusinessScreen extends Component {
                         this.forceUpdate();
                     }
                 }}>
-                <Image
-                    style={styles.editIconImage}
-                    source={this.state.edit ? save : edit}
-                />
+                <View style = {styles.editIconImage}>
+                    <MaterialCommunityIcons name = {this.state.edit ? 'content-save' : 'pencil-box'} size = {24} color = {breadColors.breadDarkGrey}/>
+                </View>
             </TouchableHighlight> :
             <View/>);
 
@@ -144,7 +167,7 @@ export class BusinessScreen extends Component {
             if (props.tab == 0) { //info
                 return (
                     <View style = {styles.BusinessInfo}>
-                        <Text style = {{padding: 20}}>{self.state.information}</Text>
+                        {InfoField}
                     </View>
                 );
             } else if (props.tab == 1) { //reviews
@@ -152,20 +175,25 @@ export class BusinessScreen extends Component {
                 return (
                     <ScrollView style = {{flex: 1}}>
                         <TouchableHighlight
-                            style={styles.addReview}
+                            style={[styles.addReview, {flexDirection: 'row'}]}
                             onPress={() => {
                                 self.props.navigation.navigate('Review',
                                     {
-                                        review_ids: self.state.reviews,
+                                        review_ids: (self.state.reviews !== undefined )? self.state.reviews : [],
                                         business_id: self.state.id,
                                     });
                             }}
                             >
-                            <Text style={{color:'blue', fontWeight: 'bold', fontSize:22}}>Add A Review!</Text>
+                            <View style = {{flexDirection: 'row'}}>
+                                <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>     Add A Review!  </Text>
+                                <MaterialCommunityIcons name = {'comment-plus'} size = {24} color = {'white'}/>
+                            </View>
                         </TouchableHighlight>
-                        {self.state.reviews.map(function(reviewid) {
+                        {self.state.reviews !== undefined ?
+                            (self.state.reviews.map(function(reviewid) {
                                 return GetReviewFromID(reviewid);
-                            })}
+                            })) : <View/>
+                        }
                     </ScrollView>
                 );
             } else { //documents
@@ -186,7 +214,7 @@ export class BusinessScreen extends Component {
                 {/*Profile header*/}
                 <View style = {styles.profileHeader}>
                     <View style = {{flex: 1}}/>
-                    <View style = {{flex: 6, flexDirection: 'row', backgroundColor: 'green'}}>
+                    <View style = {{flex: 6, flexDirection: 'row'}}>
                         <View style = {{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
                             <View style = {styles.profilePicture}>
                                 <Image style = {styles.profileImage}
@@ -211,7 +239,7 @@ export class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "error"} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "0"} Reviews</Text>
                             </View>
                         </View>
                     </View>
@@ -245,16 +273,6 @@ export class BusinessScreen extends Component {
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight
-                        style = {[styles.tabSelectable, BusinessSelectStyle]}
-                        onPress = {() => {
-                            this.state.tab = 2;
-                            this.forceUpdate();
-                        }}>
-                        <Text style = {{textAlign: 'center', fontSize: 16}}>
-                            Documents
-                        </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
                         style = {[styles.tabSelectable, styles.tabDeselected]}
                         onPress = {() => {
                             //TODO: Navigate to owner's user page
@@ -275,7 +293,7 @@ export class BusinessScreen extends Component {
 
 export const BusinessStack = createStackNavigator({
     Business: {screen: BusinessScreen},
-    Review: {screen: ReviewScreen},
+    Review: ReviewScreen,
 });
 
 const styles = StyleSheet.create ({
@@ -285,7 +303,7 @@ const styles = StyleSheet.create ({
     },
     profileHeader: {
         flex: 4,
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     profileTabs: {
         flex: 1,
@@ -301,7 +319,7 @@ const styles = StyleSheet.create ({
         height: 150,
         padding: 0,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: breadColors.breadDarkGrey,
     },
     profileImage: {
         resizeMode: 'cover',
@@ -321,22 +339,23 @@ const styles = StyleSheet.create ({
     tabSelectable: {
         flex : 1,
         borderLeftWidth: 1,
+        borderColor: breadColors.breadDarkGrey,
         justifyContent: 'center',
         alignContent: 'center',
     },
     tabSelected: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     tabDeselected: {
         backgroundColor: 'white',
     },
     addReview: {
-        height: 100,
-        width: '50%',
-        left: '25%',
+        height: 50,
+        width: '100%',
+        left: 0,
         alignItems: 'center',
-        justifyContent: 'center',
         borderBottomWidth: 1,
+        backgroundColor: breadColors.breadLightTeal,
     },
     businessInfo: {
         flex: 1,
