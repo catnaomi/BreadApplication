@@ -77,8 +77,9 @@ export default class RegisterScreen extends Component {
                                         if (response) {
                                             Alert.alert(sel.state.username + '\nis already in database');
                                         } else {
-                                            // var passwordHash = require('password-hash');
-                                            // var hashedPas = passwordHash.generate(sel.state.password);
+                                            // var bcrypt = require('bcryptjs');
+                                            // var salt = bcrypt.genSaltSync(10);
+                                            // var hash = bcrypt.hashSync(sel.state.password, salt);
                                             registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
                                             Alert.alert(sel.state.username + '\nis now registered to the database');
                                             this.props.navigation.goBack();
