@@ -40,8 +40,9 @@ export default class AdminAddAdmin extends Component {
                             if (response != undefined) {
                                 Alert.alert( self.state.name + " is already in the database!");
                             } else {
-                                // var passwordHash = require('password-hash');
-                                // var hashedPas = passwordHash.generate(self.state.password);
+                                // var bcrypt = require('bcryptjs');
+                                // var salt = bcrypt.genSaltSync(10);
+                                // var hash = bcrypt.hashSync(self.state.password, salt);
                                 registerAdmin(self.state.name, self.state.email, self.state.password, [], []);
                                 Alert.alert(self.state.name + " is now in the database");
                             }

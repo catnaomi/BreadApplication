@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, RefreshControl} from "react-native";
 
 import {getBusinessData, getUserData, updateUserName} from '../db/firebase';
-import {BusinessStack, BusinessScreen} from './BusinessScreen'
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
@@ -54,7 +53,7 @@ export default class UserScreen extends Component {
     }
 
     render() {
-        var profile = require('../assets/images/profile/profile.png');
+        var profile = require('../assets/images/profile/user_profile_pic.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
@@ -150,6 +149,7 @@ export default class UserScreen extends Component {
                             <View style = {styles.profilePicture}>
                                 <Image
                                     source = {profile}
+                                    style={{width: 100, height:100}}
                                 />
                             </View>
                         </View>
