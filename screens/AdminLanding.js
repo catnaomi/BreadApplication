@@ -61,7 +61,7 @@ export default class adminLandingScreen extends Component {
                         <TouchableOpacity onPress={() => {
                             cache.isAdmin = false;
                             this.props.navigation.goBack();
-                            alert('You have successfully been logged out');
+                            Alert.alert('You have successfully been logged out');
                             }
                         }>
                             <View style={styles.button}>

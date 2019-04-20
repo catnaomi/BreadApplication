@@ -73,7 +73,7 @@ class LoginScreen extends Component {
                                                 Alert.alert("Incorrect Username or Password");
                                             } else {
                                                 cache.isAdmin = true;
-                                                cache.user_id = admin;
+                                                cache.user_id = admin.user_id;
                                                 login_fail_count = 0;
                                                 alert("You have successfully loggined in " + cache.user_id + "!");
                                                 this.props.navigation.navigate('AdminLanding');
