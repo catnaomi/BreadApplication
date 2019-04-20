@@ -10,16 +10,16 @@ Bread version 1.0.0 is the first released version of the application
 - Creation and customization of business pages
 - Searching for business pages by category, name, or content.
 - Use quick-start buttons on the application’s home page to search for businesses.
--	Create and log into an account.
--	Save your favorites to your account for later access.
--	Rate and leave reviews on businesses.
--	Flag businesses as a user
--	Add and remove businesses an administrator.
--	Remove flagged business and reviews as an administrator
--	Adding new administrators as an administrator
--	Gives access to the secretary of state’s website for verifying and authenticating businesses as an administrator
--	Persists data to a data source on the cloud (Firebase by Google)
--	Administrator accounts with special privileges in reviewing/deleting inappropriate content
+-   Create and log into an account.
+-   Save your favorites to your account for later access.
+-   Rate and leave reviews on businesses.
+-   Flag businesses as a user
+-   Add and remove businesses an administrator.
+-   Remove flagged business and reviews as an administrator
+-   Adding new administrators as an administrator
+-   Gives access to the secretary of state’s website for verifying and authenticating businesses as an administrator
+-   Persists data to a data source on the cloud (Firebase by Google)
+-   Administrator accounts with special privileges in reviewing/deleting inappropriate content
 
 **The Bread application version 1.0.0 includes the following bugs and defects:**
 - Users are unable to alter their profile and business images.
@@ -27,9 +27,9 @@ Bread version 1.0.0 is the first released version of the application
 - Searching for businesses is case sensitive to the business’s contents.
 - The application cannot pull rating and review information from Google and Yelp.
 - Text editing may be inhibited by the system keyboard.
--	Searches will include any and all business in the database relevant to search parameter, regardless of location
--	User location is not taken into account
--	Once logged in as an administrator, once the user selects the settings button and presses the login button again, they will 		be brought back to the admin portal instead of the login page, until the administrator presses the log out button.
+-   Searches will include any and all business in the database relevant to search parameter, regardless of location
+-   User location is not taken into account
+-   Once logged in as an administrator, once the user selects the settings button and presses the login button again, they will         be brought back to the admin portal instead of the login page, until the administrator presses the log out button.
 
 
 # Install Guide
@@ -38,14 +38,19 @@ Bread version 1.0.0 is the first released version of the application
 Expo-CLI (for building) 
 Expo/npm (for editing)
 
-In order to edit and build the application, it is necessary to install Expo/npm as well as Expo-CLI. 
+In order to edit and build the application, it is necessary to install Expo/npm as well as Expo-CLI. You can download Expo by following the directions on the official webpage: https://docs.expo.io/versions/latest/introduction/installation/.
+
+Run the following command in the directory containing the source files: 
+```
+npm start
+```
 
 **Dependencies:**
 For simple install:
 *Any Android Version*
 - *For build:*
-	- Expo-CLI
-	- npm
+    - Expo-CLI
+    - npm
 
 **Download Instructions:**
 To download the apk for Android, download the apk from src/
