@@ -109,7 +109,10 @@ function getArray(data, self) {
                 }
             }
         }
+
     }
+    return arr;
+
 }
 
 /**

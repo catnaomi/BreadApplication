@@ -205,6 +205,7 @@ function updateBusinessRating(business_id) {
 
 function removeBusiness(business_id) {
   const format_id = business_id.replace(".","-");
+
   firebase.database().ref('businesses/' + format_id).set({
     //TODO: Add other fields if necessary
     removed: true,
