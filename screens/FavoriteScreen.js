@@ -27,7 +27,7 @@ class FavoriteScreen extends Component {
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
-            if (u_object !== undefined) {
+            if (u_object != undefined) {
                 if (u_object.favorites) {
                     self.state.favorites = u_object.favorites;
                 }
@@ -44,7 +44,7 @@ class FavoriteScreen extends Component {
               onWillFocus={payload => {
                   let self = this;
                   getUserData(cache.user_id).then(u_object => {
-                      if (u_object !== undefined) {
+                      if (u_object != undefined) {
                           if (u_object.favorites) {
                               self.state.favorites = u_object.favorites;
                           }

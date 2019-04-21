@@ -51,7 +51,7 @@ export class BusinessScreen extends Component {
     RefreshInfo() {
         var self = this;
         getBusinessData(this.state.id).then(b_object => {
-            if (b_object !== undefined) {
+            if (b_object != undefined) {
                 self.setState({
                     name: b_object.name,
                     address_line1: b_object.address_line1,
@@ -66,7 +66,7 @@ export class BusinessScreen extends Component {
     }
 
     checkPermissions(owner_id) {
-        return cache.user_id === this.state.owner_id;
+        return cache.user_id == this.state.owner_id;
     }
     render() {
         var profile = require('../assets/images/profile/dummyRestaurant.jpg');
@@ -145,11 +145,11 @@ export class BusinessScreen extends Component {
         var FavoriteSelectStyle;
         var BusinessSelectStyle;
 
-        if (this.state.tab === 0) { //reviews
+        if (this.state.tab == 0) { //reviews
             ReviewSelectStyle = styles.tabSelected;
             FavoriteSelectStyle = styles.tabDeselected;
             BusinessSelectStyle = styles.tabDeselected;
-        } else if (this.state.tab === 1) { //favorites
+        } else if (this.state.tab == 1) { //favorites
             ReviewSelectStyle = styles.tabDeselected;
             FavoriteSelectStyle = styles.tabSelected;
             BusinessSelectStyle = styles.tabDeselected;
@@ -161,13 +161,13 @@ export class BusinessScreen extends Component {
 
         let self = this;
         function TabContent (props) {
-            if (props.tab === 0) { //info
+            if (props.tab == 0) { //info
                 return (
                     <View style = {styles.BusinessInfo}>
                         {InfoField}
                     </View>
                 );
-            } else if (props.tab === 1) { //reviews
+            } else if (props.tab == 1) { //reviews
 
                 return (
                     <ScrollView style = {{flex: 1}}>
@@ -176,7 +176,7 @@ export class BusinessScreen extends Component {
                             onPress={() => {
                                 self.props.navigation.navigate('Review',
                                     {
-                                        review_ids: (self.state.reviews !== undefined )? self.state.reviews : [],
+                                        review_ids: (self.state.reviews != undefined )? self.state.reviews : [],
                                         business_id: self.state.id,
                                     });
                             }}
@@ -186,7 +186,7 @@ export class BusinessScreen extends Component {
                                 <MaterialCommunityIcons name = {'comment-plus'} size = {24} color = {'white'}/>
                             </View>
                         </TouchableHighlight>
-                        {self.state.reviews !== undefined ?
+                        {self.state.reviews != undefined ?
                             (self.state.reviews.map(function(reviewid) {
                                 return GetReviewFromID(reviewid);
                             })) : <View/>
@@ -236,7 +236,7 @@ export class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews !== undefined ? this.state.reviews.length : "0"} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "0"} Reviews</Text>
                             </View>
                         </View>
                     </View>

@@ -24,9 +24,46 @@ export default class AdminAdd extends Component {
         }
     }
 
+    checkPermissions() {
+        return true;
+    }
+
+
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         var self = this;
+
+        var addButton = (self.checkPermissions() ?
+            <TouchableOpacity
+                onPress={() => {
+                    if (self.state.name == '' || self.state.address_line1 == '' || self.state.email == ''
+                        || self.state.owner == '' || self.state.controlNumber == '' || self.state.id == '') {
+                        Alert.alert('One or more fields are incomplete.');
+                    } else if(!validate(self.state.email)) {
+                        Alert.alert("E-mail address is invalid!");
+                    } else {
+                        // getBusinessData(self.state.id).then(response => {
+                        //     if (response !== undefined) {
+                        //         Alert.alert( self.state.name + " is already in the database!");
+                        //     } else {
+                        //         //addBusinessToUser(self.state.owner, [self.state.id]);
+                        //         Alert.alert(self.state.name + " is now in the database");
+                        //         registerBusiness(self.state.id, self.state.name,[], self.state.owner,
+                        //             '', self.state.description, '', self.state.email, '',
+                        //             self.state.controlNumber, self.state.address_line1, self.state.address_line2, 0);
+                        //         this.props.navigation.goBack();
+                        //     }
+                        // });
+                        Alert.alert(self.state.name + " is now in the database");
+                        registerBusiness(self.state.id, self.state.name,[], self.state.owner,
+                            '', self.state.description, '', self.state.email, '',
+                            self.state.controlNumber, self.state.address_line1, self.state.address_line2, 0);
+                        this.props.navigation.goBack();
+                    }
+                }} style={{alignItems: 'center'}}>
+                <Text style={styles.text}>Register Business</Text>
+            </TouchableOpacity>
+            : <View/>);
 
         return (
             <View style={styles.screenView}>
@@ -124,6 +161,7 @@ export default class AdminAdd extends Component {
                                 <Picker.Item label={"Health"} value={"health"}/>
                                 <Picker.Item label={"Cleaning"} value={"cleaning"}/>
                                 <Picker.Item label={"Financial"} value={"financial"}/>
+                                <Picker.Item label={"Other"} value={"other"}/>
                             </Picker>
                         </View>
                         <View style={styles.entry}>
@@ -139,39 +177,7 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    if (self.state.name === '') {
-                                        Alert.alert('Business name field is not complete');
-                                    } else if (self.state.address_line1 === '') {
-                                        Alert.alert('Address field is not complete');
-                                    } else if (self.state.email === '') {
-                                        Alert.alert('Email field is not complete');
-                                    } else if (self.state.owner === '') {
-                                        Alert.alert('Owner field is not complete');
-                                    } else if (self.state.controlNumber === '') {
-                                        Alert.alert('Control number field is not complete');
-                                    } else if (self.state.id === '') {
-                                        Alert.alert(' ID field is not complete');
-                                    } else if(!validate(self.state.email)) {
-                                        Alert.alert("E-mail address is invalid!");
-                                    } else {
-                                        getBusinessData(self.state.id).then(response => {
-                                            if (response !== undefined) {
-                                                Alert.alert( self.state.name + " is already in the database!");
-                                            } else {
-
-                                                //addBusinessToUser(self.state.owner, [self.state.id]);
-                                                Alert.alert(self.state.name + " is now in the database");
-                                                registerBusiness(self.state.id, self.state.name,[], self.state.owner,
-                                                    '', self.state.description, '', self.state.email, '',
-                                                    self.state.controlNumber, self.state.address_line1, self.state.address_line2, 0);
-                                            }
-                                        })
-                                    }
-                                }} style={{alignItems: 'center'}}>
-                                <Text style={styles.text}>Register Business</Text>
-                            </TouchableOpacity>
+                            {addButton}
                         </View>
 
                     </ScrollView>

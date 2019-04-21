@@ -17,13 +17,13 @@ export default class FavoritesButton extends Component {
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
-            if (u_object !== undefined) {
+            if (u_object != undefined) {
                 if (u_object.favorites) {
                     self.state.favorited = u_object.favorites.includes(self.props.id);
                 } else {
                     self.state.favorited = false;
                 }
-                self.state.favorited = u_object.favorites !== undefined ? u_object.favorites.includes(self.props.id) : false;
+                self.state.favorited = u_object.favorites != undefined ? u_object.favorites.includes(self.props.id) : false;
                 self.forceUpdate();
             }
         });

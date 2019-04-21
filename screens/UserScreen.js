@@ -123,7 +123,7 @@ export default class UserScreen extends Component {
 
         let self = this;
         function TabContent (props) {
-            if (props.tab === 0) { //review
+            if (props.tab == 0) { //review
                 return (
                     <ScrollView>
                         {self.state.reviews ?
@@ -133,7 +133,7 @@ export default class UserScreen extends Component {
                         }
                     </ScrollView>
                 );
-            } else if (props.tab === 1) { // favorites
+            } else if (props.tab == 1) { // favorites
                 return (
                     <ScrollView>
                         {self.state.favorites ?
@@ -241,7 +241,7 @@ function GetPreviewForBusiness(business_id) {
 
 
 function checkPermissions(user_id) {
-    return cache.user_id === user_id
+    return cache.user_id == user_id
 }
 
 export const UserStack = createStackNavigator({

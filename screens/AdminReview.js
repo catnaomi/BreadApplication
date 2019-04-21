@@ -49,10 +49,10 @@ export default class AdminReview extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.reviews.map(function(review) {
-                                if ((review !== undefined) && (+getReviewData(review).flagged >= 0)  && (getReviewData(review).removed === false)) {
+                                if ((review != undefined) && (+getReviewData(review).flagged >= 0)  && (getReviewData(review).removed == false)) {
                                     return GetReviewFromID(review);
                                 }
-                                // if ((review !== undefined)) {
+                                // if ((review != undefined)) {
                                 //     return GetReviewFromID(review);
                                 // }
                             })

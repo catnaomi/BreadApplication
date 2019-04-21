@@ -36,9 +36,9 @@ function getStar(val) {
     var starFilled = require('../assets/images/icons/star-filled.png');
     var starHalf = require('../assets/images/icons/star-halffilled.png');
     var starEmpty = require('../assets/images/icons/star-unfilled.png');
-    if (val === 0) {
+    if (val == 0) {
         return (<MaterialCommunityIcons name = 'star-outline' size = {24} color = {breadColors.breadYellow}/>);
-    } else if (val === 1) {
+    } else if (val == 1) {
         return (<MaterialCommunityIcons name = 'star-half' size = {24} color = {breadColors.breadYellow}/>);
     } else {
         return (<MaterialCommunityIcons name = 'star' size = {24} color = {breadColors.breadYellow}/>);

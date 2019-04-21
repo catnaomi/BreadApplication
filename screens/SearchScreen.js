@@ -63,7 +63,7 @@ export class SearchResult extends Component {
         var self = this;
         getAllBusinessData().then(response => {
             self.setState({
-                data: toArray(response)
+                data: getArray(response, self)
             })
         })
     }
@@ -74,8 +74,8 @@ export class SearchResult extends Component {
                 <ScrollView>
                     {
                         this.state.data.map(function(businessObject) {
-                            if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false)){
-                                return GetPreviewForBusiness(businessObject);
+                            if((businessObject != undefined)){
+                                return GetPreviewForBusiness(businessObject.business_id);
                             }
                         }) 
                     }
@@ -90,13 +90,29 @@ export class SearchResult extends Component {
  * @param data Business data to be converted into an array
  * @returns {Array} an array containing all of the keys of the businesses
  */
-function toArray(data) {
-    let arr = [];
-    let keys = Object.keys(data);
-    for (var i = 0; i < keys.length; i++) {
-        arr.push(keys[i]);
+function getArray(data, self) {
+    var arr = [];
+    var counter = 0;
+    for(var key in data) {
+        if (data.hasOwnProperty(key)) {
+            var name = data[key].name;
+            var description = data[key].description;
+            info = data[key].information;
+            var aggregated = name + description + info;
+            aggregated = aggregated.trim();
+            var key_words = self.state.searchQuery.trim().split(" ");
+            for (var word_index in key_words) {
+                var word = key_words[word_index];
+                if (aggregated.indexOf(word) != -1) {
+                    arr[counter++] = data[key]; // convert object to array
+                    break;
+                }
+            }
+        }
+
     }
     return arr;
+
 }
 
 /**

@@ -47,9 +47,12 @@ export default class AdminBusinesses extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.data.map(function(businessObject) {
-                                if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false)
-                                    && (+getBusinessData(businessObject).flagged >= 0)
-                                && (getBusinessData(businessObject).removed === false)){
+                                // if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false)
+                                //     && (+getBusinessData(businessObject).flagged >= 0)
+                                // && (getBusinessData(businessObject).removed === false)){
+                                //     return GetPreviewForBusiness(businessObject);
+                                // }
+                                if (businessObject != undefined) {
                                     return GetPreviewForBusiness(businessObject);
                                 }
                             })
