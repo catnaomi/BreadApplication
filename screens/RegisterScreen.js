@@ -61,7 +61,7 @@ export default class RegisterScreen extends Component {
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                if (sel.state.email == '' || sel.state.password == '' || sel.state.name == '') {
+                                if (sel.state.email === '' || sel.state.password === '' || sel.state.name === '') {
                                     Alert.alert("One or more fields are missing input!");
                                 } else if (!validate(sel.state.email)) {
                                     Alert.alert("E-mail address is invalid!");
