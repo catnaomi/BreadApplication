@@ -12,7 +12,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/logos/invertcolor.png",
     "splash": {
-      "image": "./assets/images/logos/breadbase.png",
+      "image": "./assets/images/loadingicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

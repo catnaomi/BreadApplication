@@ -69,7 +69,7 @@ export class BusinessScreen extends Component {
         return cache.user_id == this.state.owner_id;
     }
     render() {
-        var profile = require('../assets/images/profile/dummyRestaurant.jpg');
+        var profile = require('../assets/images/profile/bizpreview.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
@@ -90,33 +90,33 @@ export class BusinessScreen extends Component {
             </ScrollView>);
         var NameField = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 24}}
+                style = {{fontSize: 20}}
                 placeholder = {this.state.name}
                 ref = 'name'
                 onChangeText={(text) => this.setState({name: text})}
                 value = {this.state.name}
                 /> :
-            <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
+            <Text style = {{fontSize: 20}}>{this.state.name}</Text>);
 
         var AddressField_line1 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18, flexWrap: 'wrap'}}
+                style = {{fontSize: 16, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line1}
                 ref = 'name'
                 onChangeText={(text) => this.setState({address_line1: text})}
                 value = {this.state.address_line1}
             /> :
-            <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>);
+            <Text style = {{fontSize: 16}}>{this.state.address_line1}</Text>);
 
         var AddressField_line2 = (this.state.edit ?
             <TextInput
-                style = {{fontSize: 18, flexWrap: 'wrap'}}
+                style = {{fontSize: 16, flexWrap: 'wrap'}}
                 placeholder = {this.state.address_line2}
                 ref = 'name'
                 onChangeText={(text) => this.setState({address_line2: text})}
                 value = {this.state.address_line2}
             /> :
-            <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>);
+            <Text style = {{fontSize: 16}}>{this.state.address_line2}</Text>);
 
         var EditButton = (this.checkPermissions(this.state.owner_id) ?
             <TouchableHighlight
@@ -174,7 +174,7 @@ export class BusinessScreen extends Component {
                         <TouchableHighlight
                             style={[styles.addReview, {flexDirection: 'row'}]}
                             onPress={() => {
-                                self.props.navigation.navigate('Review',
+                                self.props.navigation.navigate('ReviewScreen',
                                     {
                                         review_ids: (self.state.reviews != undefined )? self.state.reviews : [],
                                         business_id: self.state.id,
@@ -182,7 +182,7 @@ export class BusinessScreen extends Component {
                             }}
                             >
                             <View style = {{flexDirection: 'row'}}>
-                                <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>     Add A Review!  </Text>
+                                <Text style={{color:'white', fontWeight: 'bold', fontSize:22}}>     Add A Review!   </Text>
                                 <MaterialCommunityIcons name = {'comment-plus'} size = {24} color = {'white'}/>
                             </View>
                         </TouchableHighlight>
@@ -226,7 +226,7 @@ export class BusinessScreen extends Component {
                                     <FavoritesButton id={this.state.id}/>
                                 </View>
                             </View>
-                            <View style = {{flex: 1, top: 10, left: 10}}>
+                            <View style = {{flex: 2, top: 10, left: 10}}>
                                 {NameField}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10, flexWrap: 'wrap'}}>
@@ -290,7 +290,6 @@ export class BusinessScreen extends Component {
 
 export const BusinessStack = createStackNavigator({
     Business: {screen: BusinessScreen},
-    Review: ReviewScreen,
 });
 
 const styles = StyleSheet.create ({
@@ -317,6 +316,9 @@ const styles = StyleSheet.create ({
         padding: 0,
         borderWidth: 1,
         borderColor: breadColors.breadDarkGrey,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     profileImage: {
         resizeMode: 'cover',

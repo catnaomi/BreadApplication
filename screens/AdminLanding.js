@@ -77,7 +77,7 @@ export default class adminLandingScreen extends Component {
 export const AdminNavigator = createStackNavigator({
     Landing: {screen: adminLandingScreen},
     Add: {screen: AdminAdd},
-    Review: {screen: AdminReview},
+    AdminReview: {screen: AdminReview},
     Remove: {screen: AdminRemove},
     Businesses: {screen: AdminBusinesses},
 },

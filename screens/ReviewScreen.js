@@ -18,10 +18,18 @@ import {
     addReviewToUser,
 } from '../db/firebase';
 import cache from '../userCache';
+import {breadColors} from "../Colors";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
-export default class ReviewScreen extends Component {
+    export default class ReviewScreen extends Component {
     static navigationOptions = {
         title: 'Leave a Review',
+        headerStyle: {
+            backgroundColor: breadColors.breadOrange,
+        },
+        headerTitleStyle: {
+            color: 'white'
+        },
     };
 
     constructor(props) {
@@ -81,6 +89,7 @@ export default class ReviewScreen extends Component {
                     this.state.rating = rate;
                     this.forceUpdate();
                 }}>
+                <MaterialCommunityIcons name = {(this.state.rating >= rate) ? 'star' : 'star-outline'} size = {24} color = {breadColors.breadYellow}/>
                 <Image
                     style = {styles.ratingButtons}
                     source = {(this.state.rating >= rate) ? starFilled : starEmpty}
@@ -90,7 +99,7 @@ export default class ReviewScreen extends Component {
     }
 
     render() {
-        var pfp = require('../assets/images/profile/profilesmall.png');
+        var pfp = require('../assets/images/profile/user_profile_pic.png');
         var edit = require('../assets/images/icons/edit.png');
         var save = require('../assets/images/icons/save.png');
 
@@ -122,7 +131,7 @@ export default class ReviewScreen extends Component {
         return (
             <View style={styles.screenView}>
                 {/*Profile header*/}
-                <View style = {{paddingTop: 10, flexDirection: 'row', backgroundColor: 'lightgrey'}}>
+                <View style = {{paddingTop: 10, flexDirection: 'row', backgroundColor: breadColors.breadLightGrey}}>
                     <View
                         style = {{left: 10, borderWidth: 1, width: 64, height: 64, borderRadius: 64, overflow: 'hidden'}}>
                         <Image
@@ -162,7 +171,7 @@ export default class ReviewScreen extends Component {
                     </ScrollView>
                 </KeyboardAvoidingView>
                 {/*Save & Publish*/}
-                <View style={{flex:1, backgroundColor: 'lightgrey'}}>
+                <View style={{flex:1, backgroundColor: breadColors.breadLightGrey}}>
                     <TouchableOpacity style={styles.saveButton}
                     onPress={() => {
                         let review_id = this.state.review.substr(0, 3);
@@ -198,7 +207,7 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         flex: 2,
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightGrey,
     },
     profileTabs: {
         flex: 1,
@@ -225,7 +234,7 @@ const styles = StyleSheet.create({
         left: '30%',
         // borderWidth: 1,
         // borderColor:'black',
-        backgroundColor: 'lightgrey',
+        backgroundColor: breadColors.breadLightTeal,
         top: '25%',
         alignItems: 'center',
     },

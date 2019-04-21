@@ -30,7 +30,7 @@ class BusinessPreview extends Component {
     }
 
     render () {
-        var profile = require('../assets/images/profile/businessPlaceholdersmall.png');
+        var profile = require('../assets/images/profile/bizpreview.png');
         return (
             <TouchableHighlight
                 style = {styles.BizPreview}
@@ -44,6 +44,7 @@ class BusinessPreview extends Component {
                         </View>
                         <View style = {[{top: 20}, styles.BizIcon]}>
                             <Image
+                                style = {{width: 120, height: 120}}
                                 source = {profile}/>
                         </View>
                     </View>
@@ -51,13 +52,13 @@ class BusinessPreview extends Component {
                         <View style = {{flex: 1}}>
                         </View>
                         <View style = {{flex: 1}}>
-                            <Text style = {{fontSize: 24}}>{this.state.name}</Text>
+                            <Text style = {{fontSize: 20}}>{this.state.name}</Text>
                         </View>
                         <View style = {{flex: 1}}>
-                            <Text style = {{fontSize: 18}}>{this.state.address_line1}</Text>
+                            <Text style = {{fontSize: 16}}>{this.state.address_line1}</Text>
                         </View>
                         <View style = {{flex: 1}}>
-                            <Text style = {{fontSize: 18}}>{this.state.address_line2}</Text>
+                            <Text style = {{fontSize: 16}}>{this.state.address_line2}</Text>
                         </View>
                     </View>
                     <View style = {{left: -50, top: 10, height: 154}}>
@@ -84,6 +85,8 @@ const styles = StyleSheet.create ({
     BizIcon: {
         height: 120,
         width: 120,
+        alignItems: 'center',
+        justifyContent: 'center',
         borderWidth: 1,
         borderColor: 'grey',
         overflow: 'hidden',

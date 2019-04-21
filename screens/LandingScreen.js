@@ -3,6 +3,7 @@ import {Image, StyleSheet, TextInput, TouchableOpacity, View} from "react-native
 import {createStackNavigator} from "react-navigation";
 import {SearchResult} from './SearchScreen';
 import {BusinessScreen} from "./BusinessScreen";
+import ReviewScreen from "./ReviewScreen";
 
 export class LandingScreen extends Component {
 
@@ -177,6 +178,7 @@ export const LandingStack = createStackNavigator({
         },
     SearchResult: {screen: SearchResult},
     BusinessScreen: {screen: BusinessScreen},
+    ReviewScreen: {screen: ReviewScreen},
 });
 
 
