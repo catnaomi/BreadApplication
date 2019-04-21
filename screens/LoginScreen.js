@@ -79,7 +79,7 @@ class LoginScreen extends Component {
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count >= 2) {
+                                        if(login_fail_count == 2) {
                                             Alert.alert("Incorrect Username or Password");
                                             login_fail_count = 0;
                                         }
@@ -100,7 +100,7 @@ class LoginScreen extends Component {
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count >= 2) {
+                                        if(login_fail_count == 2) {
                                             Alert.alert("Incorrect Username or Password");
                                             login_fail_count = 0;
                                         }
