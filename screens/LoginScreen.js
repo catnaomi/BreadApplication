@@ -66,40 +66,43 @@ class LoginScreen extends Component {
                             <Button
                                 onPress={() => {
                                     getAdminData(self.state.email).then(admin => {
-                                        if (admin !== undefined) {
-                                            if (admin.hash_pass !== self.state.password) {
+                                        if (admin != undefined) {
+                                            if (admin.hash_pass != self.state.password) {
                                                 Alert.alert("Incorrect Username or Password");
                                             } else {
                                                 cache.isAdmin = true;
                                                 cache.user_id = admin.user_id;
                                                 login_fail_count = 0;
-                                                alert("You have successfully loggined in " + cache.user_id + "!");
+                                                alert("You have successfully logged in " + cache.user_id + "!");
                                                 this.props.navigation.navigate('AdminLanding');
                                             }
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count === 2) {
-                                            alert("Incorrect Username or Password");
+                                        if(login_fail_count >= 2) {
+                                            Alert.alert("Incorrect Username or Password");
+                                            login_fail_count = 0;
                                         }
+
                                     });
 
                                     getUserData(self.state.email).then(user => {
-                                        if (user !== undefined) {
-                                            if (user.hash_pass !== self.state.password) {
+                                        if (user != undefined) {
+                                            if (user.hash_pass != self.state.password) {
                                                 Alert.alert("Incorrect Username or Password");
                                             } else {
                                                 cache.user_id = user.user_id;
                                                 cache.isUser = true;
                                                 login_fail_count = 0;
-                                                alert("You have successfully loggined in " + cache.user_id + "!");
+                                                alert("You have successfully logged in " + cache.user_id + "!");
                                                 this.props.navigation.navigate('LandingScreen');
                                             }
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count === 2) {
-                                            alert("Incorrect Username or Password");
+                                        if(login_fail_count >= 2) {
+                                            Alert.alert("Incorrect Username or Password");
+                                            login_fail_count = 0;
                                         }
                                     })
 

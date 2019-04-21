@@ -85,34 +85,33 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View style={styles.entry}>
-                            <Text style={styles.title}>Business Control Number:</Text>
+                            <Text style={styles.title}>Business ID:</Text>
                             <TextInput
                                 style={styles.entryText}
-                                placeholder={"Control Number of Business"}
-                                onChangeText={(new_controlNumber) => this.setState({controlNumber: new_controlNumber})}
+                                placeholder={"ID of Business"}
+                                onChangeText={(new_id) => this.setState({id: new_id})}
                             />
                         </View>
 
                         <View>
                             <TouchableOpacity
                                 onPress={() => {
-                                    if (self.state.name === '') {
+                                    if (self.state.name == '') {
                                         Alert.alert('Business name field is not complete');
-                                    } else if (self.state.address_line1 === '') {
+                                    } else if (self.state.address_line1 == '') {
                                         Alert.alert('Address field is not complete');
-                                    } else if (self.state.email === '') {
+                                    } else if (self.state.email == '') {
                                         Alert.alert('Email field is not complete');
-                                    } else if (self.state.owner === '') {
+                                    } else if (self.state.owner == '') {
                                         Alert.alert('Owner field is not complete');
-                                    } else if (self.state.controlNumber === '') {
-                                        Alert.alert('Control number field is not complete');
-                                    } else if (self.state.id === '') {
+                                    }  else if (self.state.id == '') {
                                         Alert.alert('ID field is not complete');
                                     } else {
                                         getBusinessData(self.state.id).then(response => {
                                             if (response !== undefined) {
                                                 removeBusiness(self.state.id);
                                                 Alert.alert(self.state.name + " has now been removed");
+                                                this.props.navigation.goBack();
                                             } else {
                                                 Alert.alert('Business was not found in the database')
                                             }

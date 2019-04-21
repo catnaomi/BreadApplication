@@ -26,25 +26,25 @@ class Review extends Component {
     componentDidMount() {
         let self = this;
         getReviewData(self.state.id).then(r_object => {
-            if (r_object !== undefined) {
+            if (r_object != undefined) {
                 self.setState({
                     content: r_object.review_content,
                     user_id: r_object.user_id,
                     business_id: r_object.business_id,
                     rating: r_object.rating,
                 });
-                if(self.state.user_id !== undefined) {
+                if(self.state.user_id != undefined) {
                     getUserData(self.state.user_id).then(u_object => {
-                        if (u_object !== undefined) {
+                        if (u_object != undefined) {
                             self.setState({
                                 author: u_object.name,
                             })
                         }
                     });
                 }
-                if(self.state.business_id !== undefined) {
+                if(self.state.business_id != undefined) {
                     getBusinessData(self.state.business_id).then(b_object => {
-                        if (b_object !== undefined) {
+                        if (b_object != undefined) {
                             self.setState({
                                 business: b_object.name,
                             })

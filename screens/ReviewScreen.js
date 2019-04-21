@@ -48,7 +48,7 @@ export default class ReviewScreen extends Component {
     RefreshInfo() {
         var self = this;
         getUserData(cache.user_id).then(u_object => {
-            if (u_object !== undefined) {
+            if (u_object != undefined) {
                 self.setState({
                     name: u_object.name,
                     user_reviews: u_object.reviews ? u_object.reviews : [],
@@ -56,7 +56,7 @@ export default class ReviewScreen extends Component {
             }
         });
         getBusinessData(this.state.business_id).then(b_object => {
-            if (b_object !== undefined) {
+            if (b_object != undefined) {
                 self.setState({
                     biz_name: b_object.name,
                 })
@@ -169,8 +169,8 @@ export default class ReviewScreen extends Component {
 
                         //insert in db
                         addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515', this.state.rating);
-                        if(this.props.navigation.state.params.review_ids !== undefined &&
-                            this.props.navigation.state.params.business_id !== undefined) {
+                        if(this.props.navigation.state.params.review_ids != undefined &&
+                            this.props.navigation.state.params.business_id != undefined) {
                             let ids = this.props.navigation.state.params.review_ids;
                             ids.push(review_id);
                             this.state.user_reviews.push(review_id);

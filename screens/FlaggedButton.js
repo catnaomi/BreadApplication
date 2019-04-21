@@ -24,20 +24,20 @@ export default class FlaggedButton extends Component {
         var flag = <MaterialCommunityIcons name = {'flag-outline'} size = {24} color = {'black'}/>;
         var trash = <MaterialCommunityIcons name = {'trash-can'} size = {24} color = {'black'}/>;
 
-        if (self.props.type === "business") {
-            if (self.props.user === "admin") {
+        if (self.props.type == "business") {
+            if (self.props.user == "admin") {
                 return trash;
-            } else if (self.props.user === "consumer") {
+            } else if (self.props.user == "consumer") {
                 return flag;
-            } else if (self.props.user === "owner") {
+            } else if (self.props.user == "owner") {
                 return trash;
             }
-        } else if (self.props.type === "review") {
-            if (user === "admin") {
+        } else if (self.props.type == "review") {
+            if (user == "admin") {
                 return trash;
-            } else if (self.props.user === "consumer") {
+            } else if (self.props.user == "consumer") {
                 return flag;
-            } else if (self.props.user === "owner") {
+            } else if (self.props.user == "owner") {
                 return flag;
             }
         }
@@ -49,25 +49,25 @@ export default class FlaggedButton extends Component {
                 <TouchableOpacity
                     style={styles.Button}
                     onPress={() => {
-                        if (this.state.type === "business") {
-                            if (this.state.user === "admin") {
+                        if (this.state.type == "business") {
+                            if (this.state.user == "admin") {
                                 removeBusiness(this.state.id);
                                 Alert.alert("The business has been removed. Please refresh the page.");
-                            } else if (this.state.user === "consumer") {
+                            } else if (this.state.user == "consumer") {
                                 flagBusiness(this.state.id);
                                 this.forceUpdate();
-                            } else if (this.state.user === "owner") {
+                            } else if (this.state.user == "owner") {
                                 removeBusiness (this.state.id);
                                 Alert.alert("Your business has been removed. Please refresh the page.");
                             }
-                        } else if (this.state.type === "review") {
-                            if (this.state.user === "admin") {
+                        } else if (this.state.type == "review") {
+                            if (this.state.user == "admin") {
                                 removeReview(this.state.id);
                                 Alert.alert("The review has been removed. Please refresh the page.");
-                            } else if (this.state.user === "consumer") {
+                            } else if (this.state.user == "consumer") {
                                 flagReview(this.state.id);
                                 this.forceUpdate();
-                            } else if (this.state.user === "owner") {
+                            } else if (this.state.user == "owner") {
                                 flagReview(this.state.id);
                                 this.forceUpdate();
                             }
