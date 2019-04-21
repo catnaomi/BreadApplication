@@ -99,8 +99,8 @@ function getArray(data, self) {
             var description = data[key].description;
             info = data[key].information;
             var aggregated = name + description + info;
-            aggregated = aggregated.trim();
-            var key_words = self.state.searchQuery.trim().split(" ");
+            aggregated = aggregated.trim().toLowerCase();
+            var key_words = self.state.searchQuery.trim().toLowerCase().split(" ");
             for (var word_index in key_words) {
                 var word = key_words[word_index];
                 if (aggregated.indexOf(word) != -1) {

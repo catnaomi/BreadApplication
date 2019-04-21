@@ -71,21 +71,22 @@ export default class AdminAddAdmin extends Component {
                         <View>
                             <TouchableOpacity
                                 onPress={() => {
-                                    if (self.state.name === '' || self.state.email === '' || self.state.password === '' || self.state.password_check === '') {
+                                    if (self.state.name == '' || self.state.email == '' || self.state.password == '' || self.state.password_check == '') {
                                         Alert.alert('One or more fields is missing input!');
                                     } else if (!validate(self.state.email)) {
                                         Alert.alert("E-mail address is invalid!");
                                     } else if (self.state.password.length < 7) {
                                         Alert.alert("Password is not long enough!");
-                                    } else if (self.state.password !== self.state.password_check) {
+                                    } else if (self.state.password != self.state.password_check) {
                                         Alert.alert("Passwords do not match!");
                                     } else {
                                         getAdminData(self.state.email).then(response => {
-                                            if (response !== undefined) {
+                                            if (response != undefined) {
                                                 Alert.alert( self.state.name + " is already in the database!");
                                             } else {
                                                 registerAdmin(self.state.name, self.state.email, self.state.password, [], []);
                                                 Alert.alert(self.state.name + " is now in the database");
+                                                this.props.navigation.goBack();
                                             }
                                         })
                                     }
