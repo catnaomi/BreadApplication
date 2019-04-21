@@ -1,57 +1,24 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView,
     Alert} from "react-native";
-import {getAdminData, registerAdmin} from '../db/firebase'
+import {getAdminData, registerAdmin} from '../db/firebase';
 
 export default class AdminAddAdmin extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            permissions: this.checkPermissions(),
             name: '',
             email:'',
             password:'',
-            passwordchk:'',
+            password_check:'',
 
         }
-    }
-
-    checkPermissions() {
-        return true;
     }
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         var self = this;
-        var addButton = (self.checkPermissions() ?
-            <TouchableOpacity
-                onPress={() => {
-                    if (self.state.name == '' || self.state.email == '' || self.state.password == '' || self.state.passwordchk == '') {
-                        Alert.alert('One or more fields is missing input!');
-                    } else if (!validate(self.state.email)) {
-                        Alert.alert("E-mail address is invalid!");
-                    } else if (self.state.password.length < 7) {
-                        Alert.alert("Password is not long enough!");
-                    } else if (self.state.password !== self.state.passwordchk) {
-                        Alert.alert("Passwords do not match!");
-                    } else {
-                        getAdminData(self.state.email).then(response => {
-                            if (response != undefined) {
-                                Alert.alert( self.state.name + " is already in the database!");
-                            } else {
-                                // var bcrypt = require('bcryptjs');
-                                // var salt = bcrypt.genSaltSync(10);
-                                // var hash = bcrypt.hashSync(self.state.password, salt);
-                                registerAdmin(self.state.name, self.state.email, self.state.password, [], []);
-                                Alert.alert(self.state.name + " is now in the database");
-                            }
-                        })
-                    }
-                }} style={{alignItems: 'center'}}>
-                <Text style={styles.text}>Register Admin</Text>
-            </TouchableOpacity>
-            : <View/>);
 
         return (
             <View style={styles.screenView}>
@@ -96,13 +63,35 @@ export default class AdminAddAdmin extends Component {
                             <TextInput
                                 style={styles.entryText}
                                 placeholder={"Password"}
-                                onChangeText={(new_password) => self.setState({passwordchk:new_password})}
+                                onChangeText={(new_password) => self.setState({password_check:new_password})}
                             />
                         </View>
 
 
                         <View>
-                            {addButton}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (self.state.name === '' || self.state.email === '' || self.state.password === '' || self.state.password_check === '') {
+                                        Alert.alert('One or more fields is missing input!');
+                                    } else if (!validate(self.state.email)) {
+                                        Alert.alert("E-mail address is invalid!");
+                                    } else if (self.state.password.length < 7) {
+                                        Alert.alert("Password is not long enough!");
+                                    } else if (self.state.password !== self.state.password_check) {
+                                        Alert.alert("Passwords do not match!");
+                                    } else {
+                                        getAdminData(self.state.email).then(response => {
+                                            if (response !== undefined) {
+                                                Alert.alert( self.state.name + " is already in the database!");
+                                            } else {
+                                                registerAdmin(self.state.name, self.state.email, self.state.password, [], []);
+                                                Alert.alert(self.state.name + " is now in the database");
+                                            }
+                                        })
+                                    }
+                                }} style={{alignItems: 'center'}}>
+                                <Text style={styles.text}>Register Admin</Text>
+                            </TouchableOpacity>
                         </View>
 
                     </ScrollView>

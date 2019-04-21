@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
+import {Alert, Button, StyleSheet, Text, TextInput, View, Image} from "react-native";
 import { createStackNavigator } from "react-navigation";
 import RegisterScreen from './RegisterScreen';
 import {getAdminData, getUserData} from "../db/firebase";
-import adminLandingScreen from "./AdminLanding"
+import adminLandingScreen from "./AdminLanding";
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
 import AdminAddAdmin from './AdminAddAdmin';
-
-import {LandingStack} from "./LandingScreen"
-
-import cache from '../userCache'
+import {LandingStack} from "./LandingScreen";
+import cache from '../userCache';
 import {breadColors} from "../Colors";
 
 class LoginScreen extends Component {
@@ -81,7 +79,7 @@ class LoginScreen extends Component {
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count == 2) {
+                                        if(login_fail_count === 2) {
                                             alert("Incorrect Username or Password");
                                         }
                                     });
@@ -100,7 +98,7 @@ class LoginScreen extends Component {
                                         }
                                     }).catch(error => {
                                         login_fail_count += 1;
-                                        if(login_fail_count == 2) {
+                                        if(login_fail_count === 2) {
                                             alert("Incorrect Username or Password");
                                         }
                                     })

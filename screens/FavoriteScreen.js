@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Text, ScrollView, View} from "react-native";
-import {addFavoritesToUser, getUserData} from "../db/firebase";
+import {getUserData} from "../db/firebase";
 import cache from "../userCache";
 import BusinessPreview from "./BusinessPreview";
 import {createStackNavigator, NavigationEvents} from "react-navigation";
-import {SearchResult} from "./SearchScreen";
-import {BusinessScreen} from "./BusinessScreen";
-import {LandingScreen} from "./LandingScreen";
-import {breadColors} from "../Colors"
+import {breadColors} from "../Colors";
 
 class FavoriteScreen extends Component {
     static navigationOptions = {
@@ -30,13 +27,13 @@ class FavoriteScreen extends Component {
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
-            if (u_object != undefined) {
+            if (u_object !== undefined) {
                 if (u_object.favorites) {
                     self.state.favorites = u_object.favorites;
                 }
                 self.forceUpdate();
             }
-        })
+        });
         this.forceUpdate();
     }
 
@@ -47,7 +44,7 @@ class FavoriteScreen extends Component {
               onWillFocus={payload => {
                   let self = this;
                   getUserData(cache.user_id).then(u_object => {
-                      if (u_object != undefined) {
+                      if (u_object !== undefined) {
                           if (u_object.favorites) {
                               self.state.favorites = u_object.favorites;
                           }

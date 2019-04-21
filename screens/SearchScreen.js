@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight, ScrollView} from "react-native";
-import {createStackNavigator} from 'react-navigation';
-import {getBusinessWithID, getAllBusinessData} from '../db/firebase'
-import BusinessPreview from './BusinessPreview'
-import {BusinessScreen} from './BusinessScreen'
+import {getAllBusinessData, getBusinessData} from '../db/firebase';
+import BusinessPreview from './BusinessPreview';
 import {breadColors} from "../Colors";
 
 export class SearchScreen extends Component {
@@ -65,7 +63,7 @@ export class SearchResult extends Component {
         var self = this;
         getAllBusinessData().then(response => {
             self.setState({
-                data: getArray(response, self)
+                data: toArray(response)
             })
         })
     }
@@ -76,8 +74,8 @@ export class SearchResult extends Component {
                 <ScrollView>
                     {
                         this.state.data.map(function(businessObject) {
-                            if(businessObject !== undefined){
-                                return GetPreviewForBusiness(businessObject.business_id);
+                            if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false)){
+                                return GetPreviewForBusiness(businessObject);
                             }
                         }) 
                     }
@@ -87,40 +85,29 @@ export class SearchResult extends Component {
     }
 }
 
-function getArray(data, self) {
-    var arr = [];
-    counter = 0
-    for(var key in data) {
-        if (data.hasOwnProperty(key)) {       
-            var name = data[key].name;
-            var description = data[key].description;
-            info = data[key].information;
-            var aggregated = name + description + info;
-            aggregated = aggregated.trim();
-            var key_words = self.state.searchQuery.trim().split(" ");
-            for(var word_index in key_words) {
-                var word = key_words[word_index];
-                if(aggregated.indexOf(word) != -1) {
-                    arr[counter++] = data[key]; // convert object to array
-                    break;
-                }
-            }
-        }
+/**
+ *
+ * @param data Business data to be converted into an array
+ * @returns {Array} an array containing all of the keys of the businesses
+ */
+function toArray(data) {
+    let arr = [];
+    let keys = Object.keys(data);
+    for (var i = 0; i < keys.length; i++) {
+        arr.push(keys[i]);
     }
-    return arr
+    return arr;
 }
 
+/**
+ *
+ * @param business_id An id for a business to create a Business Preview for
+ * @returns {*} a Business Preview
+ * @constructor
+ */
 function GetPreviewForBusiness(business_id) {
     return <BusinessPreview id={business_id} user={"consumer"} key={business_id}/>
 }
-
-/*
-export const SearchScreenStack = createStackNavigator({
-  SearchScreen: {screen: SearchScreen},
-  SearchResult: {screen: SearchResult},
-    BusinessScreen: {screen: BusinessScreen},
-}, {initialRoute: 'SearchScreen'});
-*/
 
 const styles = StyleSheet.create ({
     searchBar: {

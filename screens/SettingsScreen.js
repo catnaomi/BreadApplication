@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
-import {LoginStack}from "./LoginScreen"
-import {AdminNavigator} from "./AdminLanding";
-import adminLandingScreen from "./AdminLanding"
-import {LandingStack} from "./LandingScreen"
+import {StyleSheet, Text, TouchableOpacity, ScrollView, View} from "react-native";
+import {LoginStack}from "./LoginScreen";
+import adminLandingScreen from "./AdminLanding";
+import {LandingStack} from "./LandingScreen";
 import { createStackNavigator } from "react-navigation";
 
 import cache from '../userCache'
@@ -25,7 +24,7 @@ class SettingsScreen extends Component {
             <View style = {styles.screenView}>
                 <View style = {styles.optionView}>
                     <ScrollView style={styles.innerOption}>
-                        <TouchableHighlight
+                        <TouchableOpacity
                             style = {styles.SettingsEntry}
                             onPress = {() => {
                                 if(cache.isAdmin) {
@@ -39,7 +38,7 @@ class SettingsScreen extends Component {
                             <Text style = {styles.EntryFont}>
                                 Login / Logout
                             </Text>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
             </View>

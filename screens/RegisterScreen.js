@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
-import {Alert, Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import {Alert, Button, StyleSheet, TextInput, View} from "react-native";
 import {navigate} from 'react-navigation';
-import {registerUser, getUserData, doesUserExist, registerAdmin} from "../db/firebase.js";
-import { createStackNavigator } from 'react-navigation';
+import {registerUser, doesUserExist} from "../db/firebase.js";
 
 export default class RegisterScreen extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            username: '',
-            usernamechk: '',
-            password: '',
-            passwordchk: '',
             name: '',
+            email: '',
+            email_check: '',
+            password: '',
+            password_check: '',
         }
     }
     render() {
@@ -24,17 +23,24 @@ export default class RegisterScreen extends Component {
                 <View style = {{flex: 1}}>
                     <TextInput
                         style={styles.loginField}
+                        placeholder = "name"
+                        ref='name'
+                        onChangeText = {(text) => this.setState({name: text})}
+                        value = {this.state.name}
+                    />
+                    <TextInput
+                        style={styles.loginField}
                         placeholder = "email"
                         ref='user'
-                        onChangeText = {(text) => this.setState({username: text})}
-                        value = {this.state.username}
+                        onChangeText = {(text) => this.setState({email: text})}
+                        value = {this.state.email}
                     />
                     <TextInput
                         style={styles.loginField}
                         placeholder = "repeat email"
                         ref='userchk'
-                        onChangeText = {(text) => this.setState({usernamechk: text})}
-                        value = {this.state.usernamechk}
+                        onChangeText = {(text) => this.setState({email_check: text})}
+                        value = {this.state.email_check}
                     />
                     <TextInput
                         secureTextEntry={true}
@@ -49,39 +55,29 @@ export default class RegisterScreen extends Component {
                         style={styles.loginField}
                         placeholder = "repeat password"
                         ref='passchk'
-                        onChangeText = {(text) => this.setState({passwordchk: text})}
-                        value = {this.state.passwordchk}
-                    />
-                    <TextInput
-                        style={styles.loginField}
-                        placeholder = "name"
-                        ref='name'
-                        onChangeText = {(text) => this.setState({name: text})}
-                        value = {this.state.name}
+                        onChangeText = {(text) => this.setState({password_check: text})}
+                        value = {this.state.password_check}
                     />
                     <View style = {styles.loginButton}>
                         <Button
                             onPress={() => {
-                                if (sel.state.username == '' || sel.state.password == '' || sel.state.name == '') {
+                                if (sel.state.email === '' || sel.state.password === '' || sel.state.name === '') {
                                     Alert.alert("One or more fields are missing input!");
-                                } else if (!validate(sel.state.username)) {
+                                } else if (!validate(sel.state.email)) {
                                     Alert.alert("E-mail address is invalid!");
                                 } else if (sel.state.password.length < 7) {
                                     Alert.alert("Password is not long enough!");
-                                } else if (sel.state.username !== sel.state.usernamechk) {
+                                } else if (sel.state.email !== sel.state.email_check) {
                                     Alert.alert("E-mail addresses do not match!");
-                                } else if (sel.state.password !== sel.state.passwordchk) {
+                                } else if (sel.state.password !== sel.state.password_check) {
                                     Alert.alert("Passwords do not match!");
                                 } else {
-                                    doesUserExist(sel.state.username).then(response => {
+                                    doesUserExist(sel.state.email).then(response => {
                                         if (response) {
-                                            Alert.alert(sel.state.username + '\nis already in database');
+                                            Alert.alert(sel.state.email + '\nis already in database');
                                         } else {
-                                            // var bcrypt = require('bcryptjs');
-                                            // var salt = bcrypt.genSaltSync(10);
-                                            // var hash = bcrypt.hashSync(sel.state.password, salt);
-                                            registerUser(sel.state.username, sel.state.name, sel.state.password, [], [], [], 0);
-                                            Alert.alert(sel.state.username + '\nis now registered to the database');
+                                            registerUser(sel.state.email, sel.state.name, sel.state.password, [], [], [], 0);
+                                            Alert.alert(sel.state.email + '\nis now registered to the database');
                                             this.props.navigation.goBack();
                                         }
 
