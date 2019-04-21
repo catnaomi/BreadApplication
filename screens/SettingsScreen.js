@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, ScrollView, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, ScrollView, View, Alert} from "react-native";
 import {LoginStack}from "./LoginScreen";
 import adminLandingScreen from "./AdminLanding";
 import {LandingStack} from "./LandingScreen";
@@ -30,7 +30,7 @@ class SettingsScreen extends Component {
                                 if(cache.isAdmin) {
                                     navigate('AdminLanding')
                                 } else if(cache.isUser) {
-                                    navigate('LandingScreen')
+                                    Alert.alert("You have already logged in.")
                                 } else {
                                     navigate('Login')
                                 }}

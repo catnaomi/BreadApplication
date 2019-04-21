@@ -205,9 +205,9 @@ function updateBusinessRating(business_id) {
 
 function removeBusiness(business_id) {
   const format_id = business_id.replace(".","-");
-
   firebase.database().ref('businesses/' + format_id).set({
     //TODO: Add other fields if necessary
+    review_id: format_id,
     removed: true,
   }).catch((err) => console.log(err));
 }
@@ -266,6 +266,7 @@ function getAllReviews() {
 
 function removeReview(review_id, user_id, business_id) {
   const format_id = review_id.replace(".","-");
+
   firebase.database().ref('reviews/' + format_id).set({
     //TODO: Add other fields if necessary
     removed: true,
