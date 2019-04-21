@@ -29,7 +29,6 @@ class BusinessPreview extends Component {
         })
     }
 
-
     render () {
         var profile = require('../assets/images/profile/businessPlaceholdersmall.png');
         return (

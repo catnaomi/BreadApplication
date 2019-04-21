@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View} from "react-native";
-
-import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator} from "react-navigation";
 import ReviewScreen from "./ReviewScreen";
-
-import RatingDisplay from "./RatingDisplay"
-import FavoritesButton from "./FavoritesButton"
-import {breadColors} from "../Colors"
+import RatingDisplay from "./RatingDisplay";
+import FavoritesButton from "./FavoritesButton";
+import {breadColors} from "../Colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {updateBusinessRating, updateBusinessInfo, getBusinessData} from "../db/firebase"
-import cache from '../userCache'
+import {updateBusinessRating, updateBusinessInfo, getBusinessData} from "../db/firebase";
+import cache from '../userCache';
 
 
 export class BusinessScreen extends Component {
@@ -54,7 +51,7 @@ export class BusinessScreen extends Component {
     RefreshInfo() {
         var self = this;
         getBusinessData(this.state.id).then(b_object => {
-            if (b_object != undefined) {
+            if (b_object !== undefined) {
                 self.setState({
                     name: b_object.name,
                     address_line1: b_object.address_line1,
@@ -148,11 +145,11 @@ export class BusinessScreen extends Component {
         var FavoriteSelectStyle;
         var BusinessSelectStyle;
 
-        if (this.state.tab == 0) { //reviews
+        if (this.state.tab === 0) { //reviews
             ReviewSelectStyle = styles.tabSelected;
             FavoriteSelectStyle = styles.tabDeselected;
             BusinessSelectStyle = styles.tabDeselected;
-        } else if (this.state.tab == 1) { //favorites
+        } else if (this.state.tab === 1) { //favorites
             ReviewSelectStyle = styles.tabDeselected;
             FavoriteSelectStyle = styles.tabSelected;
             BusinessSelectStyle = styles.tabDeselected;
@@ -164,13 +161,13 @@ export class BusinessScreen extends Component {
 
         let self = this;
         function TabContent (props) {
-            if (props.tab == 0) { //info
+            if (props.tab === 0) { //info
                 return (
                     <View style = {styles.BusinessInfo}>
                         {InfoField}
                     </View>
                 );
-            } else if (props.tab == 1) { //reviews
+            } else if (props.tab === 1) { //reviews
 
                 return (
                     <ScrollView style = {{flex: 1}}>
@@ -239,7 +236,7 @@ export class BusinessScreen extends Component {
                                 {AddressField_line2}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>{this.state.reviews != undefined ? this.state.reviews.length : "0"} Reviews</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews !== undefined ? this.state.reviews.length : "0"} Reviews</Text>
                             </View>
                         </View>
                     </View>

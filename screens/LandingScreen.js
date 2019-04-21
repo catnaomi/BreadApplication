@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, TextInput, TouchableHighlight, View} from "react-native";
+import {Image, StyleSheet, TextInput, TouchableOpacity, View} from "react-native";
 import {createStackNavigator} from "react-navigation";
 import {SearchResult} from './SearchScreen';
 import {BusinessScreen} from "./BusinessScreen";
@@ -52,7 +52,7 @@ export class LandingScreen extends Component {
                     {/* Quickstart Buttons */}
                     <View style = {{flexDirection: 'row', height: 100}}>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.diningIcon]}
                                 onPress = {() => {
                                     console.log("dining search...");
@@ -62,10 +62,10 @@ export class LandingScreen extends Component {
                                     source = {diningIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.autoIcon]}
                                 onPress = {() => {
                                     console.log("auto search...");
@@ -75,10 +75,10 @@ export class LandingScreen extends Component {
                                     source = {autoIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.clothingIcon]}
                                 onPress = {() => {
                                     console.log("clothing search...");
@@ -89,12 +89,12 @@ export class LandingScreen extends Component {
                                     source = {clothingIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style = {{flexDirection: 'row', height: 100}}>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.cleaningIcon]}
                                 onPress = {() => {
                                     console.log("cleaning search...");
@@ -104,10 +104,10 @@ export class LandingScreen extends Component {
                                     source = {cleaningIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.beautyIcon]}
                                 onPress = {() => {
                                     console.log("beauty search...");
@@ -117,12 +117,12 @@ export class LandingScreen extends Component {
                                     source = {beautyIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style = {{flexDirection: 'row', height: 100}}>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.financialIcon]}
                                 onPress = {() => {
                                     console.log("financial search...");
@@ -132,10 +132,10 @@ export class LandingScreen extends Component {
                                     source = {financialIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.healthIcon]}
                                 onPress = {() => {
                                     console.log("health search...");
@@ -145,10 +145,10 @@ export class LandingScreen extends Component {
                                     source = {healthIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style = {[styles.quickstartIcon, styles.legalIcon]}
                                 onPress = {() => {
                                     console.log("legal search...");
@@ -158,7 +158,7 @@ export class LandingScreen extends Component {
                                     source = {legalIcon}
                                     style = {styles.quickstartIconImages}
                                 />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                     </View>
 

@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView} from "react-native";
 import { createStackNavigator } from "react-navigation";
-import AdminAuthenticate  from './AdminAuthenticate';
 import AdminAdd from './AdminAdd';
 import AdminReview from './AdminReview';
 import AdminRemove from './AdminRemove';
 import AdminBusinesses from "./AdminBusinesses";
 import {breadColors} from "../Colors";
 import AdminAddAdmin from "./AdminAddAdmin";
-
 import cache from '../userCache';
 
 export default class adminLandingScreen extends Component {
@@ -78,7 +76,6 @@ export default class adminLandingScreen extends Component {
 
 export const AdminNavigator = createStackNavigator({
     Landing: {screen: adminLandingScreen},
-    Authenticate: {screen: AdminAuthenticate},
     Add: {screen: AdminAdd},
     Review: {screen: AdminReview},
     Remove: {screen: AdminRemove},
@@ -119,8 +116,6 @@ const styles = StyleSheet.create ({
         left: '12.5%',
         flexGrow: 1,
         flexDirection: 'column',
-        // justifyContent: 'space-around',
-        // alignItems: 'stretch',
     },
     button: {
         flex: 1,

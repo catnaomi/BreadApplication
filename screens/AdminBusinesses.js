@@ -3,7 +3,6 @@ import {StyleSheet, View, ScrollView, Image, TouchableOpacity, Text} from "react
 import {breadColors} from "../Colors";
 import {getAllBusinessData, getBusinessData} from '../db/firebase';
 import AdminBusinessPreview from './AdminBusinessPreview';
-import BusinessPreview from './BusinessPreview';
 
 export default class AdminBusinesses extends Component {
     static navigationOptions = {
@@ -48,11 +47,9 @@ export default class AdminBusinesses extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.data.map(function(businessObject) {
-                                // if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false) && (+getBusinessData(businessObject).flagged >= 0)
-                                // && (getBusinessData(businessObject).removed === false)){
-                                //     return GetPreviewForBusiness(businessObject.business_id);
-                                // }
-                                if((businessObject !== undefined)){
+                                if((businessObject !== undefined) && (getBusinessData(businessObject).removed === false)
+                                    && (+getBusinessData(businessObject).flagged >= 0)
+                                && (getBusinessData(businessObject).removed === false)){
                                     return GetPreviewForBusiness(businessObject);
                                 }
                             })
@@ -70,6 +67,11 @@ export default class AdminBusinesses extends Component {
 
 }
 
+/**
+ *
+ * @param data Business data to be converted into an array
+ * @returns {Array} an array containing all of the keys of the businesses
+ */
 function getArray(data) {
     let arr = [];
     let keys = Object.keys(data);
@@ -79,6 +81,12 @@ function getArray(data) {
     return arr;
 }
 
+/**
+ *
+ * @param business_id An id for a business to create an Admin Business Preview for
+ * @returns {*} an Admin Business Preview
+ * @constructor
+ */
 function GetPreviewForBusiness(business_id) {
     return <AdminBusinessPreview id={business_id} user={"admin"} key={business_id}/>
 }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {addFavorite, removeFavorite} from "../Favorites"
-import {Image, StyleSheet, TouchableHighlight, View} from "react-native";
-import cache from "../userCache"
+import {addFavorite, removeFavorite} from "../Favorites";
+import {StyleSheet, TouchableHighlight, View} from "react-native";
+import cache from "../userCache";
 import {addFavoritesToUser, getUserData} from "../db/firebase";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {breadColors} from "../Colors";
@@ -17,13 +17,13 @@ export default class FavoritesButton extends Component {
     componentDidMount() {
         let self = this;
         getUserData(cache.user_id).then(u_object => {
-            if (u_object != undefined) {
+            if (u_object !== undefined) {
                 if (u_object.favorites) {
                     self.state.favorited = u_object.favorites.includes(self.props.id);
                 } else {
                     self.state.favorited = false;
                 }
-                self.state.favorited = u_object.favorites != undefined ? u_object.favorites.includes(self.props.id) : false;
+                self.state.favorited = u_object.favorites !== undefined ? u_object.favorites.includes(self.props.id) : false;
                 self.forceUpdate();
             }
         });

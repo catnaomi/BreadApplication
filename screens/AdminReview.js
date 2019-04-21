@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Linking, RefreshControl} from "react-native";
-import {getBusinessData, getReviewData, getUserData, getAllReviews, getAllBusinessData} from "../db/firebase";
+import {Image, StyleSheet, View, ScrollView} from "react-native";
+import {getReviewData, getAllReviews} from "../db/firebase";
 import Review from "./Review";
 import {breadColors} from "../Colors";
 
@@ -49,12 +49,12 @@ export default class AdminReview extends Component {
                     <ScrollView style={styles.innerOption}>
                         {
                             this.state.reviews.map(function(review) {
-                                // if ((review !== undefined) && (+getReviewData(review).flagged >= 0)  && (review.removed === false)) {
-                                //     return GetReviewFromID(review);
-                                // }
-                                if ((review !== undefined)) {
+                                if ((review !== undefined) && (+getReviewData(review).flagged >= 0)  && (getReviewData(review).removed === false)) {
                                     return GetReviewFromID(review);
                                 }
+                                // if ((review !== undefined)) {
+                                //     return GetReviewFromID(review);
+                                // }
                             })
                         }
                     </ScrollView>
@@ -65,7 +65,11 @@ export default class AdminReview extends Component {
 
 }
 
-
+/**
+ *
+ * @param data Review data to be converted into an array
+ * @returns {Array} an array containing all of the keys of the reviews
+ */
 function getArray(data) {
     let arr = [];
     let keys = Object.keys(data);
@@ -75,6 +79,12 @@ function getArray(data) {
     return arr;
 }
 
+/**
+ *
+ * @param review_id An id for a review to create a review preview for
+ * @returns {*} a Review object with the given id and key
+ * @constructor
+ */
 function GetReviewFromID(review_id) {
     return (<Review id={review_id} user={"admin"} key={review_id}/>);
 }

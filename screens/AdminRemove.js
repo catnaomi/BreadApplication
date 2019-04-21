@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight,
-    TouchableOpacity, View, ScrollView, Alert} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert} from "react-native";
 import {getBusinessData, removeBusiness} from '../db/firebase';
 import {breadColors} from "../Colors";
 
@@ -18,7 +17,6 @@ export default class AdminAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            permissions: this.checkPermissions(),
             name: '',
             address_line1: '',
             address_line2: '',
@@ -29,44 +27,10 @@ export default class AdminAdd extends Component {
         }
     }
 
-    checkPermissions() {
-        return true;
-    }
 
     render() {
         var logo = require('../assets/images/logos/texthoriz.png');
         var self = this;
-        var removeButton = (this.checkPermissions() ?
-            <TouchableOpacity
-                onPress={() => {
-                    if (self.state.name == '') {
-                        Alert.alert('Business name field is not complete');
-                    } else if (self.state.address_line1 == '') {
-                        Alert.alert('Address field is not complete');
-                    } else if (self.state.email == '') {
-                        Alert.alert('Email field is not complete');
-                    } else if (self.state.owner = '') {
-                        Alert.alert('Owner field is not complete');
-                    } else if (self.state.controlNumber = '') {
-                        Alert.alert('Control number field is not complete');
-                    } else if (self.state.id == '') {
-                        Alert.alert('ID field is not complete');
-                    } else {
-                        getBusinessData(self.state.id).then(response => {
-                            if (response != undefined) {
-                                //response.removed == true;
-                                removeBusiness(self.state.id);
-                                Alert.alert(self.state.name + " has now been removed");
-                            } else {
-                                Alert.alert('Business was not found in the database')
-                            }
-                        })
-                    }
-                }
-                } style={{alignItems: 'center'}}>
-                <Text style={styles.text}>Remove Business</Text>
-            </TouchableOpacity>
-            : <View/>);
 
         return (
             <View style={styles.screenView}>
@@ -130,7 +94,34 @@ export default class AdminAdd extends Component {
                         </View>
 
                         <View>
-                            {removeButton}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (self.state.name === '') {
+                                        Alert.alert('Business name field is not complete');
+                                    } else if (self.state.address_line1 === '') {
+                                        Alert.alert('Address field is not complete');
+                                    } else if (self.state.email === '') {
+                                        Alert.alert('Email field is not complete');
+                                    } else if (self.state.owner === '') {
+                                        Alert.alert('Owner field is not complete');
+                                    } else if (self.state.controlNumber === '') {
+                                        Alert.alert('Control number field is not complete');
+                                    } else if (self.state.id === '') {
+                                        Alert.alert('ID field is not complete');
+                                    } else {
+                                        getBusinessData(self.state.id).then(response => {
+                                            if (response !== undefined) {
+                                                removeBusiness(self.state.id);
+                                                Alert.alert(self.state.name + " has now been removed");
+                                            } else {
+                                                Alert.alert('Business was not found in the database')
+                                            }
+                                        })
+                                    }
+                                }
+                                } style={{alignItems: 'center'}}>
+                                <Text style={styles.text}>Remove Business</Text>
+                            </TouchableOpacity>
                         </View>
 
                     </ScrollView>

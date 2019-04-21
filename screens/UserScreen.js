@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, RefreshControl} from "react-native";
-
-import {getBusinessData, getUserData, updateUserName} from '../db/firebase';
+import {Image, StyleSheet, Text, TextInput, ScrollView, View, TouchableOpacity} from "react-native";
+import {getUserData, updateUserName} from '../db/firebase';
 import BusinessPreview from './BusinessPreview';
 import Review from './Review';
 import {createStackNavigator, NavigationEvents} from "react-navigation";
-import cache from '../userCache'
+import cache from '../userCache';
 import {breadColors} from "../Colors";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
@@ -61,7 +60,7 @@ export default class UserScreen extends Component {
         }
         var self = this;
         getUserData(this.state.user_id).then(u_object => {
-            if (u_object != undefined) {
+            if (u_object !== undefined) {
                 self.setState({
                     name: u_object.name,
                     reviews: u_object.reviews,
@@ -89,7 +88,7 @@ export default class UserScreen extends Component {
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
         var EditButton = (checkPermissions(this.state.user_id) ?
-            <TouchableHighlight
+            <TouchableOpacity
                 onPress={() => {
                     if (checkPermissions(this.state.user_id)) {
                         updateUserName(this.state.user_id, this.state.name);
@@ -101,7 +100,7 @@ export default class UserScreen extends Component {
                 <View style = {styles.editIconImage}>
                     <MaterialCommunityIcons name = {this.state.edit ? 'content-save' : 'pencil-box'} size = {24} color = {breadColors.breadDarkGrey}/>
                 </View>
-            </TouchableHighlight> :
+            </TouchableOpacity> :
             <View/>);
 
         var ReviewSelectStyle;
@@ -124,7 +123,7 @@ export default class UserScreen extends Component {
 
         let self = this;
         function TabContent (props) {
-            if (props.tab == 0) { //review
+            if (props.tab === 0) { //review
                 return (
                     <ScrollView>
                         {self.state.reviews ?
@@ -134,7 +133,7 @@ export default class UserScreen extends Component {
                         }
                     </ScrollView>
                 );
-            } else if (props.tab == 1) { // favorites
+            } else if (props.tab === 1) { // favorites
                 return (
                     <ScrollView>
                         {self.state.favorites ?
@@ -197,7 +196,7 @@ export default class UserScreen extends Component {
                     </View>
                 </View>
                 <View style = {styles.profileTabs}>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         style = {[styles.tabSelectable, ReviewSelectStyle]}
                         onPress = {() => {
                             this.state.tab = 0;
@@ -207,8 +206,8 @@ export default class UserScreen extends Component {
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
                             Reviews
                         </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         style = {[styles.tabSelectable, FavoriteSelectStyle]}
                         onPress = {() => {
                             this.state.tab = 1;
@@ -218,7 +217,7 @@ export default class UserScreen extends Component {
                         <Text style = {{textAlign: 'center', fontSize: 18}}>
                             Favorites
                         </Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 <View style = {styles.profileContent}>
                     <TabContent tab = {this.state.tab}/>

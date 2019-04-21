@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableHighlight, ScrollView, View, TouchableOpacity, KeyboardAvoidingView} from "react-native";
+import {
+    Image,
+    StyleSheet,
+    Text,
+    TextInput,
+    ScrollView,
+    View,
+    TouchableOpacity,
+    KeyboardAvoidingView
+} from "react-native";
 import {
     addReviewToDatabase,
     getBusinessData,
@@ -66,7 +75,7 @@ export default class ReviewScreen extends Component {
         var starEmpty = require('../assets/images/icons/star-unfilled.png');
         return (
 
-            <TouchableHighlight
+            <TouchableOpacity
                 style = {styles.ratingButtons}
                 onPress = {() => {
                     this.state.rating = rate;
@@ -76,7 +85,7 @@ export default class ReviewScreen extends Component {
                     style = {styles.ratingButtons}
                     source = {(this.state.rating >= rate) ? starFilled : starEmpty}
                 />
-            </TouchableHighlight>
+            </TouchableOpacity>
         )
     }
 
@@ -96,7 +105,7 @@ export default class ReviewScreen extends Component {
             <Text style = {{fontSize: 24}}>{this.state.name}</Text>);
 
         var EditButton = (this.checkPermissions() ?
-            <TouchableHighlight
+            <TouchableOpacity
                 onPress={() => {
                     if (this.checkPermissions()) {
                         this.state.edit = !this.state.edit;
@@ -107,7 +116,7 @@ export default class ReviewScreen extends Component {
                     style={styles.editIconImage}
                     source={this.state.edit ? save : edit}
                 />
-            </TouchableHighlight> :
+            </TouchableOpacity> :
             <View/>);
 
         return (
