@@ -183,7 +183,7 @@ export default class UserScreen extends Component {
                                 {NameField}
                             </View>
                             <View style = {{flex: 1, top: 10, left: 10}}>
-                                <Text style = {{fontSize: 18}}>1 Review</Text>
+                                <Text style = {{fontSize: 18}}>{this.state.reviews.length} Reviews</Text>
                             </View>
                         </View>
                     </View>
