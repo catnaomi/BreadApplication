@@ -51,7 +51,7 @@ class BusinessPreview extends Component {
                     <View style = {{top: 10, left: 20, height: 154, width: '60%'}}>
                         <View style = {{flex: 1}}>
                         </View>
-                        <View style = {{flex: 1}}>
+                        <View style = {{flex: 2}}>
                             <Text style = {{fontSize: 20}}>{this.state.name}</Text>
                         </View>
                         <View style = {{flex: 1}}>

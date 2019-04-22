@@ -177,7 +177,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
                         let review_id = this.state.review.substr(0, 3);
 
                         //insert in db
-                        addReviewToDatabase(review_id, this.state.review, 'default@default-com', '5', '151515', this.state.rating);
+                        addReviewToDatabase(review_id, this.state.review, cache.user_id, this.props.navigation.state.params.business_id, '151515', this.state.rating);
                         if(this.props.navigation.state.params.review_ids != undefined &&
                             this.props.navigation.state.params.business_id != undefined) {
                             let ids = this.props.navigation.state.params.review_ids;
