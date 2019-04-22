@@ -17,6 +17,8 @@ import {breadColors} from "./Colors"
 import {MaterialIcons} from "@expo/vector-icons";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
+import data from './db/data'
+
 import {
     createBottomTabNavigator,
     createAppContainer,
